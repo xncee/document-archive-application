@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="653.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TransactionsController">
+   <children>
+      <Label layoutX="15.0" layoutY="72.0" prefHeight="12.0" prefWidth="55.0" text="Search:" />
+      <TextField layoutX="70.0" layoutY="68.0" prefHeight="25.0" prefWidth="197.0" />
+      <TableView fx:id="transactionsTable" layoutX="15.0" layoutY="99.0" prefHeight="366.0" prefWidth="797.0">
+        <columns>
+          <TableColumn fx:id="transactionIdColumn" prefWidth="75.0" text="Transaction Id" />
+          <TableColumn fx:id="subjectColumn" prefWidth="75.0" text="Subject" />
+            <TableColumn fx:id="departmentColumn" prefWidth="75.0" text="Department" />
+            <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status" />
+            <TableColumn fx:id="createdDateColumn" prefWidth="75.0" text="Created Date" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Group layoutX="288.0" layoutY="51.0">
+         <children>
+            <RadioButton mnemonicParsing="false" text="All">
+               <toggleGroup>
+                  <ToggleGroup fx:id="filter" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton layoutX="161.0" layoutY="24.0" mnemonicParsing="false" text="Late" toggleGroup="$filter" />
+            <RadioButton layoutY="24.0" mnemonicParsing="false" text="Finished" toggleGroup="$filter" />
+            <RadioButton layoutX="73.0" layoutY="23.0" mnemonicParsing="false" text="In Progress" toggleGroup="$filter" />
+         </children>
+      </Group>
+   </children>
+</AnchorPane>
