@@ -10,27 +10,28 @@ public class DBManager {
         connection = DriverManager.getConnection(dbUrl);
     }
 
-    public List<Map<String, String>> search(String table, Object value, String... keys) {
+    public List<Map<String, String>> search(String table, Object value, boolean match, String... columns) {
         List<Map<String, String>> results = new ArrayList<>();
 
-        // Validate inputs
-        if (keys == null || keys.length == 0) {
+        if (columns == null || columns.length == 0) {
             throw new IllegalArgumentException("At least one column must be specified.");
         }
 
-        // Construct the SQL query
         StringBuilder query = new StringBuilder("SELECT * FROM ").append(table).append(" WHERE ");
-        for (int i = 0; i < keys.length; i++) {
-            query.append(keys[i]).append(" LIKE ?");
-            if (i < keys.length - 1) {
+        for (int i = 0; i < columns.length; i++) {
+            query.append(columns[i]).append(" LIKE ?");
+            if (i < columns.length - 1) {
                 query.append(" OR ");
             }
         }
 
         try (PreparedStatement stmt = connection.prepareStatement(query.toString())) {
-            // Bind the value to each placeholder
-            for (int i = 0; i < keys.length; i++) {
-                stmt.setObject(i + 1, "%" + value + "%"); // Perform a wildcard search
+            String v = (String) value;
+
+            if (!match)
+                v = "%"+v+"%";
+            for (int i = 0; i < columns.length; i++) {
+                stmt.setObject(i + 1, v);
             }
 
             // Execute the query
@@ -49,14 +50,32 @@ public class DBManager {
                     results.add(row);
                 }
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Error executing search query: " + e.getMessage(), e);
         }
 
         return results;
     }
+    public List<Map<String, String>> search(String table, Object value, String... columns) {
+        return search(table, value, false, columns);
+    }
 
+    public boolean checkUser(String username, String password) {
+        String sql = "SELECT * FROM users WHERE (username = ? OR email = ?) AND password = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            statement.setString(2, username);
+            statement.setString(3, password);
+            try (ResultSet res = statement.executeQuery()) {
+                return res.next();
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public int insert(String table, Map<String, Object> colValMap) throws SQLException {
         StringBuilder columns = new StringBuilder();
         StringBuilder values = new StringBuilder();
