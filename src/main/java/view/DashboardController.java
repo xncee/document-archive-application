@@ -20,7 +20,7 @@ public class DashboardController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("transactions.fxml"));
         Parent root = loader.load();
 
-        // pop up stage:
+        // pop up stage
         Stage popupStage = new Stage();
         Scene scene = new Scene(root);
         popupStage.setScene(scene);
