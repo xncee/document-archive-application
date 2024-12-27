@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Hyperlink?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="view.UserController">
+    <VBox alignment="CENTER" layoutX="89.0" layoutY="158.0" prefHeight="771.0" prefWidth="597.0" spacing="16" style="-fx-background-color: white; -fx-border-radius: 8; -fx-box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+               <Label style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #171717;" text="Create your account" />
+               <Label style="-fx-font-size: 14px; -fx-text-fill: #525252;" text="Fill in your information to get started" />
+         </children>
+      </VBox>
+
+        <VBox alignment="CENTER" spacing="16">
+            <Label style="-fx-font-size: 14px; -fx-font-weight: 500; -fx-text-fill: #404040;" text="Username *" />
+            <TextField prefWidth="384" style="-fx-background-color: white; -fx-border-radius: 6; -fx-border-color: #D4D4D4;" />
+
+            <Label style="-fx-font-size: 14px; -fx-font-weight: 500; -fx-text-fill: #404040;" text="Email address *" />
+            <TextField prefWidth="384" style="-fx-background-color: white; -fx-border-radius: 6; -fx-border-color: #D4D4D4;" />
+
+            <Label style="-fx-font-size: 14px; -fx-font-weight: 500; -fx-text-fill: #404040;" text="Full name *" />
+            <TextField prefWidth="384" style="-fx-background-color: white; -fx-border-radius: 6; -fx-border-color: #D4D4D4;" />
+
+            <Label style="-fx-font-size: 14px; -fx-font-weight: 500; -fx-text-fill: #404040;" text="Password *" />
+            <TextField prefWidth="384" style="-fx-background-color: white; -fx-border-radius: 6; -fx-border-color: #D4D4D4;" />
+
+            <Label style="-fx-font-size: 14px; -fx-font-weight: 500; -fx-text-fill: #404040;" text="Confirm password *" />
+            <TextField prefWidth="384" style="-fx-background-color: white; -fx-border-radius: 6; -fx-border-color: #D4D4D4;" />
+        </VBox>
+
+        <HBox alignment="CENTER" spacing="8">
+            <CheckBox style="-fx-font-size: 14px; -fx-text-fill: #525252;" text="I agree to the Terms of Service and Privacy Policy" />
+        </HBox>
+
+        <Button prefWidth="384" style="-fx-background-color: #262626; -fx-text-fill: white; -fx-border-radius: 6;" text="Create Account" onAction="#signup"/>
+
+        <HBox alignment="CENTER" spacing="8">
+            <Label style="-fx-font-size: 14px; -fx-text-fill: #525252;" text="Already have an account?" />
+            <Hyperlink style="-fx-font-size: 16px; -fx-font-weight: 500; -fx-text-fill: #171717; -fx-background-color: transparent; -fx-border-color: transparent;" text="Sign in" underline="true" onAction="#switchToSignIn"/>
+        </HBox>
+    </VBox>
+</AnchorPane>
