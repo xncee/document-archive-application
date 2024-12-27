@@ -22,8 +22,9 @@ public class Main extends Application {
         //stage.initStyle(StageStyle.UNDECORATED);
         Image icon = new Image(getClass().getResourceAsStream("vault.png"));
 
-        // Set the icon to the stage
+        // Set the icon to the stageK
         stage.getIcons().add(icon);
         stage.show();
+        // hi ana sima
     }
 }
