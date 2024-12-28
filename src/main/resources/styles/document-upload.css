@@ -7,66 +7,66 @@
 
 .header {
     -fx-background-color: white;
-    -fx-border-color: #e5e7eb;
-    -fx-border-width: 0 0 1 0;
-}
-
-.brand {
-    -fx-background-color: transparent;
-    -fx-cursor: hand;
-}
-
-.brand:focused {
-    -fx-background-color: derive(#4f46e5, 90%);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
+    -fx-padding: 0 70 0 70;
 }
 
 .brand-name {
+    -fx-font-family: "Inter";
     -fx-font-size: 20;
     -fx-font-weight: bold;
 }
 
-.user-menu {
-    -fx-background-color: transparent;
-    -fx-cursor: hand;
-}
-
 .main-content {
     -fx-background-color: #fafafa;
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+    -fx-padding: 0;
+}
+
+.content-wrapper {
+    -fx-background-color: transparent;
+    -fx-max-width: 896;
 }
 
 .page-title {
+    -fx-font-family: "Inter";
     -fx-font-size: 24;
     -fx-font-weight: bold;
 }
 
 .page-description {
-    -fx-text-fill: #525252;
+    -fx-font-family: "Inter";
     -fx-font-size: 16;
+    -fx-text-fill: #525252;
 }
 
-.upload-form {
+.form-container {
     -fx-background-color: white;
-    -fx-padding: 24;
     -fx-background-radius: 8;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 1);
+    -fx-border-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
 }
 
 .form-label {
+    -fx-font-family: "Inter";
+    -fx-font-size: 14;
     -fx-font-weight: bold;
     -fx-text-fill: #404040;
 }
 
-.form-control {
+.text-field, .text-area, .combo-box, .date-picker {
     -fx-background-color: white;
     -fx-border-color: #e5e7eb;
     -fx-border-radius: 6;
     -fx-background-radius: 6;
-    -fx-padding: 8;
+    -fx-font-family: "Inter";
+    -fx-font-size: 16;
 }
 
-.form-control:focused {
-    -fx-border-color: #4f46e5;
-    -fx-effect: dropshadow(gaussian, rgba(79,70,229,0.1), 3, 0, 0, 0);
+.text-field:disabled {
+    -fx-background-color: rgba(239,239,239,0.3);
+    -fx-text-fill: #adaebc;
 }
 
 .upload-zone {
@@ -74,53 +74,55 @@
     -fx-border-style: dashed;
     -fx-border-width: 2;
     -fx-border-radius: 8;
-    -fx-padding: 32;
-    -fx-alignment: center;
-    -fx-cursor: hand;
-}
-
-.upload-zone:hover {
-    -fx-border-color: #171717;
 }
 
 .upload-text {
+    -fx-font-family: "Inter";
     -fx-font-size: 16;
+    -fx-text-fill: #525252;
 }
 
-.upload-limit {
-    -fx-text-fill: #737373;
+.browse-link {
+    -fx-font-family: "Inter";
+    -fx-font-size: 16;
+    -fx-text-fill: #404040;
+    -fx-underline: true;
+}
+
+.file-size-limit {
+    -fx-font-family: "Inter";
     -fx-font-size: 14;
+    -fx-text-fill: #737373;
 }
-
-.btn-secondary {
-    -fx-background-color: white;
-    -fx-border-color: #e5e7eb;
-    -fx-text-fill: black;
-    -fx-padding: 12 24;
-    -fx-background-radius: 6;
-    -fx-border-radius: 6;
+Button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
     -fx-cursor: hand;
 }
-
 .btn-primary {
     -fx-background-color: #171717;
     -fx-text-fill: white;
-    -fx-padding: 12 24;
     -fx-background-radius: 6;
-    -fx-cursor: hand;
+    -fx-font-family: "Inter";
+    -fx-font-size: 16;
+    -fx-padding: 11 24;
 }
 
-.btn-primary:hover {
-    -fx-background-color: #2d2d2d;
+.btn-secondary {
+    -fx-background-color: transparent;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 6;
+    -fx-font-family: "Inter";
+    -fx-font-size: 16;
+    -fx-padding: 11 24;
 }
 
 .footer {
-    -fx-padding: 32;
-    -fx-border-color: #e5e7eb;
-    -fx-border-width: 1 0 0 0;
-}
-
-.footer-text {
-    -fx-text-fill: #525252;
+    -fx-padding: 27 0;
+    -fx-font-family: "Inter";
     -fx-font-size: 14;
+    -fx-text-fill: #525252;
 }
