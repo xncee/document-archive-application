@@ -119,7 +119,7 @@ public class DocumentUploadController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select PDF Document");
         fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
+                new FileChooser.ExtensionFilter("PDF Files", "*.model.pdf")
         );
 
         File file = fileChooser.showOpenDialog(null);
@@ -129,7 +129,7 @@ public class DocumentUploadController {
     }
 
     private boolean validateFile(File file) {
-        if (!file.getName().toLowerCase().endsWith(".pdf")) {
+        if (!file.getName().toLowerCase().endsWith(".model.pdf")) {
             showErrorAlert("Invalid File Type", "Please select a PDF file.");
             return false;
         }

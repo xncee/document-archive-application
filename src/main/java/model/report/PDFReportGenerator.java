@@ -1,4 +1,4 @@
-package report;
+package model.report;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 
 public class PDFReportGenerator implements ReportGenerator{
     public static void main(String[] args) throws Exception {
-        String fileName = "Transaction_Report.pdf";
+        String fileName = "Transaction_Report.model.pdf";
 
         PdfWriter writer = new PdfWriter(fileName);
         PdfDocument pdf = new PdfDocument(writer);

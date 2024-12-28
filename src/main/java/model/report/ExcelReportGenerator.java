@@ -1,4 +1,4 @@
-package report;
+package model.report;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.poi.ss.usermodel.*;
@@ -38,7 +38,7 @@ public class ExcelReportGenerator implements ReportGenerator {
             cell.setCellStyle(headerStyle);
         }
 
-        // Fetch data from the database
+        // Fetch data from the model.database
         try (Connection conn = DriverManager.getConnection(Dotenv.load().get("DATABASE_URL"));
              PreparedStatement stmt = conn.prepareStatement("SELECT * FROM transactions WHERE created_date BETWEEN ? AND ?")) {
 

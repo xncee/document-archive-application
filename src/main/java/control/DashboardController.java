@@ -116,7 +116,7 @@ public class DashboardController {
 
     @FXML
     private void handleGenerateReport(ActionEvent event) {
-        // Implementation for generating a report
+        // Implementation for generating a model.report
     }
 
     @FXML

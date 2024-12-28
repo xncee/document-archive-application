@@ -1,37 +1,49 @@
 package model;
 
-import java.time.LocalDate;
+import java.util.UUID;
 
 public class User {
-    private int userId;
-    private String fullName;
+    private final String userId;
+    private String username;
+    private String fullname;
     private String email;
     private String password;
-    private LocalDate birthDate;
-    private String gender;
-    private String phoneNumber;
-    private String address;
-    private String profileImage;
 
-    // Private constructor to prevent direct instantiation
-    private User(Builder builder) {
-        this.userId = builder.userId;
-        this.fullName = builder.fullName;
-        this.email = builder.email;
-        this.password = builder.password;
-        this.birthDate = builder.birthDate;
-        this.gender = builder.gender;
-        this.phoneNumber = builder.phoneNumber;
-        this.address = builder.address;
-        this.profileImage = builder.profileImage;
+    // Constructor for required fields
+    public User(String username, String fullname, String email, String password) {
+        if (username == null || fullname == null || email == null || password == null) {
+            throw new IllegalArgumentException("Required fields cannot be null");
+        }
+        this.userId = generateUserId();
+        this.username = username;
+        this.fullname = fullname;
+        this.email = email;
+        this.password = password;
     }
 
-    public int getUserId() {
+    // Constructor with an existing userId
+    public User(String userId, String username, String fullname, String email, String password) {
+        if (username == null || fullname == null || email == null || password == null) {
+            throw new IllegalArgumentException("Required fields cannot be null");
+        }
+        this.userId = userId != null ? userId : generateUserId();
+        this.username = username;
+        this.fullname = fullname;
+        this.email = email;
+        this.password = password;
+    }
+
+    // Getters
+    public String getUserId() {
         return userId;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getUsername() {
+        return username;
+    }
+
+    public String getFullname() {
+        return fullname;
     }
 
     public String getEmail() {
@@ -42,101 +54,36 @@ public class User {
         return password;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    // Setters (optional, depending on requirements)
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getGender() {
-        return gender;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getAddress() {
-        return address;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getProfileImage() {
-        return profileImage;
+    // Generate a unique user ID
+    private String generateUserId() {
+        return "USER-" + UUID.randomUUID().toString();
     }
 
-    public static class Builder {
-        private int userId;
-        private String fullName;
-        private String email;
-        private String password;
-        private LocalDate birthDate;
-        private String gender;
-        private String phoneNumber;
-        private String address;
-        private String profileImage;
-
-        public Builder setUserId(int userId) {
-            this.userId = userId;
-            return this;
-        }
-
-        public Builder setFullName(String fullName) {
-            this.fullName = fullName;
-            return this;
-        }
-
-        public Builder setEmail(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Builder setPassword(String password) {
-            this.password = password;
-            return this;
-        }
-
-        public Builder setBirthDate(LocalDate birthDate) {
-            this.birthDate = birthDate;
-            return this;
-        }
-
-        public Builder setGender(String gender) {
-            this.gender = gender;
-            return this;
-        }
-
-        public Builder setPhoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
-            return this;
-        }
-
-        public Builder setAddress(String address) {
-            this.address = address;
-            return this;
-        }
-
-        public Builder setProfileImage(String profileImage) {
-            this.profileImage = profileImage;
-            return this;
-        }
-
-        // Build method to create a User object
-        public User build() {
-            return new User(this);
-        }
-    }
-
-    // toString method for debugging purposes
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + userId +
-                ", fullName='" + fullName + '\'' +
+                "userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
+                ", fullname='" + fullname + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", birthDate=" + birthDate +
-                ", gender='" + gender + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", address='" + address + '\'' +
-                ", profileImage='" + profileImage + '\'' +
+                ", password='********'" +
                 '}';
     }
 }
