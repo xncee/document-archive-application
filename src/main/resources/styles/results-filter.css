@@ -1,0 +1,104 @@
+.filter-container {
+    -fx-background-color: white;
+    -fx-padding: 24;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);
+    -fx-max-width: 480;
+}
+
+.filter-header {
+    -fx-padding: 4 0;
+}
+
+.filter-title {
+    -fx-font-family: "Inter";
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.close-button {
+    -fx-background-color: transparent;
+    -fx-padding: 8;
+}
+
+.close-button:hover {
+    -fx-background-color: #f8f9fa;
+}
+
+.filter-label {
+    -fx-font-family: "Inter";
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-text-fill: #404040;
+}
+
+.status-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 6;
+    -fx-padding: 20;
+    -fx-font-family: "Inter";
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-max-width: infinity;
+    -fx-alignment: center;
+}
+
+.status-btn:hover {
+    -fx-background-color: #f8f9fa;
+}
+
+.status-btn:pressed {
+    -fx-background-color: #e9ecef;
+    -fx-border-color: #4A90E2;
+}
+
+.custom-select {
+    -fx-background-color: #efefef;
+    -fx-border-color: #d4d4d4;
+    -fx-border-radius: 6;
+    -fx-padding: 12;
+    -fx-font-family: "Inter";
+    -fx-font-size: 16;
+}
+
+.date-input {
+    -fx-background-color: white;
+    -fx-border-color: #d4d4d4;
+    -fx-border-radius: 6;
+    -fx-padding: 16 12;
+    -fx-font-family: "Inter";
+    -fx-font-size: 16;
+}
+
+.filter-actions {
+    -fx-padding: 0 0 0 80;
+}
+
+.reset-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 6;
+    -fx-padding: 12 24;
+    -fx-font-family: "Inter";
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.reset-btn:hover {
+    -fx-background-color: #f8f9fa;
+}
+
+.apply-btn {
+    -fx-background-color: #171717;
+    -fx-text-fill: white;
+    -fx-border-radius: 6;
+    -fx-padding: 12 24;
+    -fx-font-family: "Inter";
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.apply-btn:hover {
+    -fx-background-color: #2c2c2c;
+}

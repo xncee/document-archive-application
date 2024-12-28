@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<VBox styleClass="filter-container" spacing="24" xmlns:fx="http://javafx.com/fxml">
+    <stylesheets>
+        <URL value="@../styles/results-filter.css"/>
+    </stylesheets>
+
+    <HBox styleClass="filter-header" alignment="CENTER_LEFT">
+        <Label styleClass="filter-title" text="Filter Results"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button styleClass="close-button" mnemonicParsing="false">
+            <graphic>
+                <ImageView fitWidth="15" preserveRatio="true">
+                    <Image url="@../icons/x-icon.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+
+    <VBox styleClass="filter-content" spacing="24">
+        <VBox styleClass="status-section">
+            <Label styleClass="filter-label" text="Status"/>
+            <HBox styleClass="status-buttons" spacing="14">
+                <Button styleClass="status-btn" mnemonicParsing="false">
+                    <graphic>
+                        <HBox spacing="14" alignment="CENTER">
+                            <ImageView fitWidth="16" preserveRatio="true">
+                                <Image url="@../icons/check-icon.png"/>
+                            </ImageView>
+                            <Label text="Completed"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+                <Button styleClass="status-btn" mnemonicParsing="false">
+                    <graphic>
+                        <HBox spacing="14" alignment="CENTER">
+                            <ImageView fitWidth="16" preserveRatio="true">
+                                <Image url="@../icons/clock-icon-black.png"/>
+                            </ImageView>
+                            <Label text="Pending"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+                <Button styleClass="status-btn" mnemonicParsing="false">
+                    <graphic>
+                        <HBox spacing="14" alignment="CENTER">
+                            <ImageView fitWidth="16" preserveRatio="true">
+                                <Image url="@../icons/pending-icon.png"/>
+                            </ImageView>
+                            <Label text="Late"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
+
+        <VBox styleClass="dropdown-section">
+            <Label styleClass="filter-label" text="Department"/>
+            <ComboBox styleClass="custom-select" maxWidth="Infinity">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Human Resources"/>
+                        <String fx:value="Information Technology"/>
+                        <String fx:value="Finance"/>
+                        <String fx:value="Marketing"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </VBox>
+
+        <VBox styleClass="dropdown-section">
+            <Label styleClass="filter-label" text="Classification"/>
+            <ComboBox styleClass="custom-select" maxWidth="Infinity">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Urgent"/>
+                        <String fx:value="Normal"/>
+                        <String fx:value="Low Priority"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </VBox>
+
+        <VBox styleClass="date-range">
+            <Label styleClass="filter-label" text="Date Range"/>
+            <HBox spacing="16">
+                <DatePicker styleClass="date-input" promptText="Start Date" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <DatePicker styleClass="date-input" promptText="End Date" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </VBox>
+
+    <HBox styleClass="filter-actions" spacing="12">
+        <Button styleClass="reset-btn" text="Reset" mnemonicParsing="false"/>
+        <Button styleClass="apply-btn" text="Apply Filters" mnemonicParsing="false" defaultButton="true"/>
+    </HBox>
+</VBox>

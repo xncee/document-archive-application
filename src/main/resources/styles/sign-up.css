@@ -1,0 +1,92 @@
+.signup-container {
+    -fx-background-color: #fafafa;
+    -fx-padding: 315 80;
+}
+
+.signup-card {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
+    -fx-padding: 32 30;
+}
+
+.header-section {
+    -fx-padding: 3 45;
+}
+
+.signup-title {
+    -fx-font-family: "Inter";
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+    -fx-text-fill: #171717;
+}
+
+.signup-subtitle {
+    -fx-font-family: "Inter";
+    -fx-font-size: 14;
+    -fx-text-fill: #525252;
+}
+
+.form-group {
+    -fx-spacing: 9;
+}
+
+.form-label {
+    -fx-font-family: "Inter";
+    -fx-font-size: 14;
+    -fx-font-weight: 500;
+    -fx-text-fill: #404040;
+}
+
+.form-input {
+    -fx-background-color: white;
+    -fx-background-radius: 6;
+    -fx-border-color: #d4d4d4;
+    -fx-border-radius: 6;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
+    -fx-pref-height: 42;
+    -fx-padding: 8 12;
+}
+
+.terms-checkbox {
+    -fx-pref-width: 16;
+    -fx-pref-height: 16;
+}
+
+.submit-button {
+    -fx-background-color: #262626;
+    -fx-background-radius: 6;
+    -fx-text-fill: white;
+    -fx-font-family: "Inter";
+    -fx-font-size: 14;
+    -fx-font-weight: 500;
+    -fx-padding: 12;
+    -fx-cursor: hand;
+}
+
+.login-text {
+    -fx-font-family: "Inter";
+    -fx-font-size: 14;
+    -fx-text-fill: #525252;
+}
+
+.login-link {
+    -fx-font-family: "Inter";
+    -fx-font-size: 16;
+    -fx-font-weight: 500;
+    -fx-text-fill: #171717;
+}
+
+@media screen and (max-width: 991) {
+    .signup-container {
+        -fx-padding: 100 20;
+    }
+
+    .signup-card {
+        -fx-padding: 0 20;
+    }
+
+    .header-section {
+        -fx-padding: 0 20;
+    }
+}

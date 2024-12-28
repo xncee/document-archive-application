@@ -1,0 +1,262 @@
+.dashboard {
+    -fx-background-color: #fafafa;
+    -fx-spacing: 0;
+}
+
+.header {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
+    -fx-padding: 0 70 0 70;
+}
+
+.header-content {
+    -fx-spacing: 100;
+    -fx-padding: 16;
+    -fx-alignment: center;
+    -fx-min-height: 64px;
+}
+
+.brand {
+    -fx-spacing: 16;
+    -fx-alignment: center-left;
+}
+
+.brand-name {
+    -fx-font-family: "Inter";
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.user-section {
+    -fx-spacing: 16;
+    -fx-alignment: center;
+}
+
+.notification-button,
+.user-profile-button {
+    -fx-background-color: transparent;
+    -fx-padding: 8;
+    -fx-cursor: hand;
+}
+
+.notification-button:hover,
+.user-profile-button:hover {
+    -fx-background-color: rgba(0,0,0,0.05);
+}
+
+.notification-button:focused,
+.user-profile-button:focused {
+    -fx-background-color: rgba(0,0,0,0.1);
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
+}
+
+.notification-icon,
+.user-avatar {
+    -fx-fit-width: 32;
+    -fx-fit-height: 32;
+}
+
+.user-info {
+    -fx-spacing: 8;
+    -fx-alignment: center;
+}
+
+.user-name {
+    -fx-font-family: "Inter";
+    -fx-font-size: 14;
+    -fx-text-fill: #404040;
+}
+
+.main-content-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-padding: 32 14;
+}
+
+.main-content-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.main-content {
+    -fx-max-width: 1280;
+    -fx-spacing: 29;
+}
+
+.stats-grid {
+    -fx-hgap: 20;
+    -fx-vgap: 20;
+}
+
+.stat-card {
+    -fx-background-color: white;
+    -fx-padding: 24;
+    -fx-spacing: 8;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
+}
+
+.stat-header {
+    -fx-spacing: 20;
+    -fx-alignment: center-left;
+}
+
+.stat-title {
+    -fx-font-family: "Inter";
+    -fx-font-size: 16;
+    -fx-text-fill: #525252;
+}
+
+.stat-value {
+    -fx-font-family: "Inter";
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+}
+
+.document-section {
+    -fx-background-color: white;
+    -fx-padding: 24;
+    -fx-spacing: 24;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
+}
+
+.document-header {
+    -fx-spacing: 20;
+    -fx-alignment: center;
+}
+
+.section-title {
+    -fx-font-family: "Inter";
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.button-group {
+    -fx-spacing: 13;
+}
+
+.btn {
+    -fx-font-family: "Inter";
+    -fx-font-size: 16;
+    -fx-background-radius: 6;
+    -fx-padding: 13 34;
+    -fx-cursor: hand;
+}
+
+.btn:focused {
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
+}
+
+.btn-secondary {
+    -fx-background-color: #cec6c6;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #beb6b6;
+}
+
+.btn-primary {
+    -fx-background-color: #262626;
+    -fx-text-fill: white;
+    -fx-graphic-text-gap: 16;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #363636;
+}
+
+.search-bar {
+    -fx-spacing: 16;
+    -fx-alignment: center;
+}
+
+.search-input {
+    -fx-pref-width: 100%;
+    -fx-background-color: white;
+    -fx-border-color: #d4d4d4;
+    -fx-border-radius: 6;
+    -fx-padding: 15 16;
+    -fx-prompt-text-fill: #adaebc;
+}
+
+.search-input:focused {
+    -fx-border-color: #262626;
+    -fx-border-width: 2;
+}
+
+.filter-button {
+    -fx-background-color: transparent;
+    -fx-padding: 8;
+    -fx-cursor: hand;
+}
+
+.filter-button:hover {
+    -fx-background-color: rgba(0,0,0,0.05);
+}
+
+.filter-button:focused {
+    -fx-background-color: rgba(0,0,0,0.1);
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
+}
+
+.filter-icon {
+    -fx-fit-width: 24;
+    -fx-fit-height: 24;
+}
+
+.document-table {
+    -fx-background-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #fafafa;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #e8e8e8;
+}
+
+.table-view .column-header {
+    -fx-background-color: #fafafa;
+    -fx-border-color: transparent;
+}
+
+.footer {
+    -fx-background-color: white;
+    -fx-padding: 24 80;
+}
+
+.footer-content {
+    -fx-spacing: 20;
+    -fx-alignment: center;
+}
+
+.footer-links {
+    -fx-spacing: 18;
+}
+
+.hyperlink {
+    -fx-text-fill: #525252;
+    -fx-underline: false;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}
+
+.hyperlink:hover {
+    -fx-underline: true;
+}
+
+.hyperlink:focused {
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
+}

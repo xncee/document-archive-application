@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="control.DashboardController"
+      styleClass="dashboard">
+
+    <stylesheets>
+        <URL value="@../styles/dashboard-style.css"/>
+    </stylesheets>
+
+    <VBox styleClass="header">
+        <HBox styleClass="header-content">
+            <HBox styleClass="brand">
+                <ImageView styleClass="logo" fitWidth="27" fitHeight="24">
+                    <Image url="@../icons/logo.png"/>
+                </ImageView>
+                <Label styleClass="brand-name" text="DocuVault"/>
+            </HBox>
+
+            <HBox styleClass="user-section">
+                <Button styleClass="notification-button"
+                        mnemonicParsing="false"
+                        accessibleText="Notifications">
+                    <graphic>
+                        <ImageView styleClass="notification-icon">
+                            <Image url="@../icons/notification-icon.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <HBox styleClass="user-info">
+                    <ImageView styleClass="user-avatar">
+                        <Image url="@../icons/user-avatar-icon.png"/>
+                    </ImageView>
+                    <Label styleClass="user-name" text="Saif Ak"/>
+                </HBox>
+            </HBox>
+        </HBox>
+    </VBox>
+
+    <VBox styleClass="main-content">
+        <GridPane styleClass="stats-grid">
+            <VBox styleClass="stat-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <HBox styleClass="stat-header">
+                    <Label styleClass="stat-title" text="Total Documents"/>
+                    <ImageView>
+                        <Image url="@../icons/document-icon.png"/>
+                    </ImageView>
+                </HBox>
+                <Label styleClass="stat-value" text="1,234"/>
+            </VBox>
+
+            <VBox styleClass="stat-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <HBox styleClass="stat-header">
+                    <Label styleClass="stat-title" text="Recent Uploads"/>
+                    <ImageView>
+                        <Image url="@../icons/arrow-up-icon.png"/>
+                    </ImageView>
+                </HBox>
+                <Label styleClass="stat-value" text="56"/>
+            </VBox>
+
+            <VBox styleClass="stat-card" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                <HBox styleClass="stat-header">
+                    <Label styleClass="stat-title" text="Pending Review"/>
+                    <ImageView>
+                        <Image url="@../icons/pending-icon.png"/>
+                    </ImageView>
+                </HBox>
+                <Label styleClass="stat-value" text="12"/>
+            </VBox>
+        </GridPane>
+
+        <VBox styleClass="document-section">
+            <HBox styleClass="document-header">
+                <Label styleClass="section-title" text="Document Library"/>
+                <HBox styleClass="button-group">
+                    <Button styleClass="btn-secondary"
+                            text="Generate Report"
+                            onAction="#handleGenerateReport"/>
+                    <Button styleClass="btn-primary"
+                            onAction="#handleAddDocument">
+                        <graphic>
+                            <ImageView>
+                                <Image url="@../icons/add-icon.png"/>
+                            </ImageView>
+                        </graphic>
+                        <text>Add Document</text>
+                    </Button>
+                </HBox>
+            </HBox>
+
+            <HBox styleClass="search-bar">
+                <TextField styleClass="search-input"
+                           promptText="Search documents..."
+                           onKeyPressed="#handleSearch"/>
+                <Button styleClass="filter-button"
+                        onAction="#handleFilter">
+                    <graphic>
+                        <ImageView styleClass="filter-icon">
+                            <Image url="@../icons/filter-icon.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+
+            <TableView fx:id="documentTable" styleClass="document-table">
+                <columns>
+                    <TableColumn fx:id="documentColumn" text="Document"/>
+                    <TableColumn fx:id="departmentColumn" text="Department"/>
+                    <TableColumn fx:id="statusColumn" text="Status"/>
+                    <TableColumn fx:id="dateColumn" text="Date"/>
+                    <TableColumn fx:id="actionsColumn" text="Actions"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+
+    <VBox styleClass="footer">
+        <HBox styleClass="footer-content">
+            <Label text="© 2025 DocuVault. All rights reserved."/>
+            <HBox styleClass="footer-links">
+                <Hyperlink text="Help"
+                           onAction="#handleHelpLink"/>
+                <Hyperlink text="Privacy"
+                           onAction="#handlePrivacyLink"/>
+                <Hyperlink text="Terms"
+                           onAction="#handleTermsLink"/>
+            </HBox>
+        </HBox>
+    </VBox>
+
+</VBox>
