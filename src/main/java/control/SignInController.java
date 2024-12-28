@@ -19,12 +19,12 @@ public class SignInController {
     Hyperlink signUpLink;
 
     @FXML
-    public void signIn() {
+    public void handleSignIn(ActionEvent event) throws IOException {
         System.out.println("Signing in...");
     }
     @FXML
-    public void switchToSignUp(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/signup.fxml"));
+    public void handleSignup(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/signup-view.fxml"));
         Parent root = loader.load();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -32,6 +32,11 @@ public class SignInController {
 
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    public void handleForgotPassword(ActionEvent event) throws IOException {
+
     }
 }
 // {{}, 9, {}}

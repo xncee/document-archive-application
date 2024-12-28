@@ -90,7 +90,7 @@
                         styleClass="form-control"
                         GridPane.rowIndex="5" GridPane.columnIndex="1"/>
 
-            <VBox styleClass="upload-zone" spacing="16"
+            <VBox fx:id="uploadZone" styleClass="upload-zone" spacing="16"
                   GridPane.rowIndex="6" GridPane.columnSpan="2">
                 <ImageView fitHeight="48" fitWidth="48" preserveRatio="true">
                     <Image url="@../icons/upload-icon.png"/>

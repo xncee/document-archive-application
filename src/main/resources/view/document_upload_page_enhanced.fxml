@@ -10,14 +10,13 @@
       fx:controller="control.DocumentUploadController"
       styleClass="document-upload-container"
       spacing="20"
-      focusTraversable="true"
-      role="main">
+      focusTraversable="true">
 
     <stylesheets>
-        <URL value="@/styles/document-upload.css"/>
+        <URL value="@../styles/document-upload.css"/>
     </stylesheets>
 
-    <HBox styleClass="header" alignment="CENTER_LEFT" spacing="10" role="banner">
+    <HBox styleClass="header" alignment="CENTER_LEFT" spacing="10">
         <padding>
             <Insets top="16" right="32" bottom="16" left="32"/>
         </padding>
@@ -26,7 +25,7 @@
                 accessibleText="DocuVault Home">
             <graphic>
                 <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                    <Image url="@/assets/images/logo.png"/>
+                    <Image url="@../icons/logo.png"/>
                 </ImageView>
             </graphic>
             <Label text="DocuVault" styleClass="brand-name"/>
@@ -38,22 +37,22 @@
                 accessibleText="User menu">
             <graphic>
                 <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                    <Image url="@/assets/images/user-avatar.png"/>
+                    <Image url="@../icons/user-avatar-icon.png"/>
                 </ImageView>
             </graphic>
         </Button>
     </HBox>
 
-    <VBox styleClass="main-content" role="main">
+    <VBox styleClass="main-content">
         <padding>
             <Insets top="32" right="32" bottom="32" left="32"/>
         </padding>
 
-        <Label text="Add New Document" styleClass="page-title" role="heading"/>
+        <Label text="Add New Document" styleClass="page-title"/>
         <Label text="Fill in the document details and upload your file"
                styleClass="page-description"/>
 
-        <GridPane styleClass="upload-form" vgap="24" hgap="24" role="form">
+        <GridPane styleClass="upload-form" vgap="24" hgap="24">
             <padding>
                 <Insets top="24" right="24" bottom="24" left="24"/>
             </padding>
@@ -100,12 +99,12 @@
                         GridPane.rowIndex="5" GridPane.columnIndex="1"
                         accessibleText="Optional deadline date selection"/>
 
-            <VBox styleClass="upload-zone" spacing="16"
+            <VBox fx:id="uploadZone" styleClass="upload-zone" spacing="16"
                   GridPane.rowIndex="6" GridPane.columnSpan="2"
-                  role="button" focusTraversable="true"
+                  focusTraversable="true"
                   onKeyPressed="#handleUploadKeyPress">
                 <ImageView fitHeight="48" fitWidth="48" preserveRatio="true">
-                    <Image url="@/assets/images/upload-icon.png"/>
+                    <Image url="@../icons/upload-icon.png"/>
                 </ImageView>
                 <Label text="Drag and drop your PDF file here, or browse files"
                        styleClass="upload-text"/>
@@ -124,7 +123,7 @@
         </GridPane>
     </VBox>
 
-    <HBox styleClass="footer" alignment="CENTER" role="contentinfo">
+    <HBox styleClass="footer" alignment="CENTER">
         <Label text="© 2025 DocuVault. All rights reserved."
                styleClass="footer-text"/>
     </HBox>

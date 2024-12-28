@@ -1,83 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
 
-<?import java.net.URL?>
-<VBox styleClass="signup-container" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="control.SignupController" spacing="20" alignment="CENTER">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-    <stylesheets>
-        <URL value="@../styles/sign-up.css"/>
-    </stylesheets>
-
-    <VBox styleClass="signup-card" maxWidth="448" spacing="32">
-        <VBox styleClass="header-section" alignment="CENTER" spacing="24">
-            <ImageView styleClass="logo" fitWidth="32" fitHeight="36"
-                       accessibleText="Company Logo">
-                <Image url="https://cdn.builder.io/api/v1/image/assets/TEMP/b323add2165a4808c3569aa01e9b135f47342f417a171e8ed8a0eb9a72ff9cd3?placeholderIfAbsent=true&amp;apiKey=9a766a4cd698444e975ff2608bde167e"/>
-            </ImageView>
-
-            <Label styleClass="signup-title" text="Create your account"/>
-            <Label styleClass="signup-subtitle" text="Fill in your information to get started"/>
-        </VBox>
-
-        <VBox styleClass="signup-form" spacing="13">
-            <VBox styleClass="form-group">
-                <Label styleClass="form-label" text="Username *"
-                       labelFor="$usernameField"/>
-                <TextField fx:id="usernameField" styleClass="form-input"
-                           promptText="Enter username"/>
+<StackPane minHeight="600.0" minWidth="420.0" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.SignupController">
+   <children>
+      <VBox alignment="CENTER" fillWidth="false" spacing="15.0">
+         <children>
+            <VBox alignment="CENTER">
+               <children>
+                      <ImageView fitHeight="36.0" fitWidth="31.5" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../icons/user-icon.png" />
+                          </image>
+                      </ImageView>
+                      <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="314.0" style="-fx-font-size: 30; -fx-font-family: 'Inter'; -fx-text-fill: #171717; -fx-font-weight: bold;" text="Create your account" />
+                      <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="254.0" style="-fx-font-size: 14; -fx-font-family: 'Inter'; -fx-text-fill: #525252;" text="Fill in your information to get started" />
+               </children>
             </VBox>
-
-            <VBox styleClass="form-group">
-                <Label styleClass="form-label" text="Email address *"
-                       labelFor="$emailField"/>
-                <TextField fx:id="emailField" styleClass="form-input"
-                           promptText="Enter email"/>
-            </VBox>
-
-            <VBox styleClass="form-group">
-                <Label styleClass="form-label" text="Full name *"
-                       labelFor="$fullnameField"/>
-                <TextField fx:id="fullnameField" styleClass="form-input"
-                           promptText="Enter full name"/>
-            </VBox>
-
-            <VBox styleClass="form-group">
-                <Label styleClass="form-label" text="Password *"
-                       labelFor="$passwordField"/>
-                <PasswordField fx:id="passwordField" styleClass="form-input"
-                               promptText="Enter password"/>
-            </VBox>
-
-            <VBox styleClass="form-group">
-                <Label styleClass="form-label" text="Confirm password *"
-                       labelFor="$confirmPasswordField"/>
-                <PasswordField fx:id="confirmPasswordField" styleClass="form-input"
-                               promptText="Confirm password"/>
-            </VBox>
-
-            <HBox styleClass="terms-section" spacing="12" alignment="CENTER_LEFT">
-                <CheckBox fx:id="termsCheckbox" styleClass="terms-checkbox"/>
-                <HBox spacing="4" alignment="CENTER_LEFT">
-                    <Label text="I agree to the"/>
-                    <Hyperlink text="Terms of Service"/>
-                    <Label text="and"/>
-                    <Hyperlink text="Privacy Policy"/>
-                    <Label text="*"/>
-                </HBox>
-            </HBox>
-
-            <Button styleClass="submit-button" text="Create Account"
-                    onAction="#handleSignup"/>
-
-            <VBox styleClass="login-section" alignment="CENTER" spacing="6">
-                <Label styleClass="login-text" text="Already have an account?"/>
-                <Hyperlink styleClass="login-link" text="Sign in"
-                           onAction="#handleSignin"/>
-            </VBox>
-        </VBox>
-    </VBox>
-</VBox>
+         
+                  <!-- Form Section -->
+               <VBox prefWidth="384.0" spacing="18.0">
+                   <VBox spacing="6.0">
+                       <Label style="-fx-font-size: 14; -fx-font-family: 'Inter'; -fx-text-fill: #404040;" text="Username *" />
+                       <TextField style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0, 0, 1); -fx-background-radius: 6;" />
+                   </VBox>
+                   <VBox spacing="6.0">
+                       <Label style="-fx-font-size: 14; -fx-font-family: 'Inter'; -fx-text-fill: #404040;" text="Email address *" />
+                       <TextField style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0, 0, 1); -fx-background-radius: 6;" />
+                   </VBox>
+                   <VBox spacing="6.0">
+                       <Label style="-fx-font-size: 14; -fx-font-family: 'Inter'; -fx-text-fill: #404040;" text="Full name *" />
+                       <TextField style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0, 0, 1); -fx-background-radius: 6;" />
+                   </VBox>
+                   <VBox spacing="6.0">
+                       <Label style="-fx-font-size: 14; -fx-font-family: 'Inter'; -fx-text-fill: #404040;" text="Password *" />
+                       <PasswordField style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0, 0, 1); -fx-background-radius: 6;" />
+                   </VBox>
+                   <VBox spacing="6.0">
+                       <Label style="-fx-font-size: 14; -fx-font-family: 'Inter'; -fx-text-fill: #404040;" text="Confirm password *" />
+                       <PasswordField style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0, 0, 1); -fx-background-radius: 6;" />
+                   </VBox>
+               </VBox>
+         
+                  <!-- Terms Section -->
+               <HBox spacing="10.0">
+                   <CheckBox />
+                   <Label style="-fx-font-size: 14; -fx-font-family: 'Inter'; -fx-text-fill: #525252;" text="I agree to the Terms of Service and Privacy Policy" />
+               </HBox>
+      
+               <!-- Buttons -->
+               <Button prefWidth="384.0" style="-fx-background-color: #262626; -fx-background-radius: 6; -fx-text-fill: white;" text="Create Account" />
+               <HBox alignment="CENTER" spacing="5.0">
+                   <Label style="-fx-font-size: 14; -fx-font-family: 'Inter'; -fx-text-fill: #525252;" text="Already have an account?" />
+                   <Hyperlink onAction="#handleSignin" style="-fx-font-size: 16; -fx-font-family: 'Inter'; -fx-text-fill: #171717;" text="Sign in" />
+               </HBox>
+         </children>
+      </VBox>
+   </children>
+</StackPane>

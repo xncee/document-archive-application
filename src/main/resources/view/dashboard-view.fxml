@@ -1,137 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+
 <?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="control.DashboardController"
-      styleClass="dashboard">
 
-    <stylesheets>
-        <URL value="@../styles/dashboard-style.css"/>
-    </stylesheets>
-
-    <VBox styleClass="header">
-        <HBox styleClass="header-content">
-            <HBox styleClass="brand">
-                <ImageView styleClass="logo" fitWidth="27" fitHeight="24">
-                    <Image url="@../icons/logo.png"/>
-                </ImageView>
-                <Label styleClass="brand-name" text="DocuVault"/>
+<StackPane prefHeight="1100.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.DashboardController">
+   <children>
+      <VBox prefHeight="938.0" prefWidth="1440.0" styleClass="dashboard">
+      
+          <stylesheets>
+              <URL value="@../styles/dashboard-style.css" />
+          </stylesheets>
+           <HBox alignment="CENTER" styleClass="header-content">
+               <HBox alignment="CENTER" prefHeight="48.0" prefWidth="1024.0" styleClass="brand" HBox.hgrow="ALWAYS">
+                   <ImageView fitHeight="24" fitWidth="27" styleClass="logo">
+                       <Image url="@../icons/logo.png" />
+                   </ImageView>
+                   <Label styleClass="brand-name" text="DocuVault" />
+               </HBox>
+   
+                           <HBox styleClass="user-section" HBox.hgrow="ALWAYS">
+                   <Button accessibleText="Notifications" mnemonicParsing="false" styleClass="notification-button">
+                       <graphic>
+                           <ImageView accessibleRole="BUTTON" styleClass="notification-icon">
+                               <Image url="@../icons/notification-icon.png" />
+                           </ImageView>
+                       </graphic>
+                   </Button>
+   
+                               <HBox styleClass="user-info">
+                       <ImageView styleClass="user-avatar">
+                           <Image url="@../icons/user-avatar-icon.png" />
+                       </ImageView>
+                       <Label styleClass="user-name" text="Saif Ak" />
+                   </HBox>
+               </HBox>
+           </HBox>
+      
+                <VBox styleClass="main-content">
+            <HBox alignment="CENTER" spacing="24.0">
+               <children>
+                     <VBox prefHeight="126.0" prefWidth="0.0" styleClass="stat-card" HBox.hgrow="ALWAYS">
+                         <HBox alignment="CENTER" styleClass="stat-header">
+                        <HBox HBox.hgrow="ALWAYS">
+                           <children>
+                                   <Label styleClass="stat-title" text="Total Documents" />
+                           </children>
+                        </HBox>
+                             <ImageView HBox.hgrow="ALWAYS">
+                                 <Image url="@../icons/document-icon.png" />
+                             </ImageView>
+                         </HBox>
+                         <Label styleClass="stat-value" text="1,234" />
+                     </VBox>
+         
+                              <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                         <HBox styleClass="stat-header">
+                        <HBox HBox.hgrow="ALWAYS">
+                           <children>
+                                   <Label styleClass="stat-title" text="Recent Uploads" />
+                           </children>
+                        </HBox>
+                             <ImageView HBox.hgrow="ALWAYS">
+                                 <Image url="@../icons/arrow-up-icon.png" />
+                             </ImageView>
+                         </HBox>
+                         <Label styleClass="stat-value" text="56" />
+                     </VBox>
+         
+                              <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                         <HBox styleClass="stat-header">
+                        <HBox HBox.hgrow="ALWAYS">
+                           <children>
+                                   <Label styleClass="stat-title" text="Pending Review" />
+                           </children>
+                        </HBox>
+                             <ImageView HBox.hgrow="ALWAYS">
+                                 <Image url="@../icons/warning-icon.png" />
+                             </ImageView>
+                         </HBox>
+                         <Label styleClass="stat-value" text="12" />
+                     </VBox>
+               </children>
             </HBox>
-
-            <HBox styleClass="user-section">
-                <Button styleClass="notification-button"
-                        mnemonicParsing="false"
-                        accessibleText="Notifications">
-                    <graphic>
-                        <ImageView styleClass="notification-icon">
-                            <Image url="@../icons/notification-icon.png"/>
+      
+                    <VBox styleClass="document-section">
+                  <HBox prefHeight="40.0" prefWidth="1200.0" styleClass="document-header">
+                  <HBox HBox.hgrow="ALWAYS">
+                     <children>
+                            <Label styleClass="section-title" text="Document Library" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                             <Button onAction="#handleGenerateReport" prefHeight="28.0" prefWidth="130.0" styleClass="btn-secondary" text="Generate Report" HBox.hgrow="ALWAYS" />
+                             <Button minHeight="-Infinity" onAction="#handleAddDocument" prefHeight="28.0" prefWidth="150.0" styleClass="btn-primary" HBox.hgrow="ALWAYS">
+                                 <graphic>
+                                     <ImageView>
+                                         <Image url="@../icons/add-icon.png" />
+                                     </ImageView>
+                                 </graphic>
+                                 <text>Add Document</text>
+                             </Button>
+                     </children>
+                  </HBox>
+                  </HBox>
+      
+                        <HBox styleClass="search-bar" VBox.vgrow="NEVER">
+                      <TextField onKeyPressed="#handleSearch" prefHeight="49.0" prefWidth="649.0" promptText="Search documents..." styleClass="search-input" HBox.hgrow="ALWAYS" />
+                        <ImageView fitHeight="42.0" fitWidth="84.0" styleClass="filter-icon">
+                            <Image url="@../icons/filter-icon.png" />
                         </ImageView>
-                    </graphic>
-                </Button>
-
-                <HBox styleClass="user-info">
-                    <ImageView styleClass="user-avatar">
-                        <Image url="@../icons/user-avatar-icon.png"/>
-                    </ImageView>
-                    <Label styleClass="user-name" text="Saif Ak"/>
-                </HBox>
-            </HBox>
-        </HBox>
-    </VBox>
-
-    <VBox styleClass="main-content">
-        <GridPane styleClass="stats-grid">
-            <VBox styleClass="stat-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                <HBox styleClass="stat-header">
-                    <Label styleClass="stat-title" text="Total Documents"/>
-                    <ImageView>
-                        <Image url="@../icons/document-icon.png"/>
-                    </ImageView>
-                </HBox>
-                <Label styleClass="stat-value" text="1,234"/>
-            </VBox>
-
-            <VBox styleClass="stat-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                <HBox styleClass="stat-header">
-                    <Label styleClass="stat-title" text="Recent Uploads"/>
-                    <ImageView>
-                        <Image url="@../icons/arrow-up-icon.png"/>
-                    </ImageView>
-                </HBox>
-                <Label styleClass="stat-value" text="56"/>
-            </VBox>
-
-            <VBox styleClass="stat-card" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                <HBox styleClass="stat-header">
-                    <Label styleClass="stat-title" text="Pending Review"/>
-                    <ImageView>
-                        <Image url="@../icons/pending-icon.png"/>
-                    </ImageView>
-                </HBox>
-                <Label styleClass="stat-value" text="12"/>
-            </VBox>
-        </GridPane>
-
-        <VBox styleClass="document-section">
-            <HBox styleClass="document-header">
-                <Label styleClass="section-title" text="Document Library"/>
-                <HBox styleClass="button-group">
-                    <Button styleClass="btn-secondary"
-                            text="Generate Report"
-                            onAction="#handleGenerateReport"/>
-                    <Button styleClass="btn-primary"
-                            onAction="#handleAddDocument">
-                        <graphic>
-                            <ImageView>
-                                <Image url="@../icons/add-icon.png"/>
-                            </ImageView>
-                        </graphic>
-                        <text>Add Document</text>
-                    </Button>
-                </HBox>
-            </HBox>
-
-            <HBox styleClass="search-bar">
-                <TextField styleClass="search-input"
-                           promptText="Search documents..."
-                           onKeyPressed="#handleSearch"/>
-                <Button styleClass="filter-button"
-                        onAction="#handleFilter">
-                    <graphic>
-                        <ImageView styleClass="filter-icon">
-                            <Image url="@../icons/filter-icon.png"/>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </HBox>
-
-            <TableView fx:id="documentTable" styleClass="document-table">
-                <columns>
-                    <TableColumn fx:id="documentColumn" text="Document"/>
-                    <TableColumn fx:id="departmentColumn" text="Department"/>
-                    <TableColumn fx:id="statusColumn" text="Status"/>
-                    <TableColumn fx:id="dateColumn" text="Date"/>
-                    <TableColumn fx:id="actionsColumn" text="Actions"/>
-                </columns>
-            </TableView>
-        </VBox>
-    </VBox>
-
-    <VBox styleClass="footer">
-        <HBox styleClass="footer-content">
-            <Label text="© 2025 DocuVault. All rights reserved."/>
-            <HBox styleClass="footer-links">
-                <Hyperlink text="Help"
-                           onAction="#handleHelpLink"/>
-                <Hyperlink text="Privacy"
-                           onAction="#handlePrivacyLink"/>
-                <Hyperlink text="Terms"
-                           onAction="#handleTermsLink"/>
-            </HBox>
-        </HBox>
-    </VBox>
-
-</VBox>
+                  </HBox>
+      
+                        <TableView fx:id="documentTable" styleClass="document-table">
+                      <columns>
+                          <TableColumn fx:id="documentColumn" text="Document" />
+                          <TableColumn fx:id="departmentColumn" text="Department" />
+                          <TableColumn fx:id="statusColumn" text="Status" />
+                          <TableColumn fx:id="dateColumn" text="Date" />
+                          <TableColumn fx:id="actionsColumn" text="Actions" />
+                      </columns>
+                  </TableView>
+              </VBox>
+          </VBox>
+      
+                <VBox styleClass="footer">
+              <HBox styleClass="footer-content">
+                  <Label text="© 2025 DocuVault. All rights reserved." />
+                  <HBox styleClass="footer-links">
+                      <Hyperlink onAction="#handleHelpLink" text="Help" />
+                      <Hyperlink onAction="#handlePrivacyLink" text="Privacy" />
+                      <Hyperlink onAction="#handleTermsLink" text="Terms" />
+                  </HBox>
+              </HBox>
+          </VBox>
+      
+      </VBox>
+   </children>
+</StackPane>

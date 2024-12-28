@@ -82,7 +82,6 @@ public class DocumentUploadController {
         departmentCombo.setAccessibleRoleDescription("Required field");
         classificationCombo.setAccessibleRoleDescription("Required field");
         deadlinePicker.setAccessibleRoleDescription("Optional field");
-
         uploadZone.setAccessibleText("Click or press Enter to select a PDF file for upload");
         uploadZone.setFocusTraversable(true);
     }
