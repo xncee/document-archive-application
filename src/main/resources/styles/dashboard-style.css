@@ -7,8 +7,8 @@
 
 .header {
     -fx-background-color: white;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 1, 0, 0, 1);
-    -fx-padding: 0 70;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
+    -fx-padding: 0 70 0 70;
 }
 
 .header-content {
@@ -43,12 +43,12 @@
 
 .notification-button:hover,
 .user-info-button:hover {
-    -fx-background-color: rgba(0, 0, 0, 0.05);
+    -fx-background-color: rgba(0,0,0,0.05);
 }
 
 .notification-button:focused,
 .user-info-button:focused {
-    -fx-background-color: rgba(0, 0, 0, 0.1);
+    -fx-background-color: rgba(0,0,0,0.1);
 }
 
 .notification-icon,
@@ -70,6 +70,7 @@
 
 .main-content-scroll {
     -fx-background: transparent;
+    -fx-background-color: transparent;
     -fx-padding: 32 14;
 }
 
@@ -92,7 +93,7 @@
     -fx-padding: 24;
     -fx-spacing: 8;
     -fx-background-radius: 8;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 1, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
 }
 
 .stat-header {
@@ -113,10 +114,16 @@
 }
 
 .document-section {
+    -fx-background-color: transparent;
     -fx-padding: 24;
     -fx-spacing: 24;
     -fx-background-radius: 8;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 1, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
+}
+
+.document-header {
+    -fx-spacing: 20;
+    -fx-alignment: center;
 }
 
 .section-title {
@@ -133,7 +140,13 @@ Button {
     -fx-faint-focus-color: transparent;
     -fx-cursor: hand;
 }
+Button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);
+}
 
+.button-group {
+    -fx-spacing: 13;
+}
 .btn {
     -fx-font-family: "Inter";
     -fx-font-size: 16;
@@ -149,7 +162,7 @@ Button {
 
 .btn-secondary {
     -fx-background-color: #cec6c6;
-    -fx-font-weight: 600;
+    -fx-font-weight: 600
 }
 
 .btn-secondary:hover {
@@ -159,7 +172,8 @@ Button {
 .btn-primary {
     -fx-background-color: #262626;
     -fx-text-fill: white;
-    -fx-font-weight: bold;
+    -fx-graphic-text-gap: 16;
+    -fx-font-weight: bold
 }
 
 .btn-primary:hover {
@@ -172,6 +186,7 @@ Button {
 }
 
 .search-input {
+    -fx-pref-width: 100%;
     -fx-background-color: white;
     -fx-border-color: #d4d4d4;
     -fx-border-radius: 6;
@@ -185,12 +200,36 @@ Button {
 }
 
 .filter-icon {
+    -fx-background-color: transparent;
+    -fx-padding: 8;
+    -fx-fit-width: 100%;
+    -fx-fit-height: 100%;
+}
+
+.filter-icon:hover {
+    -fx-background-color: rgba(0,0,0,0.05);
+}
+
+.filter-icon:focused {
+    -fx-background-color: rgba(0,0,0,0.1);
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
+}
+
+.filter-icon {
     -fx-fit-width: 24;
     -fx-fit-height: 24;
 }
 
 .document-table {
     -fx-background-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
 }
 
 .table-row-cell:odd {
@@ -203,6 +242,7 @@ Button {
 
 .table-view .column-header {
     -fx-background-color: #fafafa;
+    -fx-border-color: transparent;
 }
 
 .footer {
@@ -215,12 +255,22 @@ Button {
     -fx-alignment: center;
 }
 
+.footer-links {
+    -fx-spacing: 18;
+}
+
 .hyperlink {
     -fx-text-fill: #525252;
     -fx-underline: false;
+    -fx-border-color: transparent;
     -fx-cursor: hand;
 }
 
 .hyperlink:hover {
     -fx-underline: true;
+}
+
+.hyperlink:focused {
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
 }

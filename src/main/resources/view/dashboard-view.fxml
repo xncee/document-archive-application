@@ -210,10 +210,10 @@
                       <VBox alignment="CENTER" styleClass="footer">
                   <HBox alignment="CENTER">
                      <children>
-                          <HBox alignment="CENTER_LEFT" styleClass="footer-content" HBox.hgrow="ALWAYS">
+                          <HBox alignment="CENTER_LEFT" styleClass="footer-content" HBox.hgrow="NEVER">
                               <Label text="© 2025 DocuVault. All rights reserved." HBox.hgrow="ALWAYS" />
                           </HBox>
-                           <HBox styleClass="footer-links" HBox.hgrow="ALWAYS">
+                           <HBox alignment="CENTER_RIGHT" styleClass="footer-links" HBox.hgrow="ALWAYS">
                                <Hyperlink onAction="#handleHelpLink" text="Help" />
                                <Hyperlink onAction="#handlePrivacyLink" text="Privacy" />
                                <Hyperlink onAction="#handleTermsLink" text="Terms" />
