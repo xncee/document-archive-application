@@ -1,0 +1,126 @@
+.document-upload-container {
+    -fx-background-color: white;
+    -fx-border-color: #ced4da;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+}
+
+.header {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 0 0 1 0;
+}
+
+.brand {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.brand:focused {
+    -fx-background-color: derive(#4f46e5, 90%);
+}
+
+.brand-name {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.user-menu {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.main-content {
+    -fx-background-color: #fafafa;
+}
+
+.page-title {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+.page-description {
+    -fx-text-fill: #525252;
+    -fx-font-size: 16;
+}
+
+.upload-form {
+    -fx-background-color: white;
+    -fx-padding: 24;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 1);
+}
+
+.form-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #404040;
+}
+
+.form-control {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8;
+}
+
+.form-control:focused {
+    -fx-border-color: #4f46e5;
+    -fx-effect: dropshadow(gaussian, rgba(79,70,229,0.1), 3, 0, 0, 0);
+}
+
+.upload-zone {
+    -fx-border-color: #e5e7eb;
+    -fx-border-style: dashed;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-padding: 32;
+    -fx-alignment: center;
+    -fx-cursor: hand;
+}
+
+.upload-zone:hover {
+    -fx-border-color: #171717;
+}
+
+.upload-text {
+    -fx-font-size: 16;
+}
+
+.upload-limit {
+    -fx-text-fill: #737373;
+    -fx-font-size: 14;
+}
+
+.btn-secondary {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-text-fill: black;
+    -fx-padding: 12 24;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-cursor: hand;
+}
+
+.btn-primary {
+    -fx-background-color: #171717;
+    -fx-text-fill: white;
+    -fx-padding: 12 24;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #2d2d2d;
+}
+
+.footer {
+    -fx-padding: 32;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1 0 0 0;
+}
+
+.footer-text {
+    -fx-text-fill: #525252;
+    -fx-font-size: 14;
+}

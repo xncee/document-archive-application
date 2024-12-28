@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<?import java.net.URL?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="control.DocumentUploadController"
+      styleClass="document-upload-container"
+      spacing="20"
+      focusTraversable="true"
+      role="main">
+
+    <stylesheets>
+        <URL value="@/styles/document-upload.css"/>
+    </stylesheets>
+
+    <HBox styleClass="header" alignment="CENTER_LEFT" spacing="10" role="banner">
+        <padding>
+            <Insets top="16" right="32" bottom="16" left="32"/>
+        </padding>
+
+        <Button styleClass="brand" focusTraversable="true" mnemonicParsing="false"
+                accessibleText="DocuVault Home">
+            <graphic>
+                <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                    <Image url="@/assets/images/logo.png"/>
+                </ImageView>
+            </graphic>
+            <Label text="DocuVault" styleClass="brand-name"/>
+        </Button>
+
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <Button styleClass="user-menu" focusTraversable="true" mnemonicParsing="false"
+                accessibleText="User menu">
+            <graphic>
+                <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                    <Image url="@/assets/images/user-avatar.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+
+    <VBox styleClass="main-content" role="main">
+        <padding>
+            <Insets top="32" right="32" bottom="32" left="32"/>
+        </padding>
+
+        <Label text="Add New Document" styleClass="page-title" role="heading"/>
+        <Label text="Fill in the document details and upload your file"
+               styleClass="page-description"/>
+
+        <GridPane styleClass="upload-form" vgap="24" hgap="24" role="form">
+            <padding>
+                <Insets top="24" right="24" bottom="24" left="24"/>
+            </padding>
+
+            <Label text="Document ID" styleClass="form-label"
+                   GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="documentIdField" editable="false" text="AUTO-GENERATED"
+                       styleClass="form-control"
+                       GridPane.rowIndex="0" GridPane.columnIndex="1"
+                       accessibleText="Auto-generated document ID"/>
+
+            <Label text="Title" styleClass="form-label"
+                   GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="titleField" promptText="Enter document title"
+                       styleClass="form-control"
+                       GridPane.rowIndex="1" GridPane.columnIndex="1"
+                       accessibleText="Document title input"/>
+
+            <Label text="Description" styleClass="form-label"
+                   GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextArea fx:id="descriptionArea" promptText="Enter document description"
+                      styleClass="form-control" wrapText="true"
+                      GridPane.rowIndex="2" GridPane.columnIndex="1"
+                      accessibleText="Document description input"/>
+
+            <Label text="Department" styleClass="form-label"
+                   GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="departmentCombo" promptText="Select department"
+                      styleClass="form-control"
+                      GridPane.rowIndex="3" GridPane.columnIndex="1"
+                      accessibleText="Department selection"/>
+
+            <Label text="Classification" styleClass="form-label"
+                   GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="classificationCombo" promptText="Select classification"
+                      styleClass="form-control"
+                      GridPane.rowIndex="4" GridPane.columnIndex="1"
+                      accessibleText="Classification selection"/>
+
+            <Label text="Deadline Date (Optional)" styleClass="form-label"
+                   GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="deadlinePicker" promptText="Select date"
+                        styleClass="form-control"
+                        GridPane.rowIndex="5" GridPane.columnIndex="1"
+                        accessibleText="Optional deadline date selection"/>
+
+            <VBox styleClass="upload-zone" spacing="16"
+                  GridPane.rowIndex="6" GridPane.columnSpan="2"
+                  role="button" focusTraversable="true"
+                  onKeyPressed="#handleUploadKeyPress">
+                <ImageView fitHeight="48" fitWidth="48" preserveRatio="true">
+                    <Image url="@/assets/images/upload-icon.png"/>
+                </ImageView>
+                <Label text="Drag and drop your PDF file here, or browse files"
+                       styleClass="upload-text"/>
+                <Label text="Maximum file size: 10MB" styleClass="upload-limit"/>
+            </VBox>
+
+            <HBox spacing="16" alignment="CENTER_RIGHT"
+                  GridPane.rowIndex="7" GridPane.columnSpan="2">
+                <Button text="Cancel" styleClass="btn-secondary"
+                        onAction="#handleCancel"
+                        accessibleText="Cancel document upload"/>
+                <Button text="Save Document" styleClass="btn-primary"
+                        onAction="#handleSave"
+                        accessibleText="Save document"/>
+            </HBox>
+        </GridPane>
+    </VBox>
+
+    <HBox styleClass="footer" alignment="CENTER" role="contentinfo">
+        <Label text="© 2025 DocuVault. All rights reserved."
+               styleClass="footer-text"/>
+    </HBox>
+
+</VBox>

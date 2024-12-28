@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <VBox alignment="CENTER" layoutX="108.0" layoutY="127.0" spacing="10.0">
+   <VBox alignment="CENTER" layoutX="108.0" layoutY="127.0" spacing="15.0">
       <children>
          <VBox alignment="CENTER">
             <children>
                    <ImageView fitHeight="36.0" fitWidth="31.5" pickOnBounds="true" preserveRatio="true">
                        <image>
-                           <Image url="@../icons/userIcon.png" />
+                           <Image url="@/icons/user-icon.png" />
                        </image>
                    </ImageView>
                    <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="314.0" style="-fx-font-size: 30; -fx-font-family: 'Inter'; -fx-text-fill: #171717; -fx-font-weight: bold;" text="Create your account" />
