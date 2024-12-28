@@ -16,6 +16,11 @@ public class DBFacade {
             throw new RuntimeException(e);
         }
     }
+
+    public DBManager getDbManager() {
+        return dbManager;
+    }
+
     public boolean addUser(String username, String email, String password, String name) throws SQLException {
         Map<String, Object> map = Map.of(
                 "username", username,
