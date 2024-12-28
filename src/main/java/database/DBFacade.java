@@ -1,7 +1,6 @@
 package database;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +15,9 @@ public class DBFacade {
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public DBManager getDbManager() {
+        return dbManager;
     }
 
     public boolean authUser(String username, String password) throws SQLException {

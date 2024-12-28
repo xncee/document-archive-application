@@ -107,7 +107,7 @@
                              <Button minHeight="-Infinity" onAction="#handleAddDocument" prefHeight="28.0" prefWidth="150.0" styleClass="btn-primary" HBox.hgrow="ALWAYS">
                                  <graphic>
                                      <ImageView>
-                                         <Image url="@../icons/add-icon.png" />
+                                         <Image url="@../icons/filter-icon.png" />
                                      </ImageView>
                                  </graphic>
                                  <text>Add Document</text>
