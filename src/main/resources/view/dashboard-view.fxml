@@ -21,13 +21,55 @@
           <stylesheets>
               <URL value="@../styles/dashboard-style.css" />
           </stylesheets>
+         <HBox fx:id="titleBar" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="1440.0" spacing="5.0">
+            <children>
+               <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                  <children>
+                     <Label />
+                  </children>
+               </HBox>
+               <HBox alignment="CENTER" prefHeight="27.0" prefWidth="94.0" spacing="10.0">
+                  <children>
+                      <Button fx:id="minimizeButton" mnemonicParsing="false" onAction="#handleMinimize" HBox.hgrow="ALWAYS">
+                          <graphic>
+                              <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+                                  <Image url="@../icons/minus.png" />
+                              </ImageView>
+                          </graphic>
+                      </Button>
+      
+                            <Button fx:id="extendButton" mnemonicParsing="false" onAction="#handleExtend" HBox.hgrow="ALWAYS">
+                          <graphic>
+                              <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+                                  <Image url="@../icons/minus.png" />
+                              </ImageView>
+                          </graphic>
+                      </Button>
+      
+                            <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleClose" HBox.hgrow="ALWAYS">
+                          <graphic>
+                              <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+                                  <Image url="@../icons/x-icon.png" />
+                              </ImageView>
+                          </graphic>
+                          <HBox.margin>
+                              <Insets />
+                          </HBox.margin>
+                      </Button>
+                  </children>
+                  <HBox.margin>
+                     <Insets right="5.0" top="5.0" />
+                  </HBox.margin>
+               </HBox>
+            </children>
+         </HBox>
            <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="1233.0" styleClass="header-content">
             <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="1280.0">
                <children>
                      <HBox alignment="TOP_CENTER" prefHeight="64.0" prefWidth="1036.0" styleClass="brand">
                      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="143.0" spacing="16.0" HBox.hgrow="ALWAYS">
                         <children>
-                               <ImageView fitHeight="24" fitWidth="27" styleClass="logo" HBox.hgrow="ALWAYS">
+                               <ImageView fitHeight="24" fitWidth="27" preserveRatio="true" styleClass="logo" HBox.hgrow="ALWAYS">
                                    <Image url="@../icons/logo.png" />
                                </ImageView>
                                <Label styleClass="brand-name" text="DocuVault" HBox.hgrow="ALWAYS" />
@@ -48,7 +90,7 @@
                          </Button>
          
                                            <HBox styleClass="user-info">
-                             <ImageView styleClass="user-avatar">
+                             <ImageView preserveRatio="true" styleClass="user-avatar">
                                  <Image url="@../icons/user-avatar-icon.png" />
                              </ImageView>
                              <Label styleClass="user-name" text="Saif Ak" />
@@ -71,7 +113,7 @@
                                    <Label styleClass="stat-title" text="Total Documents" />
                            </children>
                         </HBox>
-                             <ImageView HBox.hgrow="ALWAYS">
+                             <ImageView preserveRatio="true" HBox.hgrow="ALWAYS">
                                  <Image url="@../icons/document-icon.png" />
                              </ImageView>
                          </HBox>
@@ -85,7 +127,7 @@
                                    <Label styleClass="stat-title" text="Recent Uploads" />
                            </children>
                         </HBox>
-                             <ImageView HBox.hgrow="ALWAYS">
+                             <ImageView preserveRatio="true" HBox.hgrow="ALWAYS">
                                  <Image url="@../icons/arrow-up-icon.png" />
                              </ImageView>
                          </HBox>
@@ -99,7 +141,7 @@
                                    <Label styleClass="stat-title" text="Pending Review" />
                            </children>
                         </HBox>
-                             <ImageView HBox.hgrow="ALWAYS">
+                             <ImageView preserveRatio="true" HBox.hgrow="ALWAYS">
                                  <Image url="@../icons/pending-icon-white.png" />
                              </ImageView>
                          </HBox>
@@ -111,7 +153,7 @@
                </padding>
             </HBox>
       
-                    <VBox styleClass="document-section">
+                    <VBox styleClass="document-section" VBox.vgrow="ALWAYS">
                   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1200.0" styleClass="document-header">
                   <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                      <children>
@@ -139,9 +181,13 @@
                             <TextField onKeyPressed="#handleSearch" prefHeight="49.0" prefWidth="1191.0" promptText="Search documents..." styleClass="search-input" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                        <ImageView fitHeight="35.0" fitWidth="44.0" styleClass="filter-icon" HBox.hgrow="ALWAYS">
-                            <Image url="@../icons/filter-icon.png" />
-                        </ImageView>
+                            <Button fx:id="filterButton" maxHeight="34.0" maxWidth="34.0" minHeight="34.0" minWidth="34.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="34.0" prefWidth="34.0">
+                                <graphic>
+                                    <ImageView preserveRatio="true" styleClass="filter-icon">
+                                        <Image url="@../icons/filter-icon.png" />
+                                    </ImageView>
+                                </graphic>
+                            </Button>
                   </HBox>
       
                         <TableView fx:id="documentTable" styleClass="document-table">

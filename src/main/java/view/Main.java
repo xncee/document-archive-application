@@ -1,5 +1,6 @@
 package view;
 
+import control.DragUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,8 +23,9 @@ public class Main extends Application {
         //stage.initStyle(StageStyle.UNDECORATED);
         //stage.setResizable(false);
         Image icon = new Image(getClass().getResourceAsStream("/icons/logo.png"));
-
-        // Set the icon to the stageK
+        stage.initStyle(StageStyle.UNDECORATED);
+        //DragUtil.makeDraggable(stage,);
+        // Set the icon to the stage
         stage.getIcons().add(icon);
         stage.show();
         // hi ana sima
