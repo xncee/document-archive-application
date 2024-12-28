@@ -1,104 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.geometry.*?>
 
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
 <?import java.net.URL?>
-<VBox styleClass="filter-container" spacing="24" xmlns:fx="http://javafx.com/fxml">
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" maxHeight="540.0" maxWidth="480.0" minHeight="560.0" minWidth="480.0" prefHeight="560.0" prefWidth="480.0" spacing="20" styleClass="filter-container" HBox.hgrow="NEVER" VBox.vgrow="NEVER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.FilterResultsController">
     <stylesheets>
-        <URL value="@../styles/results-filter.css"/>
+        <URL value="@../styles/results-filter.css" />
     </stylesheets>
 
-    <HBox styleClass="filter-header" alignment="CENTER_LEFT">
-        <Label styleClass="filter-title" text="Filter Results"/>
-        <Region HBox.hgrow="ALWAYS"/>
-        <Button styleClass="close-button" mnemonicParsing="false">
+    <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="432.0" styleClass="filter-header">
+        <Label styleClass="header-text" text="Filter Results" />
+        <Region prefHeight="38.0" prefWidth="256.0" HBox.hgrow="ALWAYS" />
+        <Button focusTraversable="true" mnemonicParsing="false" onKeyPressed="#handleCloseKeyPress" onMouseClicked="#handleClose" styleClass="close-button">
             <graphic>
-                <ImageView fitWidth="15" preserveRatio="true">
-                    <Image url="@../icons/x-icon.png"/>
+                <ImageView fitHeight="20.0" fitWidth="15.0" styleClass="close-icon">
+                    <Image url="@../icons/x-icon.png" />
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
                 </ImageView>
             </graphic>
         </Button>
     </HBox>
 
-    <VBox styleClass="filter-content" spacing="24">
-        <VBox styleClass="status-section">
-            <Label styleClass="filter-label" text="Status"/>
-            <HBox styleClass="status-buttons" spacing="14">
-                <Button styleClass="status-btn" mnemonicParsing="false">
+    <VBox spacing="24" styleClass="filter-content">
+        <VBox styleClass="filter-group">
+            <Label styleClass="filter-label" text="Status" />
+            <HBox spacing="14" styleClass="status-buttons">
+                <Button mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="Completed">
                     <graphic>
-                        <HBox spacing="14" alignment="CENTER">
-                            <ImageView fitWidth="16" preserveRatio="true">
-                                <Image url="@../icons/check-icon.png"/>
-                            </ImageView>
-                            <Label text="Completed"/>
-                        </HBox>
+                        <ImageView styleClass="status-icon">
+                            <Image url="@../icons/completed-icon.png" />
+                        </ImageView>
                     </graphic>
                 </Button>
-                <Button styleClass="status-btn" mnemonicParsing="false">
+                <Button mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="Pending">
                     <graphic>
-                        <HBox spacing="14" alignment="CENTER">
-                            <ImageView fitWidth="16" preserveRatio="true">
-                                <Image url="@../icons/clock-icon-black.png"/>
-                            </ImageView>
-                            <Label text="Pending"/>
-                        </HBox>
+                        <ImageView styleClass="status-icon">
+                            <Image url="@../icons/pending-icon-black.png" />
+                        </ImageView>
                     </graphic>
                 </Button>
-                <Button styleClass="status-btn" mnemonicParsing="false">
+                <Button mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="Late">
                     <graphic>
-                        <HBox spacing="14" alignment="CENTER">
-                            <ImageView fitWidth="16" preserveRatio="true">
-                                <Image url="@../icons/pending-icon.png"/>
-                            </ImageView>
-                            <Label text="Late"/>
-                        </HBox>
+                        <ImageView styleClass="status-icon">
+                            <Image url="@../icons/warning-icon.png" />
+                        </ImageView>
                     </graphic>
                 </Button>
             </HBox>
         </VBox>
 
-        <VBox styleClass="dropdown-section">
-            <Label styleClass="filter-label" text="Department"/>
-            <ComboBox styleClass="custom-select" maxWidth="Infinity">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Human Resources"/>
-                        <String fx:value="Information Technology"/>
-                        <String fx:value="Finance"/>
-                        <String fx:value="Marketing"/>
-                    </FXCollections>
-                </items>
-            </ComboBox>
+        <VBox styleClass="filter-group">
+            <Label styleClass="filter-label" text="Department" />
+            <ComboBox fx:id="departmentComboBox" maxHeight="40.0" maxWidth="432.0" minHeight="40.0" minWidth="432.0" onAction="#handleDepartmentSelect" prefHeight="40.0" prefWidth="432.0" styleClass="dropdown-select" />
         </VBox>
 
-        <VBox styleClass="dropdown-section">
-            <Label styleClass="filter-label" text="Classification"/>
-            <ComboBox styleClass="custom-select" maxWidth="Infinity">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Urgent"/>
-                        <String fx:value="Normal"/>
-                        <String fx:value="Low Priority"/>
-                    </FXCollections>
-                </items>
-            </ComboBox>
+        <VBox styleClass="filter-group">
+            <Label styleClass="filter-label" text="Classification" />
+            <ComboBox fx:id="classificationComboBox" maxHeight="40.0" maxWidth="432.0" minHeight="40.0" minWidth="432.0" onAction="#handleClassificationSelect" prefHeight="40.0" prefWidth="432.0" styleClass="dropdown-select" />
         </VBox>
 
-        <VBox styleClass="date-range">
-            <Label styleClass="filter-label" text="Date Range"/>
-            <HBox spacing="16">
-                <DatePicker styleClass="date-input" promptText="Start Date" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
-                <DatePicker styleClass="date-input" promptText="End Date" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        <VBox styleClass="filter-group">
+            <Label styleClass="filter-label" text="Date Range" />
+            <HBox alignment="CENTER" spacing="16">
+                <DatePicker fx:id="startDatePicker" onAction="#handleStartDateSelect" prefHeight="37.0" prefWidth="218.0" promptText="Start Date" styleClass="date-input" />
+            <Region prefHeight="37.0" prefWidth="0.0" />
+                <DatePicker fx:id="endDatePicker" onAction="#handleEndDateSelect" prefHeight="37.0" prefWidth="211.0" promptText="End Date" styleClass="date-input" />
             </HBox>
         </VBox>
     </VBox>
 
-    <HBox styleClass="filter-actions" spacing="12">
-        <Button styleClass="reset-btn" text="Reset" mnemonicParsing="false"/>
-        <Button styleClass="apply-btn" text="Apply Filters" mnemonicParsing="false" defaultButton="true"/>
+    <HBox alignment="CENTER_RIGHT" spacing="12" styleClass="filter-actions">
+        <Button mnemonicParsing="false" onAction="#handleReset" prefHeight="42.0" prefWidth="100.0" styleClass="reset-button">
+            <graphic>
+                <Label styleClass="button-text" text="Reset" />
+            </graphic>
+        </Button>
+        <Button defaultButton="true" maxHeight="42.0" maxWidth="150.0" minHeight="42.0" minWidth="150.0" mnemonicParsing="false" onAction="#handleApply" prefHeight="42.0" prefWidth="150.0" styleClass="apply-button">
+            <graphic>
+                <Label styleClass="button-text" text="Apply Filters" />
+            </graphic>
+        </Button>
     </HBox>
 </VBox>

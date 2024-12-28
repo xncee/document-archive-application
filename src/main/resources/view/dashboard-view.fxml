@@ -68,7 +68,7 @@
                 <HBox styleClass="stat-header">
                     <Label styleClass="stat-title" text="Pending Review"/>
                     <ImageView>
-                        <Image url="@../icons/pending-icon.png"/>
+                        <Image url="@../icons/warning-icon.png"/>
                     </ImageView>
                 </HBox>
                 <Label styleClass="stat-value" text="12"/>
