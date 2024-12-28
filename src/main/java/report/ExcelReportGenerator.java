@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class ExcelReportGenerator {
+public class ExcelReportGenerator implements ReportGenerator {
     public static void main(String[] args) throws Exception {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Transactions");

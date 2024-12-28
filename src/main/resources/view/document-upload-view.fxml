@@ -102,9 +102,9 @@
 
             <HBox spacing="16" alignment="CENTER_RIGHT"
                   GridPane.rowIndex="7" GridPane.columnSpan="2">
-                <Button text="Cancel" styleClass="btn-secondary"
+                <Button text="Cancel" styleClass="btr,btn-secondary"
                         onAction="#handleCancel"/>
-                <Button text="Save Document" styleClass="btn-primary"
+                <Button text="Save Document" styleClass="btn,btn-primary"
                         onAction="#handleSave"/>
             </HBox>
         </GridPane>

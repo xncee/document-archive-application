@@ -1,6 +1,7 @@
 .dashboard {
     -fx-background-color: #fafafa;
     -fx-spacing: 0;
+    -fx-padding: 0;
     -fx-alignment: center;
 }
 
@@ -34,22 +35,20 @@
 }
 
 .notification-button,
-.user-profile-button {
+.user-info-button {
     -fx-background-color: transparent;
     -fx-padding: 8;
     -fx-cursor: hand;
 }
 
 .notification-button:hover,
-.user-profile-button:hover {
+.user-info-button:hover {
     -fx-background-color: rgba(0,0,0,0.05);
 }
 
 .notification-button:focused,
-.user-profile-button:focused {
+.user-info-button:focused {
     -fx-background-color: rgba(0,0,0,0.1);
-    -fx-border-color: #000000;
-    -fx-border-width: 2;
 }
 
 .notification-icon,
@@ -141,6 +140,9 @@ Button {
     -fx-faint-focus-color: transparent;
     -fx-cursor: hand;
 }
+Button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);
+}
 
 .button-group {
     -fx-spacing: 13;
@@ -160,6 +162,7 @@ Button {
 
 .btn-secondary {
     -fx-background-color: #cec6c6;
+    -fx-font-weight: 600
 }
 
 .btn-secondary:hover {
@@ -170,6 +173,7 @@ Button {
     -fx-background-color: #262626;
     -fx-text-fill: white;
     -fx-graphic-text-gap: 16;
+    -fx-font-weight: bold
 }
 
 .btn-primary:hover {
