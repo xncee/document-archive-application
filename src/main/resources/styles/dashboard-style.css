@@ -1,6 +1,7 @@
 .dashboard {
     -fx-background-color: #fafafa;
     -fx-spacing: 0;
+    -fx-alignment: center;
 }
 
 .header {
@@ -114,7 +115,7 @@
 }
 
 .document-section {
-    -fx-background-color: white;
+    -fx-background-color: transparent;
     -fx-padding: 24;
     -fx-spacing: 24;
     -fx-background-radius: 8;
