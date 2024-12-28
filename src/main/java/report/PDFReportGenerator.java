@@ -12,7 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class PDFReportGenerator {
+public class PDFReportGenerator implements ReportGenerator{
     public static void main(String[] args) throws Exception {
         String fileName = "Transaction_Report.pdf";
 

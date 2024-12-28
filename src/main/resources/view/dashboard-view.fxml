@@ -14,212 +14,216 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.DashboardController">
-   <children>
-      <VBox alignment="CENTER" prefHeight="938.0" prefWidth="1440.0" styleClass="dashboard">
-      
-          <stylesheets>
-              <URL value="@../styles/dashboard-style.css" />
-          </stylesheets>
-         <HBox fx:id="titleBar" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="1440.0" spacing="5.0">
-            <children>
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.DashboardController">
+    <stylesheets>
+        <URL value="@../styles/dashboard-style.css" />
+    </stylesheets>
+    <children>
+       <HBox fx:id="titleBar" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="1440.0" spacing="5.0" styleClass="title-bar">
+           <children>
                <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                  <children>
-                     <Label />
-                  </children>
+                   <children>
+                       <Label />
+                   </children>
                </HBox>
                <HBox alignment="CENTER" prefHeight="27.0" prefWidth="94.0" spacing="10.0">
-                  <children>
-                      <Button fx:id="minimizeButton" mnemonicParsing="false" onAction="#handleMinimize" HBox.hgrow="ALWAYS">
-                          <graphic>
-                              <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
-                                  <Image url="@../icons/minus.png" />
-                              </ImageView>
-                          </graphic>
-                      </Button>
-      
-                            <Button fx:id="extendButton" mnemonicParsing="false" onAction="#handleExtend" HBox.hgrow="ALWAYS">
-                          <graphic>
-                              <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
-                                  <Image url="@../icons/minus.png" />
-                              </ImageView>
-                          </graphic>
-                      </Button>
-      
-                            <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleClose" HBox.hgrow="ALWAYS">
-                          <graphic>
-                              <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
-                                  <Image url="@../icons/x-icon.png" />
-                              </ImageView>
-                          </graphic>
-                          <HBox.margin>
-                              <Insets />
-                          </HBox.margin>
-                      </Button>
-                  </children>
-                  <HBox.margin>
-                     <Insets right="5.0" top="5.0" />
-                  </HBox.margin>
-               </HBox>
-            </children>
-         </HBox>
-           <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="1233.0" styleClass="header-content">
-            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="1280.0">
-               <children>
-                     <HBox alignment="TOP_CENTER" prefHeight="64.0" prefWidth="1036.0" styleClass="brand">
-                     <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="143.0" spacing="16.0" HBox.hgrow="ALWAYS">
-                        <children>
-                               <ImageView fitHeight="24" fitWidth="27" preserveRatio="true" styleClass="logo" HBox.hgrow="ALWAYS">
-                                   <Image url="@../icons/logo.png" />
+                   <children>
+                       <Button fx:id="minimizeButton" mnemonicParsing="false" onAction="#handleMinimize" HBox.hgrow="ALWAYS">
+                           <graphic>
+                               <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+                                   <Image url="@../icons/minimize-icon.png" />
                                </ImageView>
-                               <Label styleClass="brand-name" text="DocuVault" HBox.hgrow="ALWAYS" />
-                        </children>
-                     </HBox>
-                     <padding>
-                        <Insets left="24.0" />
-                     </padding>
-                     </HBox>
-         
-                                       <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="150.0" styleClass="user-section">
-                         <Button accessibleText="Notifications" mnemonicParsing="false" styleClass="notification-button">
-                             <graphic>
-                                 <ImageView accessibleRole="BUTTON" styleClass="notification-icon">
-                                     <Image url="@../icons/notification-icon.png" />
-                                 </ImageView>
-                             </graphic>
-                         </Button>
-         
-                                           <HBox styleClass="user-info">
-                             <ImageView preserveRatio="true" styleClass="user-avatar">
-                                 <Image url="@../icons/user-avatar-icon.png" />
-                             </ImageView>
-                             <Label styleClass="user-name" text="Saif Ak" />
-                         </HBox>
-                     </HBox>
-               </children>
-            </HBox>
-            <VBox.margin>
-               <Insets />
-            </VBox.margin>
-           </HBox>
-      
-                <VBox alignment="CENTER_LEFT" styleClass="main-content">
-            <HBox alignment="CENTER_LEFT" spacing="24.0">
-               <children>
-                     <VBox alignment="CENTER_LEFT" prefHeight="126.0" prefWidth="0.0" styleClass="stat-card" HBox.hgrow="ALWAYS">
-                         <HBox alignment="CENTER" styleClass="stat-header">
-                        <HBox HBox.hgrow="ALWAYS">
-                           <children>
-                                   <Label styleClass="stat-title" text="Total Documents" />
-                           </children>
-                        </HBox>
-                             <ImageView preserveRatio="true" HBox.hgrow="ALWAYS">
-                                 <Image url="@../icons/document-icon.png" />
-                             </ImageView>
-                         </HBox>
-                         <Label styleClass="stat-value" text="1,234" />
-                     </VBox>
-         
-                              <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
-                         <HBox styleClass="stat-header">
-                        <HBox HBox.hgrow="ALWAYS">
-                           <children>
-                                   <Label styleClass="stat-title" text="Recent Uploads" />
-                           </children>
-                        </HBox>
-                             <ImageView preserveRatio="true" HBox.hgrow="ALWAYS">
-                                 <Image url="@../icons/arrow-up-icon.png" />
-                             </ImageView>
-                         </HBox>
-                         <Label styleClass="stat-value" text="56" />
-                     </VBox>
-         
-                              <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
-                         <HBox styleClass="stat-header">
-                        <HBox HBox.hgrow="ALWAYS">
-                           <children>
-                                   <Label styleClass="stat-title" text="Pending Review" />
-                           </children>
-                        </HBox>
-                             <ImageView preserveRatio="true" HBox.hgrow="ALWAYS">
-                                 <Image url="@../icons/pending-icon-white.png" />
-                             </ImageView>
-                         </HBox>
-                         <Label styleClass="stat-value" text="12" />
-                     </VBox>
-               </children>
-               <padding>
-                  <Insets left="24.0" right="24.0" top="24.0" />
-               </padding>
-            </HBox>
-      
-                    <VBox styleClass="document-section" VBox.vgrow="ALWAYS">
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1200.0" styleClass="document-header">
-                  <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                           </graphic>
+                       </Button>
+                       <Button fx:id="extendButton" mnemonicParsing="false" onAction="#handleExtend" HBox.hgrow="ALWAYS">
+                           <graphic>
+                               <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+                                   <Image url="@../icons/extend-icon.png" />
+                               </ImageView>
+                           </graphic>
+                       </Button>
+                       <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleClose" HBox.hgrow="ALWAYS">
+                           <graphic>
+                               <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+                                   <Image url="@../icons/x-icon.png" />
+                               </ImageView>
+                           </graphic>
+                       </Button>
+                   </children>
+                   <HBox.margin>
+                       <Insets right="5.0" top="5.0" />
+                   </HBox.margin>
+               </HBox>
+           </children>
+       </HBox>
+      <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <children>
+            <VBox alignment="TOP_LEFT" prefHeight="938.0" prefWidth="1440.0" styleClass="dashboard">
+                 <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="1233.0" styleClass="header-content">
+                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="1280.0">
                      <children>
-                            <Label prefHeight="21.0" prefWidth="170.0" styleClass="section-title" text="Document Library" />
-                     </children>
-                  </HBox>
-                  <HBox spacing="10.0">
-                     <children>
-                             <Button onAction="#handleGenerateReport" prefHeight="40.0" prefWidth="170.0" styleClass="btn-secondary" text="Generate Report" HBox.hgrow="ALWAYS" />
-                             <Button minHeight="-Infinity" onAction="#handleAddDocument" prefHeight="40.0" prefWidth="165.0" styleClass="btn-primary" HBox.hgrow="ALWAYS">
+                           <HBox alignment="TOP_CENTER" prefHeight="64.0" prefWidth="1099.0" styleClass="brand">
+                           <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="143.0" spacing="16.0" HBox.hgrow="ALWAYS">
+                              <children>
+                                     <ImageView fitHeight="24" fitWidth="27" preserveRatio="true" styleClass="logo" HBox.hgrow="ALWAYS">
+                                         <Image url="@../icons/logo.png" />
+                                     </ImageView>
+                                     <Label styleClass="brand-name" text="DocuVault" HBox.hgrow="ALWAYS" />
+                              </children>
+                           </HBox>
+                           <padding>
+                              <Insets left="24.0" />
+                           </padding>
+                           </HBox>
+
+                         <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="150.0" styleClass="user-section">
+                             <Button fx:id="notificationsButton" accessibleText="Notifications" mnemonicParsing="false" onAction="#handleNotifications" styleClass="notification-button">
                                  <graphic>
-                                     <ImageView>
-                                         <Image url="@../icons/add-icon.png" />
+                                     <ImageView accessibleRole="BUTTON" focusTraversable="true" preserveRatio="true" styleClass="notification-icon">
+                                         <Image url="@../icons/notification-icon.png" />
                                      </ImageView>
                                  </graphic>
-                                 <text>Add Document</text>
                              </Button>
+
+                             <HBox styleClass="user-info">
+                                 <Button fx:id="userInfoButton" mnemonicParsing="false" onAction="#handleUserInfo" styleClass="user-info-button">
+                                     <graphic>
+                                         <HBox alignment="CENTER" spacing="5">
+                                             <ImageView preserveRatio="true" styleClass="user-avatar">
+                                                 <Image url="@../icons/user-avatar-icon.png" />
+                                             </ImageView>
+                                             <Label styleClass="user-name" text="Saif Ak" />
+                                         </HBox>
+                                     </graphic>
+                                 </Button>
+                             </HBox>
+                         </HBox>
                      </children>
                   </HBox>
-                  </HBox>
-      
-                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1200.0" styleClass="search-bar" VBox.vgrow="ALWAYS">
-                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="1154.0" HBox.hgrow="ALWAYS">
+                  <VBox.margin>
+                     <Insets />
+                  </VBox.margin>
+                 </HBox>
+            
+                      <VBox alignment="CENTER_LEFT" styleClass="main-content">
+                  <HBox alignment="CENTER_LEFT" spacing="24.0">
                      <children>
-                            <TextField onKeyPressed="#handleSearch" prefHeight="49.0" prefWidth="1191.0" promptText="Search documents..." styleClass="search-input" HBox.hgrow="ALWAYS" />
+                           <VBox alignment="CENTER_LEFT" prefHeight="126.0" prefWidth="0.0" styleClass="stat-card" HBox.hgrow="ALWAYS">
+                               <HBox alignment="CENTER" styleClass="stat-header">
+                              <HBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                         <Label styleClass="stat-title" text="Total Documents" />
+                                 </children>
+                              </HBox>
+                                   <ImageView preserveRatio="true" HBox.hgrow="ALWAYS">
+                                       <Image url="@../icons/document-icon.png" />
+                                   </ImageView>
+                               </HBox>
+                               <Label styleClass="stat-value" text="1,234" />
+                           </VBox>
+               
+                                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                               <HBox styleClass="stat-header">
+                              <HBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                         <Label styleClass="stat-title" text="Recent Uploads" />
+                                 </children>
+                              </HBox>
+                                   <ImageView preserveRatio="true" HBox.hgrow="ALWAYS">
+                                       <Image url="@../icons/arrow-up-icon.png" />
+                                   </ImageView>
+                               </HBox>
+                               <Label styleClass="stat-value" text="56" />
+                           </VBox>
+               
+                                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                               <HBox styleClass="stat-header">
+                              <HBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                         <Label styleClass="stat-title" text="Pending Review" />
+                                 </children>
+                              </HBox>
+                                   <ImageView preserveRatio="true" HBox.hgrow="ALWAYS">
+                                       <Image url="@../icons/pending-icon-white.png" />
+                                   </ImageView>
+                               </HBox>
+                               <Label styleClass="stat-value" text="12" />
+                           </VBox>
+                     </children>
+                     <padding>
+                        <Insets left="24.0" right="24.0" top="24.0" />
+                     </padding>
+                  </HBox>
+            
+                          <VBox styleClass="document-section" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1200.0" styleClass="document-header">
+                        <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                           <children>
+                                  <Label prefHeight="21.0" prefWidth="170.0" styleClass="section-title" text="Document Library" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                                   <Button onAction="#handleGenerateReport" prefHeight="40.0" prefWidth="170.0" styleClass="btn-secondary" text="Generate Report" HBox.hgrow="ALWAYS" />
+                                   <Button minHeight="-Infinity" onAction="#handleAddDocument" prefHeight="40.0" prefWidth="165.0" styleClass="btn-primary" HBox.hgrow="ALWAYS">
+                                       <graphic>
+                                           <ImageView>
+                                               <Image url="@../icons/add-icon.png" />
+                                           </ImageView>
+                                       </graphic>
+                                       <text>Add Document</text>
+                                   </Button>
+                           </children>
+                        </HBox>
+                        </HBox>
+            
+                              <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1200.0" styleClass="search-bar" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" prefHeight="49.0" prefWidth="1154.0" HBox.hgrow="ALWAYS">
+                           <children>
+                                  <TextField onKeyPressed="#handleSearch" prefHeight="49.0" prefWidth="1191.0" promptText="Search documents..." styleClass="search-input" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                                  <Button fx:id="filterButton" maxHeight="34.0" maxWidth="34.0" minHeight="34.0" minWidth="34.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="34.0" prefWidth="34.0">
+                                      <graphic>
+                                          <ImageView preserveRatio="true" styleClass="filter-icon">
+                                              <Image url="@../icons/filter-icon.png" />
+                                          </ImageView>
+                                      </graphic>
+                                  </Button>
+                        </HBox>
+            
+                              <TableView fx:id="documentTable" styleClass="document-table">
+                            <columns>
+                                <TableColumn fx:id="documentColumn" text="Document" />
+                                <TableColumn fx:id="departmentColumn" text="Department" />
+                                <TableColumn fx:id="statusColumn" text="Status" />
+                                <TableColumn fx:id="dateColumn" text="Date" />
+                                <TableColumn fx:id="actionsColumn" text="Actions" />
+                            </columns>
+                        <columnResizePolicy>
+                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                        </TableView>
+                    </VBox>
+                </VBox>
+            
+                      <VBox alignment="CENTER" styleClass="footer">
+                  <HBox alignment="CENTER">
+                     <children>
+                          <HBox alignment="CENTER_LEFT" styleClass="footer-content" HBox.hgrow="ALWAYS">
+                              <Label text="© 2025 DocuVault. All rights reserved." HBox.hgrow="ALWAYS" />
+                          </HBox>
+                           <HBox styleClass="footer-links" HBox.hgrow="ALWAYS">
+                               <Hyperlink onAction="#handleHelpLink" text="Help" />
+                               <Hyperlink onAction="#handlePrivacyLink" text="Privacy" />
+                               <Hyperlink onAction="#handleTermsLink" text="Terms" />
+                           </HBox>
                      </children>
                   </HBox>
-                            <Button fx:id="filterButton" maxHeight="34.0" maxWidth="34.0" minHeight="34.0" minWidth="34.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="34.0" prefWidth="34.0">
-                                <graphic>
-                                    <ImageView preserveRatio="true" styleClass="filter-icon">
-                                        <Image url="@../icons/filter-icon.png" />
-                                    </ImageView>
-                                </graphic>
-                            </Button>
-                  </HBox>
-      
-                        <TableView fx:id="documentTable" styleClass="document-table">
-                      <columns>
-                          <TableColumn fx:id="documentColumn" text="Document" />
-                          <TableColumn fx:id="departmentColumn" text="Department" />
-                          <TableColumn fx:id="statusColumn" text="Status" />
-                          <TableColumn fx:id="dateColumn" text="Date" />
-                          <TableColumn fx:id="actionsColumn" text="Actions" />
-                      </columns>
-                  <columnResizePolicy>
-                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                  </columnResizePolicy>
-                  </TableView>
-              </VBox>
-          </VBox>
-      
-                <VBox alignment="CENTER" styleClass="footer">
-            <HBox alignment="CENTER">
-               <children>
-                    <HBox alignment="CENTER_LEFT" styleClass="footer-content" HBox.hgrow="ALWAYS">
-                        <Label text="© 2025 DocuVault. All rights reserved." HBox.hgrow="ALWAYS" />
-                    </HBox>
-                     <HBox styleClass="footer-links" HBox.hgrow="ALWAYS">
-                         <Hyperlink onAction="#handleHelpLink" text="Help" />
-                         <Hyperlink onAction="#handlePrivacyLink" text="Privacy" />
-                         <Hyperlink onAction="#handleTermsLink" text="Terms" />
-                     </HBox>
-               </children>
-            </HBox>
-          </VBox>
-      
-      </VBox>
+                </VBox>
+            
+            </VBox>
+         </children>
+      </StackPane>
    </children>
-</StackPane>
+</VBox>

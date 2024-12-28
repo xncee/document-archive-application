@@ -10,6 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -32,6 +33,12 @@ public class DashboardController {
     private Button minimizeButton;
 
     @FXML
+    private Button notificationsButton;
+
+    @FXML
+    private Button userInfoButton;
+
+    @FXML
     private Button filterButton;
 
     @FXML
@@ -52,52 +59,69 @@ public class DashboardController {
     @FXML
     private TableColumn<?, ?> actionsColumn;
 
+    private double xOffset = 0;
+    private double yOffset = 0;
+
     @FXML
     private void initialize() {
         setupTableColumns();
         loadDocuments();
+
+        // Add drag functionality for the title bar
+        titleBar.setOnMousePressed(this::handleMousePressed);
+        titleBar.setOnMouseDragged(this::handleMouseDragged);
     }
+
     @FXML
     private void handleClose(ActionEvent event) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
+
     @FXML
     private void handleExtend(ActionEvent event) {
         Stage stage = (Stage) extendButton.getScene().getWindow();
-        stage.setFullScreen(true);
-        stage.setFullScreenExitHint("");
+        stage.setFullScreen(!stage.isFullScreen());
+        stage.setFullScreenExitHint(""); // Optional: Hides fullscreen exit hint
     }
 
     @FXML
     private void handleMinimize(ActionEvent event) {
-
+        Stage stage = (Stage) minimizeButton.getScene().getWindow();
+        stage.setIconified(true);
     }
+
+    @FXML
+    private void handleNotifications(ActionEvent event) {
+        // handle notifications
+    }
+    @FXML
+    private void handleUserInfo(ActionEvent event) {
+        // handle user info logic
+    }
+
     @FXML
     private void handleFilter(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/results-filter-view.fxml"));
         Parent root = loader.load();
-        // retrieving owner stage ()
-        // making a modular stage (a moduler stage should be closed first in order to interact with owner stage)
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Stage modularStage = new Stage();
         modularStage.initStyle(StageStyle.TRANSPARENT);
         modularStage.initModality(Modality.WINDOW_MODAL);
         modularStage.initOwner(stage);
-        // disable control bar
         Scene scene = new Scene(root);
-
         modularStage.setScene(scene);
         modularStage.showAndWait();
     }
+
     @FXML
     private void handleGenerateReport(ActionEvent event) {
-        // Implementation for generating report
+        // Implementation for generating a report
     }
 
     @FXML
     private void handleAddDocument(ActionEvent event) {
-        // Implementation for adding document
+        // Implementation for adding a document
     }
 
     @FXML
@@ -126,5 +150,21 @@ public class DashboardController {
 
     private void loadDocuments() {
         // Implementation for loading documents
+    }
+
+    private void handleMousePressed(MouseEvent event) {
+        Stage stage = (Stage) titleBar.getScene().getWindow();
+        if (!stage.isFullScreen()) {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        }
+    }
+
+    private void handleMouseDragged(MouseEvent event) {
+        Stage stage = (Stage) titleBar.getScene().getWindow();
+        if (!stage.isFullScreen()) {
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        }
     }
 }
