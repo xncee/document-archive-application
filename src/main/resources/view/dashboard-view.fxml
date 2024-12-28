@@ -192,12 +192,12 @@
                                   </Button>
                         </HBox>
 
-                              <TableView fx:id="documentTable" styleClass="document-table">
+                              <TableView fx:id="documentTable" styleClass="document-table" VBox.vgrow="ALWAYS">
                             <columns>
-                                <TableColumn fx:id="documentColumn" text="Document" />
+                                <TableColumn fx:id="documentIdColumn" sortType="DESCENDING" text="Document" />
                                 <TableColumn fx:id="departmentColumn" text="Department" />
                                 <TableColumn fx:id="statusColumn" text="Status" />
-                                <TableColumn fx:id="dateColumn" text="Date" />
+                                <TableColumn fx:id="createdDateColumn" text="Date" />
                                 <TableColumn fx:id="actionsColumn" text="Actions" />
                             </columns>
                         <columnResizePolicy>

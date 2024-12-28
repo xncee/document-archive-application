@@ -13,6 +13,7 @@ public class Document {
     private final LocalDate updatedDate;
     private final String pdfPath;
 
+
     public Document(String title, String description, String department,
                     String classification, String pdfPath,
                     String id, String status, LocalDate createdDate, LocalDate updatedDate) {
