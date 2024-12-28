@@ -1,6 +1,7 @@
 .dashboard {
     -fx-background-color: #fafafa;
     -fx-spacing: 0;
+    -fx-alignment: center;
 }
 
 .header {
@@ -114,7 +115,7 @@
 }
 
 .document-section {
-    -fx-background-color: white;
+    -fx-background-color: transparent;
     -fx-padding: 24;
     -fx-spacing: 24;
     -fx-background-radius: 8;
@@ -132,10 +133,18 @@
     -fx-font-weight: bold;
 }
 
+Button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-cursor: hand;
+}
+
 .button-group {
     -fx-spacing: 13;
 }
-
 .btn {
     -fx-font-family: "Inter";
     -fx-font-size: 16;
@@ -186,17 +195,18 @@
     -fx-border-width: 2;
 }
 
-.filter-button {
+.filter-icon {
     -fx-background-color: transparent;
     -fx-padding: 8;
-    -fx-cursor: hand;
+    -fx-fit-width: 100%;
+    -fx-fit-height: 100%;
 }
 
-.filter-button:hover {
+.filter-icon:hover {
     -fx-background-color: rgba(0,0,0,0.05);
 }
 
-.filter-button:focused {
+.filter-icon:focused {
     -fx-background-color: rgba(0,0,0,0.1);
     -fx-border-color: #000000;
     -fx-border-width: 2;

@@ -1,0 +1,124 @@
+.main-container {
+    -fx-background-color: #fafafa;
+}
+
+.login-card {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-max-width: 400px;
+    -fx-padding: 32px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);
+}
+
+.header-container {
+    -fx-padding: 0 0 24px 0;
+}
+
+.logo-container {
+    -fx-min-height: 36px;
+    -fx-min-width: 40px;
+    -fx-alignment: center;
+}
+
+.title {
+    -fx-font-family: "Inter";
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+.subtitle {
+    -fx-font-family: "Inter";
+    -fx-font-size: 16px;
+    -fx-text-fill: #737373;
+}
+
+.form-container {
+    -fx-spacing: 16px;
+    -fx-min-width: 336px;
+}
+
+.input-label {
+    -fx-font-family: "Inter";
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #404040;
+}
+
+.input-field {
+    -fx-background-color: white;
+    -fx-border-color: #d4d4d4;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 12px;
+    -fx-font-size: 16px;
+    -fx-prompt-text-fill: #adaebc;
+}
+
+.input-field:focused {
+    -fx-border-color: #262626;
+    -fx-border-width: 2px;
+}
+
+.remember-checkbox {
+    -fx-font-size: 14px;
+    -fx-text-fill: #525252;
+}
+
+.login-button {
+    -fx-background-color: #262626;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 12px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.login-button:hover {
+    -fx-background-color: #404040;
+}
+
+.register-link {
+    -fx-font-size: 14px;
+    -fx-text-fill: #262626;
+    -fx-underline: false;
+}
+
+.footer-container {
+    -fx-font-size: 14px;
+    -fx-text-fill: #525252;
+}
+
+.hyperlink {
+    -fx-border-width: 0;
+    -fx-text-fill: #525252;
+    -fx-underline: false;
+}
+
+.hyperlink:hover {
+    -fx-underline: true;
+}
+
+.hyperlink:focused {
+    -fx-border-color: #262626;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+}
+
+/* Accessibility Enhancements */
+:focused {
+    -fx-focus-color: #262626;
+    -fx-faint-focus-color: #26262622;
+}
+
+.root {
+    -fx-font-smoothing-type: gray;
+}
+
+@supports (-fx-focus-visible: true) {
+    :focus-visible {
+        -fx-focus-color: #262626;
+        -fx-faint-focus-color: #26262622;
+    }
+}
+</
