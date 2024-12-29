@@ -14,14 +14,15 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.DashboardController">
+<VBox prefHeight="1051.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.DashboardController">
     <stylesheets>
         <URL value="@../styles/dashboard-style.css" />
     </stylesheets>
     <children>
         <fx:include source="titlebar.fxml" />
         <fx:include source="header.fxml" />
-      <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+
+      <StackPane>
          <children>
             <VBox alignment="TOP_LEFT" prefHeight="938.0" prefWidth="1440.0" styleClass="dashboard">
 

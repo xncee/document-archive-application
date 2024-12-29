@@ -1,8 +1,8 @@
-.document-upload-container {
-    -fx-background-color: white;
-    -fx-border-color: #ced4da;
-    -fx-border-width: 2;
-    -fx-border-radius: 8;
+.main-container {
+   -fx-background-color: #fafafa;
+   -fx-spacing: 0;
+   -fx-padding: 0;
+   -fx-alignment: center;
 }
 
 .header {
@@ -62,6 +62,13 @@
     -fx-background-radius: 6;
     -fx-font-family: "Inter";
     -fx-font-size: 16;
+}
+
+.combo-box {
+    -fx-background-color: "#EFEFEF";
+}
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
 }
 
 .text-field:disabled {
