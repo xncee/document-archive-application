@@ -21,11 +21,11 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
 
-        stage.initStyle(StageStyle.UNDECORATED);
+        //stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(true);
 
         Image icon = new Image(getClass().getResourceAsStream("/icons/logo.png"));
-        stage.initStyle(StageStyle.UNDECORATED);
+        //stage.initStyle(StageStyle.UNDECORATED);
         //HBox titleBar = (HBox) root.lookup("#titleBar");
         //DragUtil.makeDraggable(stage, titleBar);
 

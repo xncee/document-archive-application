@@ -1,0 +1,12 @@
+.header {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
+    -fx-padding: 0 70 0 70;
+}
+
+.header-content {
+    -fx-spacing: 100;
+    -fx-padding: 16;
+    -fx-alignment: center;
+    -fx-min-height: 64px;
+}

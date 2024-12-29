@@ -1,16 +1,13 @@
 package control;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-
 public class TitleBarController extends HBox {
 
     @FXML
@@ -42,17 +39,24 @@ public class TitleBarController extends HBox {
 
     private static final int RESIZE_MARGIN = 5;
 
-    public TitleBarController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/path/to/titlebar.fxml"));
-        fxmlLoader.setController(this);
-        fxmlLoader.setRoot(this);
-
-        try {
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML
+    private void handleClose() {
+        Stage stage = (Stage) titleBar.getScene().getWindow();
+        stage.close();
     }
+    @FXML
+    private void handleMinimize() {
+        Stage stage = (Stage) titleBar.getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    @FXML
+    private void handleMaximize(ActionEvent event) {
+        Stage stage = (Stage) maximizeButton.getScene().getWindow();
+        stage.setFullScreen(!stage.isFullScreen());
+        stage.setFullScreenExitHint(""); // Optional: Hides fullscreen exit hint
+    }
+
 
     public void setStage(Stage stage) {
         this.stage = stage;
