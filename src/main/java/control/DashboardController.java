@@ -25,25 +25,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 public class DashboardController {
-
     @FXML
-    private HBox titleBar;
-
-    @FXML
-    private Button closeButton;
-
-    @FXML
-    private Button extendButton;
-
-    @FXML
-    private Button minimizeButton;
-
-    @FXML
-    private Button notificationsButton;
-
-    @FXML
-    private Button userInfoButton;
-
+    private Button addDocumentButton;
     @FXML
     private Button filterButton;
 
@@ -78,10 +61,6 @@ public class DashboardController {
         documentTable.getStylesheets().add(getClass().getResource("/styles/table-style.css").toExternalForm());
         setupTableColumns();
         loadDocuments();
-
-        // Add drag functionality for the title bar
-        titleBar.setOnMousePressed(this::handleMousePressed);
-        titleBar.setOnMouseDragged(this::handleMouseDragged);
 
         // Apply custom cell factory to the status column to add CSS classes for status badges
         statusColumn.setCellFactory(column -> {
@@ -120,34 +99,6 @@ public class DashboardController {
     }
 
     @FXML
-    private void handleClose(ActionEvent event) {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
-    private void handleExtend(ActionEvent event) {
-        Stage stage = (Stage) extendButton.getScene().getWindow();
-        stage.setFullScreen(!stage.isFullScreen());
-        stage.setFullScreenExitHint(""); // Optional: Hides fullscreen exit hint
-    }
-
-    @FXML
-    private void handleMinimize(ActionEvent event) {
-        Stage stage = (Stage) minimizeButton.getScene().getWindow();
-        stage.setIconified(true);
-    }
-
-    @FXML
-    private void handleNotifications(ActionEvent event) {
-        // handle notifications
-    }
-    @FXML
-    private void handleUserInfo(ActionEvent event) {
-        // handle user info logic
-    }
-
-    @FXML
     private void handleFilter(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/results-filter-view.fxml"));
         Parent root = loader.load();
@@ -167,8 +118,12 @@ public class DashboardController {
     }
 
     @FXML
-    private void handleAddDocument(ActionEvent event) {
-        // Implementation for adding a document
+    private void handleAddDocument(ActionEvent event) throws IOException {
+        Stage stage = (Stage) addDocumentButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/document-upload-view.fxml"));
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -231,17 +186,17 @@ public class DashboardController {
 
     private void loadDocuments() {
         // Create sample data for the TableView
-        documents = FXCollections.observableArrayList(
-                new Document("Project Plan", "Description of project plan", "Engineering",
-                        "Confidential", "/path/to/document1.pdf", null,
-                        "Pending", LocalDate.now(), null),
-                new Document("Budget Report", "Description of budget report", "Finance",
-                        "Public", "/path/to/document2.pdf", null,
-                        "Approved", LocalDate.of(2023, 12, 1), null),
-                new Document("Marketing Strategy", "Description of marketing strategy", "Marketing",
-                        "Internal", "/path/to/document3.pdf", null,
-                        "Rejected", LocalDate.of(2023, 11, 15), null)
-        );
+//        documents = FXCollections.observableArrayList(
+//                new Document("Project Plan", "Description of project plan", "Engineering",
+//                        "Confidential", "/path/to/document1.pdf", null,
+//                        "Pending", LocalDate.now(), null),
+//                new Document("Budget Report", "Description of budget report", "Finance",
+//                        "Public", "/path/to/document2.pdf", null,
+//                        "Approved", LocalDate.of(2023, 12, 1), null),
+//                new Document("Marketing Strategy", "Description of marketing strategy", "Marketing",
+//                        "Internal", "/path/to/document3.pdf", null,
+//                        "Rejected", LocalDate.of(2023, 11, 15), null)
+//        );
 
         // Set the items to the TableView
         documentTable.setItems(documents);
@@ -260,21 +215,5 @@ public class DashboardController {
     @FXML
     private void handleTermsLink(ActionEvent event) {
         // Implementation for terms link
-    }
-
-    private void handleMousePressed(MouseEvent event) {
-        Stage stage = (Stage) titleBar.getScene().getWindow();
-        if (!stage.isFullScreen()) {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        }
-    }
-
-    private void handleMouseDragged(MouseEvent event) {
-        Stage stage = (Stage) titleBar.getScene().getWindow();
-        if (!stage.isFullScreen()) {
-            stage.setX(event.getScreenX() - xOffset);
-            stage.setY(event.getScreenY() - yOffset);
-        }
     }
 }

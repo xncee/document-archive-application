@@ -11,110 +11,87 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefWidth="1440.0" spacing="0" styleClass="document-upload-container" stylesheets="@../styles/document-upload.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <fx:include source="titlebar.fxml" />
+        <fx:include source="header.fxml" />
 
-    <HBox alignment="CENTER" styleClass="header">
-        <padding>
-            <Insets bottom="15" left="80" right="80" top="15" />
-        </padding>
+        <StackPane>
+            <VBox spacing="32" styleClass="content-wrapper">
+                <padding>
+                    <Insets bottom="40" left="16" right="16" top="40" />
+                </padding>
 
-        <HBox alignment="CENTER_LEFT" spacing="12">
-            <ImageView fitHeight="24" fitWidth="27" preserveRatio="true">
-                <Image url="@../icons/logo.png" />
-            </ImageView>
+                <VBox spacing="12">
+                    <Label styleClass="page-title" text="Add New Document" />
+                    <Label styleClass="page-description" text="Fill in the document details and upload your file" />
+                </VBox>
 
-            <Label styleClass="brand-name" text="DocuVault" />
-        </HBox>
+                <VBox spacing="24" styleClass="form-container">
+                    <padding>
+                        <Insets bottom="24" left="24" right="24" top="24" />
+                    </padding>
 
-        <Region HBox.hgrow="ALWAYS" />
+                    <HBox spacing="24">
+                        <VBox spacing="8" HBox.hgrow="ALWAYS">
+                            <Label styleClass="form-label" text="Document ID" />
+                            <TextField disable="true" text="AUTO-GENERATED" />
+                        </VBox>
 
-        <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-            <Image url="@../icons/user-avatar-icon.png" />
-        </ImageView>
-    </HBox>
-   <StackPane>
-      <children>
-           <VBox spacing="32" styleClass="content-wrapper">
-               <padding>
-                   <Insets bottom="40" left="16" right="16" top="40" />
-               </padding>
-      
-               <VBox spacing="12">
-                   <Label styleClass="page-title" text="Add New Document" />
-                   <Label styleClass="page-description" text="Fill in the document details and upload your file" />
-               </VBox>
-      
-               <VBox spacing="24" styleClass="form-container">
-                   <padding>
-                       <Insets bottom="24" left="24" right="24" top="24" />
-                   </padding>
-      
-                   <HBox spacing="24">
-                       <VBox spacing="8" HBox.hgrow="ALWAYS">
-                           <Label styleClass="form-label" text="Document ID" />
-                           <TextField disable="true" text="AUTO-GENERATED" />
-                       </VBox>
-      
-                       <VBox spacing="8" HBox.hgrow="ALWAYS">
-                           <Label styleClass="form-label" text="Title" />
-                           <TextField promptText="Enter document title" />
-                       </VBox>
-                   </HBox>
-      
-                   <VBox spacing="8">
-                       <Label styleClass="form-label" text="Description" />
-                       <TextArea prefRowCount="4" promptText="Enter document description" />
-                   </VBox>
-      
-                   <HBox spacing="24">
-                       <VBox spacing="8" HBox.hgrow="ALWAYS">
-                           <Label styleClass="form-label" text="Department" />
-                           <ComboBox prefWidth="Infinity" />
-                       </VBox>
-      
-                       <VBox spacing="8" HBox.hgrow="ALWAYS">
-                           <Label styleClass="form-label" text="Classification" />
-                           <ComboBox prefWidth="Infinity" />
-                       </VBox>
-                   </HBox>
-      
-                   <VBox spacing="8">
-                       <Label styleClass="form-label" text="Deadline Date (Optional)" />
-                       <DatePicker prefWidth="Infinity" promptText="mm/dd/yyyy" />
-                   </VBox>
-      
-                   <VBox alignment="CENTER" spacing="16" styleClass="upload-zone">
-                       <padding>
-                           <Insets bottom="34" left="34" right="34" top="34" />
-                       </padding>
-      
-                       <ImageView fitHeight="36" fitWidth="45" preserveRatio="true">
-                           <Image url="@../icons/upload-icon.png" />
-                       </ImageView>
-      
-                       <VBox alignment="CENTER" spacing="6">
-                           <Label styleClass="upload-text" text="Drag and drop your PDF file here, or" />
-                           <Hyperlink styleClass="browse-link" text="browse files" />
-                       </VBox>
-      
-                       <Label styleClass="file-size-limit" text="Maximum file size: 10MB" />
-                   </VBox>
-      
-                   <HBox alignment="CENTER_RIGHT" spacing="16">
-                       <Button styleClass="btn-secondary" text="Cancel" />
-                       <Button styleClass="btn-primary" text="Save Document" />
-                   </HBox>
-               </VBox>
-           </VBox>
-      </children>
-   </StackPane>
+                        <VBox spacing="8" HBox.hgrow="ALWAYS">
+                            <Label styleClass="form-label" text="Title" />
+                            <TextField promptText="Enter document title" />
+                        </VBox>
+                    </HBox>
 
-    <HBox alignment="CENTER" styleClass="footer">
-        <Label text="© 2025 DocuVault. All rights reserved." />
-    </HBox>
+                    <VBox spacing="8">
+                        <Label styleClass="form-label" text="Description" />
+                        <TextArea prefRowCount="4" promptText="Enter document description" />
+                    </VBox>
 
+                    <HBox spacing="24">
+                        <VBox spacing="8" HBox.hgrow="ALWAYS">
+                            <Label styleClass="form-label" text="Department" />
+                            <ComboBox prefWidth="Infinity" />
+                        </VBox>
+
+                        <VBox spacing="8" HBox.hgrow="ALWAYS">
+                            <Label styleClass="form-label" text="Classification" />
+                            <ComboBox prefWidth="Infinity" />
+                        </VBox>
+                    </HBox>
+
+                    <VBox spacing="8">
+                        <Label styleClass="form-label" text="Deadline Date (Optional)" />
+                        <DatePicker prefWidth="Infinity" promptText="mm/dd/yyyy" />
+                    </VBox>
+
+                    <VBox alignment="CENTER" spacing="16" styleClass="upload-zone">
+                        <padding>
+                            <Insets bottom="34" left="34" right="34" top="34" />
+                        </padding>
+
+                        <ImageView fitHeight="36" fitWidth="45" preserveRatio="true">
+                            <Image url="@../icons/upload-icon.png" />
+                        </ImageView>
+
+                        <VBox alignment="CENTER" spacing="6">
+                            <Label styleClass="upload-text" text="Drag and drop your PDF file here, or" />
+                            <Hyperlink styleClass="browse-link" text="browse files" />
+                        </VBox>
+
+                        <Label styleClass="file-size-limit" text="Maximum file size: 10MB" />
+                    </VBox>
+
+                    <HBox alignment="CENTER_RIGHT" spacing="16">
+                        <Button styleClass="btn-secondary" text="Cancel" />
+                        <Button styleClass="btn-primary" text="Save Document" />
+                    </HBox>
+                </VBox>
+            </VBox>
+        </StackPane>
+    </children>
 </VBox>
