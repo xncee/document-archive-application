@@ -11,14 +11,22 @@ public class FieldsValidator {
     }
 
     public static boolean validateName(String name) {
-        // name should have at least 2 syllables.
-        return true;
+        if (isFieldEmpty(name)) return false;
+        // name should have at least 2 parts.
+        String nameRegex = "^(\\S+\\s+\\S+.*)$";
+        Pattern pattern=Pattern.compile(nameRegex);
+        Matcher matcher=pattern.matcher(name);
+        return matcher.matches();
     }
 
     public static boolean validateUsername(String username) {
+        if (isFieldEmpty(username)) return false;
         // username should only contain english letter, number and '_'.
         // username should be at least 4 characters long.
-        return true;
+        String usernameRegex = "^[a-zA-Z0-9_]{4,}$";
+        Pattern pattern = Pattern.compile(usernameRegex);
+        Matcher matcher = pattern.matcher(username);
+        return matcher.matches();
     }
 
     public static boolean validateEmail(String email) {
