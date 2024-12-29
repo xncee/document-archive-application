@@ -1,21 +1,25 @@
 package model.report;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
 import java.io.FileOutputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
-public class ExcelReportGenerator implements ReportGenerator {
-    public static void main(String[] args) throws Exception {
+public class ExcelReportGenerator extends ReportGenerator {
+    @Override
+    public boolean generate(List<Map<String, Object>> documents) {
+        if (documents.isEmpty()) {
+            throw new IllegalArgumentException("documents list is empty!");
+        }
         Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Transactions");
+        Sheet sheet = workbook.createSheet("Documents Report - "+ LocalDate.now());
 
-        // Create a CellStyle for borders
         CellStyle borderedStyle = workbook.createCellStyle();
         borderedStyle.setBorderTop(BorderStyle.THIN);
         borderedStyle.setBorderBottom(BorderStyle.THIN);
@@ -25,56 +29,36 @@ public class ExcelReportGenerator implements ReportGenerator {
         // Create a bold font for the header
         Font headerFont = workbook.createFont();
         headerFont.setBold(true);
+
         CellStyle headerStyle = workbook.createCellStyle();
         headerStyle.cloneStyleFrom(borderedStyle);
         headerStyle.setFont(headerFont);
 
+        // Get document columns
+        String[] columns = documents.get(0).keySet().toArray(new String[0]);
         // Create header row with borders
         Row header = sheet.createRow(0);
-        String[] columns = {"Department", "Transaction ID", "Subject", "Created Date", "Updated Date", "Status"};
         for (int i = 0; i < columns.length; i++) {
             Cell cell = header.createCell(i);
             cell.setCellValue(columns[i]);
-            cell.setCellStyle(headerStyle);
+            cell.setCellStyle(headerStyle); //
         }
 
-        // Fetch data from the model.database
-        try (Connection conn = DriverManager.getConnection(Dotenv.load().get("DATABASE_URL"));
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM transactions WHERE created_date BETWEEN ? AND ?")) {
-
-            stmt.setDate(1, java.sql.Date.valueOf("2023-12-01"));
-            stmt.setDate(2, java.sql.Date.valueOf("2025-12-25"));
-            ResultSet rs = stmt.executeQuery();
-
-            int rowNum = 1;
-            while (rs.next()) {
-                Row row = sheet.createRow(rowNum++);
-                Cell departmentCell = row.createCell(0);
-                departmentCell.setCellValue(rs.getString("department"));
-                departmentCell.setCellStyle(borderedStyle);
-
-                Cell transactionIdCell = row.createCell(1);
-                transactionIdCell.setCellValue(rs.getString("transaction_id"));
-                transactionIdCell.setCellStyle(borderedStyle);
-
-                Cell subjectCell = row.createCell(2);
-                subjectCell.setCellValue(rs.getString("subject"));
-                subjectCell.setCellStyle(borderedStyle);
-
-                Cell createdDateCell = row.createCell(3);
-                createdDateCell.setCellValue(rs.getString("created_date"));
-                createdDateCell.setCellStyle(borderedStyle);
-
-                Cell updatedDateCell = row.createCell(4);
-                updatedDateCell.setCellValue(rs.getString("updated_date"));
-                updatedDateCell.setCellStyle(borderedStyle);
-
-                Cell statusCell = row.createCell(5);
-                statusCell.setCellValue(rs.getString("status"));
-                statusCell.setCellStyle(borderedStyle);
-
-
+        // inserting each document in the table
+        int currentRow = 1; // start at row 1 as row 0 was used as header row.
+        int docIndex = 0; // current
+        while (docIndex < documents.size()) {
+            Map<String, Object> document = documents.get(docIndex);
+            Row row = sheet.createRow(currentRow);
+            for (int col = 0; col < columns.length; col++) {
+                Cell cell = row.createCell(col);
+                cell.setCellStyle(borderedStyle);
+                String value = String.valueOf(document.get(columns[col]));
+                cell.setCellValue(value);
             }
+
+            currentRow++;
+            docIndex++;
         }
 
         // Auto-size columns for better readability
@@ -82,11 +66,18 @@ public class ExcelReportGenerator implements ReportGenerator {
             sheet.autoSizeColumn(i);
         }
 
-        // Write to file
-        try (FileOutputStream fileOut = new FileOutputStream("Transaction_Report.xlsx")) {
-            workbook.write(fileOut);
+        File file = askForFileLocation(List.of("xlsx", "xls"));
+        if (file == null) {
+            return false;
         }
-        workbook.close();
-        System.out.println("Excel Report Generated: Transaction_Report.xlsx");
+        try (FileOutputStream fileOut = new FileOutputStream(file)) {
+            workbook.write(fileOut);
+            workbook.close();
+            //System.out.println("Excel Report Generated: "+file.getAbsolutePath());
+            return true;
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

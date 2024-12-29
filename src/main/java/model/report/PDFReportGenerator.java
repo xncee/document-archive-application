@@ -7,48 +7,60 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
 import io.github.cdimascio.dotenv.Dotenv;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
+import java.util.Map;
 
-public class PDFReportGenerator implements ReportGenerator{
-    public static void main(String[] args) throws Exception {
-        String fileName = "Transaction_Report.model.pdf";
-
-        PdfWriter writer = new PdfWriter(fileName);
+public class PDFReportGenerator extends ReportGenerator {
+    @Override
+    public boolean generate(List<Map<String, Object>> documents) {
+        if (documents.isEmpty()) {
+            throw new IllegalArgumentException("documents list is empty!");
+        }
+        File file = askForFileLocation(List.of("pdf"));
+        if (file ==  null) {
+            return false;
+        }
+        PdfWriter writer = null;
+        try {
+            writer = new PdfWriter(file.getAbsolutePath());
+        }
+        catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         PdfDocument pdf = new PdfDocument(writer);
-        Document document = new Document(pdf);
+        Document PDFDocument = new Document(pdf);
+        String[] columns = documents.get(0).keySet().toArray(new String[0]);
 
-        // Create a table with 4 columns
-        Table table = new Table(new float[]{2, 3, 2, 3});
+        // create table with the required number of columns
+        Table table = new Table(new float[columns.length]);
         table.setWidthPercent(100); // Set table width to 100% of the page
 
         // Add table header (first row)
-        table.addHeaderCell(createStyledCell("Transaction ID", true));
-        table.addHeaderCell(createStyledCell("Subject", true));
-        table.addHeaderCell(createStyledCell("Status", true));
-        table.addHeaderCell(createStyledCell("Date", true));
-
-        try (Connection conn = DriverManager.getConnection(Dotenv.load().get("DATABASE_URL"));
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM transactions WHERE created_date BETWEEN ? AND ?")) {
-
-            stmt.setDate(1, java.sql.Date.valueOf("2023-12-01"));
-            stmt.setDate(2, java.sql.Date.valueOf("2025-12-25"));
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                table.addCell(createStyledCell(rs.getString("transaction_id"), false));
-                table.addCell(createStyledCell(rs.getString("subject"), false));
-                table.addCell(createStyledCell(rs.getString("status"), false));
-                table.addCell(createStyledCell(rs.getString("created_date"), false));
-            }
+        for (String column: columns) {
+            table.addHeaderCell(createStyledCell(column, true));
         }
 
-        // Add the table to the document
-        document.add(table);
-        document.close();
-        System.out.println("PDF Report Generated: " + fileName);
+        int i = 0;
+        while (i < documents.size()) {
+            Map<String, Object> document = documents.get(i);
+            for (String column: columns) {
+                String value = String.valueOf(document.get(column));
+                table.addCell(createStyledCell(value, false));
+            }
+            i++;
+        }
+
+        // Add the table to the PDFDocument
+        PDFDocument.add(table);
+        PDFDocument.close();
+        //System.out.println("PDF Report Generated: " + file.getAbsolutePath());
+        return true;
     }
 
     private static Cell createStyledCell(String content, boolean isHeader) {
