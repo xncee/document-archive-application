@@ -6,19 +6,17 @@ import java.util.Map;
 
 public class DBFacade {
     private final String USERS_TABLE = "users";
-    private final DBManager dbManager;
+    private static DBManager dbManager = null;
 
     public DBFacade(String dbUrl) {
         try {
-            dbManager = new DBManager(dbUrl);
+            if (dbManager == null) {
+                dbManager = new DBManager(dbUrl);
+            }
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public DBManager getDbManager() {
-        return dbManager;
     }
 
     public boolean addUser(String username, String email, String password, String name) throws SQLException {
