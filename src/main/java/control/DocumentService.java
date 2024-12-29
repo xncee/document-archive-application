@@ -15,11 +15,11 @@ public class DocumentService {
     }
 
     private void initializeSampleData() {
-        documents.add(new Document("Annual Report 2024", "Finance", "Approved", "kjk", "/documents/annual-report-2024.pdf", null, null, null, null));
-        documents.add(new Document("Employee Handbook", "HR", "Under Review","class1" , "/documents/employee-handbook.pdf", null, null, null, null));
-        documents.add(new Document("Project Proposal", "Sales", "Draft", "class2", "/documents/project-proposal.pdf", null, null, null, null));
-        documents.add(new Document("Security Policy", "IT", "Approved", "class3", "/documents/security-policy.pdf", null, null, null, null));
-        documents.add(new Document("Marketing Plan", "Marketing", "Under Review", "class4", "/documents/marketing-plan.pdf", null, null, null, null));
+//        documents.add(new Document("Annual Report 2024", "Finance", "Approved", "kjk", "/documents/annual-report-2024.pdf", null, null, null, null));
+//        documents.add(new Document("Employee Handbook", "HR", "Under Review","class1" , "/documents/employee-handbook.pdf", null, null, null, null));
+//        documents.add(new Document("Project Proposal", "Sales", "Draft", "class2", "/documents/project-proposal.pdf", null, null, null, null));
+//        documents.add(new Document("Security Policy", "IT", "Approved", "class3", "/documents/security-policy.pdf", null, null, null, null));
+//        documents.add(new Document("Marketing Plan", "Marketing", "Under Review", "class4", "/documents/marketing-plan.pdf", null, null, null, null));
     }
 
     public ObservableList<Document> getAllDocuments() {
