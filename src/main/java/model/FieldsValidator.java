@@ -11,14 +11,26 @@ public class FieldsValidator {
     }
 
     public static boolean validateName(String name) {
-        // name should have at least 2 syllables.
-        return true;
+        if (name == null || name.trim().isEmpty()) {
+            return false;
+        }
+
+        // Split the name into first and last name
+        String[] nameParts = name.trim().split("\\s+");
+
+        // Validate the first and last names individually
+        return nameParts.length == 2;
     }
 
     public static boolean validateUsername(String username) {
-        // username should only contain english letter, number and '_'.
-        // username should be at least 4 characters long.
-        return true;
+        if (username == null || username.length() < 4) {
+            return false;
+        }
+
+        // Regex pattern for only letters (upper or lower case), numbers, and underscores
+        String pattern = "^[a-zA-Z0-9_]+$";
+
+        return username.matches(pattern);
     }
 
     public static boolean validateEmail(String email) {
