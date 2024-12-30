@@ -1,5 +1,8 @@
 package model.database;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -64,8 +67,15 @@ public class DBFacade {
         return dbManager.delete(USERS_TABLE, id);
     }
 
-    public boolean addActivity(String documentId, int userId, String description, LocalDateTime datetime) {
-        return true;
+    public boolean addActivity(String documentId, int userId, String description, LocalDateTime datetime) throws SQLException {
+        Map<String, Object> map = Map.of(
+                "documentId", documentId,
+                "userId", userId,
+                "description", description,
+                "datetime", datetime
+        );
+        return dbManager.insert("ActivityLog", map) > 0;
+
     }
     public int getStatusCount(String status) {
         return 0;
