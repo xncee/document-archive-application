@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 
-<HBox fx:id="titleBar" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="33.0" spacing="5.0" styleClass="title-bar" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.TitleBarController">
+<HBox fx:id="titleBar" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="33.0" spacing="5.0" styleClass="title-bar" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.TitleBarController">
     <stylesheets>
         <URL value="@../styles/titlebar-style.css" />
     </stylesheets>
