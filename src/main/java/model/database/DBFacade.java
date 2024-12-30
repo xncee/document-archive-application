@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 public class DBFacade {
+    private static DBFacade instance;
+
     private final String USERS_TABLE = "users";
     private static DBManager dbManager = null;
 
     public DBFacade(String dbUrl) {
-        if (dbManager != null) return;
+        // if (dbManager != null) return;
 
         try {
             dbManager = new DBManager(dbUrl);
@@ -21,9 +23,25 @@ public class DBFacade {
         }
     }
 
+    public static DBFacade getInstance(String dbUrl) {
+        if (instance == null) {
+            synchronized (DBFacade.class) {
+                if (instance == null) {
+                    instance = new DBFacade(dbUrl);
+                }
+            }
+        }
+
+        return instance;
+    }
+    public static DBFacade getInstance() {
+        return getInstance(null);
+    }
+
     public boolean isConnected() {
         return dbManager.isConnected();
     }
+
     public boolean addUser(String username, String email, String password, String name) throws SQLException {
         Map<String, Object> map = Map.of(
                 "username", username,
@@ -33,6 +51,7 @@ public class DBFacade {
         );
         return dbManager.insert("users", map) > 0;
     }
+
     public boolean authUser(String username, String password) throws SQLException {
         return dbManager.checkUser(username, password);
     }
