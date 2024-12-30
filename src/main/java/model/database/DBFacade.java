@@ -73,8 +73,8 @@ public class DBFacade {
                 "description", description,
                 "datetime", datetime
         );
-        dbManager.insert("ActivityLog", map);
-        return true;
+        return dbManager.insert("ActivityLog", map) > 0;
+
     }
     public int getStatusCount(String status) {
         return 0;
