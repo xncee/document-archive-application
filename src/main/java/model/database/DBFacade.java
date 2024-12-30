@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 public class DBFacade {
+    private static DBFacade instance;
+
     private final String USERS_TABLE = "users";
     private static DBManager dbManager = null;
 
     public DBFacade(String dbUrl) {
-        if (dbManager != null) return;
+        // if (dbManager != null) return;
 
         try {
             dbManager = new DBManager(dbUrl);
@@ -19,6 +21,21 @@ public class DBFacade {
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static DBFacade getInstance(String dbUrl) {
+        if (instance == null) {
+            synchronized (DBFacade.class) {
+                if (instance == null) {
+                    instance = new DBFacade(dbUrl);
+                }
+            }
+        }
+
+        return instance;
+    }
+    public static DBFacade getInstance() {
+        return getInstance(null);
     }
 
     public boolean isConnected() {
