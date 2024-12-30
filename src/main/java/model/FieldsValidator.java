@@ -1,11 +1,13 @@
 package model;
 
+import javafx.scene.control.TextField;
+
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FieldsValidator {
-
     private static boolean isFieldEmpty(String field) {
         return field == null || field.trim().isEmpty();
     }
@@ -18,7 +20,6 @@ public class FieldsValidator {
         // Split the name into first and last name
         String[] nameParts = name.trim().split("\\s+");
 
-        // Validate the first and last names individually
         return nameParts.length == 2;
     }
 
@@ -28,9 +29,9 @@ public class FieldsValidator {
         }
 
         // Regex pattern for only letters (upper or lower case), numbers, and underscores
-        String pattern = "^[a-zA-Z0-9_]+$";
-
-        return username.matches(pattern);
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9_]+$");
+        Matcher matcher = pattern.matcher(username);
+        return matcher.matches();
     }
 
     public static boolean validateEmail(String email) {
