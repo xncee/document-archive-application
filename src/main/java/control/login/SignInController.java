@@ -1,4 +1,4 @@
-package control;
+package control.login;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

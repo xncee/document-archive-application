@@ -1,4 +1,4 @@
-package control;
+package control.filter;
 
 import java.util.List;
 import java.util.ArrayList;

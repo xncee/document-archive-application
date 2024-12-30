@@ -1,4 +1,4 @@
-package control;
+package control.filter;
 
 import javafx.fxml.FXML;
 import javafx.scene.AccessibleRole;

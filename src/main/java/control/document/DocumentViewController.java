@@ -1,4 +1,4 @@
-package control;
+package control.document;
 
 public class DocumentViewController {
 
