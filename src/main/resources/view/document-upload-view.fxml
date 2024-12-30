@@ -20,7 +20,6 @@
         <URL value="@../styles/document-upload.css" />
     </stylesheets>
     <children>
-        <fx:include source="titlebar.fxml" />
         <fx:include source="header.fxml" />
 
         <StackPane>
