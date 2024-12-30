@@ -16,6 +16,7 @@ public class DBFacade {
 
         try {
             dbManager = new DBManager(dbUrl);
+            instance = this;
             System.out.println("Connected to database.");
         }
         catch (SQLException e) {
