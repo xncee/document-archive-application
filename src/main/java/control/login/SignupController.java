@@ -29,14 +29,19 @@ public class SignupController {
     }
 
     @FXML
-    protected void handleSignup(ActionEvent event) {
-        if (validateForm()) {
-            // Implement signup logic
-
+    public void handleSignup(ActionEvent event) {
+        if (!validateForm()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill in all fields correctly and accept the terms.");
+            alert.showAndWait();
+            return;
         }
-        else {
-            //
-        }
+//        if (validateForm()) {
+//            // Implement signup logic
+//
+//        }
+//        else {
+//            //
+//        }
     }
 
     @FXML

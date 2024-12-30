@@ -1,5 +1,6 @@
 .signup-container {
     -fx-background-color: #fafafa;
+    -fx-alignment: center;
     -fx-padding: 315 80;
 }
 
@@ -7,35 +8,50 @@
     -fx-background-color: white;
     -fx-background-radius: 8;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
+    -fx-max-width: 448;
     -fx-padding: 32 30;
 }
 
-.header-section {
+.signup-header {
+    -fx-alignment: center;
     -fx-padding: 3 45;
 }
 
+.logo-wrapper {
+    -fx-min-height: 36;
+    -fx-pref-width: 32;
+}
+
 .signup-title {
+    -fx-text-fill: #171717;
     -fx-font-family: "Inter";
     -fx-font-size: 30;
     -fx-font-weight: bold;
-    -fx-text-fill: #171717;
+    -fx-padding: 24 0 0 0;
 }
 
 .signup-subtitle {
+    -fx-text-fill: #525252;
     -fx-font-family: "Inter";
     -fx-font-size: 14;
-    -fx-text-fill: #525252;
+    -fx-padding: 17 0 0 0;
+}
+
+.signup-form {
+    -fx-padding: 32 0 0 0;
+    -fx-spacing: 13;
 }
 
 .form-group {
-    -fx-spacing: 9;
+    -fx-padding: 2;
 }
 
 .form-label {
+    -fx-text-fill: #404040;
     -fx-font-family: "Inter";
     -fx-font-size: 14;
     -fx-font-weight: 500;
-    -fx-text-fill: #404040;
+    -fx-padding: 1 0 9 0;
 }
 
 .form-input {
@@ -45,7 +61,13 @@
     -fx-border-radius: 6;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
     -fx-pref-height: 42;
-    -fx-padding: 8 12;
+    -fx-padding: 0 12;
+}
+
+.terms-group {
+    -fx-padding: 21 16 0 0;
+    -fx-spacing: 12;
+    -fx-alignment: center-left;
 }
 
 .terms-checkbox {
@@ -53,40 +75,47 @@
     -fx-pref-height: 16;
 }
 
+.terms-text {
+    -fx-text-fill: #525252;
+    -fx-font-family: "Inter";
+    -fx-font-size: 14;
+    -fx-alignment: center-left;
+    -fx-spacing: 4;
+}
+
+.terms-link {
+    -fx-text-fill: #171717;
+    -fx-underline: false;
+}
+
 .submit-button {
     -fx-background-color: #262626;
-    -fx-background-radius: 6;
     -fx-text-fill: white;
     -fx-font-family: "Inter";
     -fx-font-size: 14;
     -fx-font-weight: 500;
-    -fx-padding: 12;
+    -fx-background-radius: 6;
+    -fx-padding: 14;
     -fx-cursor: hand;
+    -fx-margin: 23 0 0 0;
+}
+
+.login-prompt {
+    -fx-alignment: center;
+    -fx-padding: 29 0 0 0;
 }
 
 .login-text {
+    -fx-text-fill: #525252;
     -fx-font-family: "Inter";
     -fx-font-size: 14;
-    -fx-text-fill: #525252;
 }
 
 .login-link {
+    -fx-text-fill: #171717;
     -fx-font-family: "Inter";
     -fx-font-size: 16;
     -fx-font-weight: 500;
-    -fx-text-fill: #171717;
-}
-
-@media screen and (max-width: 991) {
-    .signup-container {
-        -fx-padding: 100 20;
-    }
-
-    .signup-card {
-        -fx-padding: 0 20;
-    }
-
-    .header-section {
-        -fx-padding: 0 20;
-    }
+    -fx-underline: false;
+    -fx-padding: 6 0 0 0;
 }
