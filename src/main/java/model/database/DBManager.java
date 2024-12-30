@@ -10,6 +10,15 @@ public class DBManager {
         connection = DriverManager.getConnection(dbUrl);
     }
 
+    public boolean isConnected() {
+        try {
+            return connection != null && connection.isValid(2); // Timeout in seconds
+        }
+        catch (SQLException e) {
+            return false;
+        }
+    }
+
     public List<Map<String, String>> search(String table, Object value, boolean match, String... columns) {
         List<Map<String, String>> results = new ArrayList<>();
 
