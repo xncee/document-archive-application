@@ -1,6 +1,5 @@
 package control;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,12 +13,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Document;
+import model.report.ReportGenerator;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -27,6 +27,7 @@ import java.time.LocalDate;
 public class DashboardController {
     @FXML
     private Button addDocumentButton;
+
     @FXML
     private Button filterButton;
 
@@ -58,6 +59,10 @@ public class DashboardController {
 
     @FXML
     private void initialize() {
+        // getStatusCount("pending")
+        // getStatusCount("recent") // last 24 hours
+        // getStatusCount() // all
+
         documentTable.getStylesheets().add(getClass().getResource("/styles/table-style.css").toExternalForm());
         setupTableColumns();
         loadDocuments();
@@ -114,16 +119,13 @@ public class DashboardController {
 
     @FXML
     private void handleGenerateReport(ActionEvent event) {
-        // Implementation for generating a model.report
+
     }
 
     @FXML
     private void handleAddDocument(ActionEvent event) throws IOException {
-        Stage stage = (Stage) addDocumentButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/document-upload-view.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
+        //ContentSwitcher contentSwitcher = new ContentSwitcher(borderPane);
+        //contentSwitcher.switchContent(event, "/view/document-upload-view.fxml");
     }
 
     @FXML
