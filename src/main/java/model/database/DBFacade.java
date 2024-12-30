@@ -1,6 +1,7 @@
 package model.database;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,9 @@ public class DBFacade {
         return dbManager.delete(USERS_TABLE, id);
     }
 
+    public boolean addActivity(String documentId, int userId, String description, LocalDateTime datetime) {
+        return true;
+    }
     public int getStatusCount(String status) {
         return 0;
     }
