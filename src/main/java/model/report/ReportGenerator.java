@@ -5,6 +5,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,5 +55,5 @@ public abstract class ReportGenerator {
         return selectedFile;
     }
 
-    public abstract boolean generate(List<Map<String, Object>> documents);
+    public abstract boolean generate(List<LinkedHashMap<String, Object>> documents);
 }
