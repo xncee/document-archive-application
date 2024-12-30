@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="header" alignment="CENTER" prefHeight="80.0" styleClass="header-content" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.HeaderController">
+<VBox fx:id="header" alignment="CENTER" prefHeight="80.0" styleClass="header-content" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.HeaderController">
     <stylesheets>
         <URL value="@../styles/header-style.css" />
     </stylesheets>

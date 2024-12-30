@@ -9,16 +9,20 @@ public class DBFacade {
     private static DBManager dbManager = null;
 
     public DBFacade(String dbUrl) {
+        if (dbManager != null) return;
+
         try {
-            if (dbManager == null) {
-                dbManager = new DBManager(dbUrl);
-            }
+            dbManager = new DBManager(dbUrl);
+            System.out.println("Connected to database.");
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public boolean isConnected() {
+        return dbManager.isConnected();
+    }
     public boolean addUser(String username, String email, String password, String name) throws SQLException {
         Map<String, Object> map = Map.of(
                 "username", username,
@@ -37,5 +41,9 @@ public class DBFacade {
     }
     public boolean removeUser(String id) {
         return dbManager.delete(USERS_TABLE, id);
+    }
+
+    public int getStatusCount(String status) {
+        return 0;
     }
 }

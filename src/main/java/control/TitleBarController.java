@@ -1,34 +1,28 @@
 package control;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-public class TitleBarController extends HBox {
+
+public class TitleBarController {
 
     @FXML
     private HBox titleBar;
 
     @FXML
-    private Region spacer;
-
-    @FXML
-    private Button minimizeButton;
-
-    @FXML
-    private Button maximizeButton;
+    private Region topRegion;
 
     @FXML
     private Button closeButton;
 
-    private double xOffset = 0;
-    private double yOffset = 0;
-
-    private Stage stage;
+    private static final int RESIZE_MARGIN = 5;
 
     // Resizing variables
     private boolean isResizing = false;
@@ -37,114 +31,99 @@ public class TitleBarController extends HBox {
     private double initialX;
     private double initialY;
 
-    private static final int RESIZE_MARGIN = 5;
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    private Stage getStage(Event event) {
+        return (Stage) (((Node) event.getSource()).getScene().getWindow());
+    }
 
     @FXML
-    private void handleClose() {
-        Stage stage = (Stage) titleBar.getScene().getWindow();
-        stage.close();
-    }
-    @FXML
-    private void handleMinimize() {
-        Stage stage = (Stage) titleBar.getScene().getWindow();
+    private void handleMinimize(ActionEvent event) {
+        Stage stage = getStage(event);
         stage.setIconified(true);
     }
 
     @FXML
     private void handleMaximize(ActionEvent event) {
-        Stage stage = (Stage) maximizeButton.getScene().getWindow();
-        stage.setFullScreen(!stage.isFullScreen());
-        stage.setFullScreenExitHint(""); // Optional: Hides fullscreen exit hint
+        Stage stage = getStage(event);
+        if (stage.isMaximized()) {
+            stage.setMaximized(false);
+        } else {
+            stage.setMaximized(true);
+        }
     }
 
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-        initialize();
+    @FXML
+    private void handleClose(ActionEvent event) {
+        Stage stage = getStage(event);
+        stage.close();
     }
 
-    private void initialize() {
-        // Add dragging functionality
-        spacer.setOnMousePressed(this::handleMousePressed);
-        spacer.setOnMouseDragged(this::handleMouseDragged);
-
-        // Minimize button action
-        if (minimizeButton != null) {
-            minimizeButton.setOnAction(event -> stage.setIconified(true));
-        }
-
-        // Maximize/Restore button action
-        if (maximizeButton != null) {
-            maximizeButton.setOnAction(event -> {
-                if (stage.isMaximized()) {
-                    stage.setMaximized(false);
-                } else {
-                    stage.setMaximized(true);
-                }
-            });
-        }
-
-        // Close button action
-        if (closeButton != null) {
-            closeButton.setOnAction(event -> stage.close());
-        }
-
-        // Add window resize functionality
-        addResizeFunctionality();
-    }
-
+    // Mouse events for dragging
+    @FXML
     private void handleMousePressed(MouseEvent event) {
         xOffset = event.getSceneX();
         yOffset = event.getSceneY();
     }
 
+    @FXML
     private void handleMouseDragged(MouseEvent event) {
+        Stage stage = getStage(event);
         if (!stage.isMaximized() && !isResizing) {
             stage.setX(event.getScreenX() - xOffset);
             stage.setY(event.getScreenY() - yOffset);
         }
     }
 
-    private void addResizeFunctionality() {
-        this.setOnMouseMoved(event -> {
-            double x = event.getX();
-            double y = event.getY();
+    // Mouse events for resizing
+    @FXML
+    private void handleMouseMoved(MouseEvent event) {
+        Stage stage = getStage(event);
+        double x = event.getX();
+        double y = event.getY();
 
-            boolean right = x > stage.getWidth() - RESIZE_MARGIN;
-            boolean bottom = y > stage.getHeight() - RESIZE_MARGIN;
+        boolean right = x > stage.getWidth() - RESIZE_MARGIN;
+        boolean bottom = y > stage.getHeight() - RESIZE_MARGIN;
 
-            if (right && bottom) {
-                this.setCursor(Cursor.SE_RESIZE);
-            } else if (right) {
-                this.setCursor(Cursor.E_RESIZE);
-            } else if (bottom) {
-                this.setCursor(Cursor.S_RESIZE);
-            } else {
-                this.setCursor(Cursor.DEFAULT);
+        if (right && bottom) {
+            titleBar.setCursor(Cursor.SE_RESIZE);
+        } else if (right) {
+            titleBar.setCursor(Cursor.E_RESIZE);
+        } else if (bottom) {
+            titleBar.setCursor(Cursor.S_RESIZE);
+        } else {
+            titleBar.setCursor(Cursor.DEFAULT);
+        }
+    }
+
+    @FXML
+    private void handleMousePressedForResize(MouseEvent event) {
+        if (titleBar.getCursor() == Cursor.SE_RESIZE || titleBar.getCursor() == Cursor.E_RESIZE || titleBar.getCursor() == Cursor.S_RESIZE) {
+            isResizing = true;
+            Stage stage = getStage(event);
+            initialWidth = stage.getWidth();
+            initialHeight = stage.getHeight();
+            initialX = event.getScreenX();
+            initialY = event.getScreenY();
+        }
+    }
+
+    @FXML
+    private void handleMouseDraggedForResize(MouseEvent event) {
+        Stage stage = getStage(event);
+        if (isResizing) {
+            if (titleBar.getCursor() == Cursor.SE_RESIZE || titleBar.getCursor() == Cursor.E_RESIZE) {
+                stage.setWidth(Math.max(300, initialWidth + (event.getScreenX() - initialX))); // Minimum width = 300
             }
-        });
-
-        this.setOnMousePressed(event -> {
-            if (this.getCursor() == Cursor.SE_RESIZE || this.getCursor() == Cursor.E_RESIZE || this.getCursor() == Cursor.S_RESIZE) {
-                isResizing = true;
-                initialWidth = stage.getWidth();
-                initialHeight = stage.getHeight();
-                initialX = event.getScreenX();
-                initialY = event.getScreenY();
+            if (titleBar.getCursor() == Cursor.SE_RESIZE || titleBar.getCursor() == Cursor.S_RESIZE) {
+                stage.setHeight(Math.max(200, initialHeight + (event.getScreenY() - initialY))); // Minimum height = 200
             }
-        });
+        }
+    }
 
-        this.setOnMouseDragged(event -> {
-            if (isResizing) {
-                if (this.getCursor() == Cursor.SE_RESIZE || this.getCursor() == Cursor.E_RESIZE) {
-                    stage.setWidth(Math.max(300, initialWidth + (event.getScreenX() - initialX))); // Minimum width = 300
-                }
-                if (this.getCursor() == Cursor.SE_RESIZE || this.getCursor() == Cursor.S_RESIZE) {
-                    stage.setHeight(Math.max(200, initialHeight + (event.getScreenY() - initialY))); // Minimum height = 200
-                }
-            }
-        });
-
-        this.setOnMouseReleased(event -> isResizing = false);
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        isResizing = false;
     }
 }

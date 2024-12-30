@@ -1,4 +1,4 @@
-package control;
+package control.login;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,11 +19,29 @@ public class SignupController {
     @FXML private PasswordField confirmPasswordField;
     @FXML private CheckBox termsCheckbox;
 
+    private boolean validateForm() {
+        return !usernameField.getText().isEmpty() &&
+                !emailField.getText().isEmpty() &&
+                !fullnameField.getText().isEmpty() &&
+                !passwordField.getText().isEmpty() &&
+                passwordField.getText().equals(confirmPasswordField.getText()) &&
+                termsCheckbox.isSelected();
+    }
+
     @FXML
-    protected void handleSignup(ActionEvent event) {
-        if (validateForm()) {
-            // Implement signup logic
+    public void handleSignup(ActionEvent event) {
+        if (!validateForm()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill in all fields correctly and accept the terms.");
+            alert.showAndWait();
+            return;
         }
+//        if (validateForm()) {
+//            // Implement signup logic
+//
+//        }
+//        else {
+//            //
+//        }
     }
 
     @FXML
@@ -36,13 +54,5 @@ public class SignupController {
 
         stage.setScene(scene);
         stage.show();
-    }
-    private boolean validateForm() {
-        return !usernameField.getText().isEmpty() &&
-                !emailField.getText().isEmpty() &&
-                !fullnameField.getText().isEmpty() &&
-                !passwordField.getText().isEmpty() &&
-                passwordField.getText().equals(confirmPasswordField.getText()) &&
-                termsCheckbox.isSelected();
     }
 }

@@ -1,75 +1,74 @@
-.main-container {
+.login-container {
     -fx-background-color: #fafafa;
+    -fx-font-family: "System";
 }
 
 .login-card {
     -fx-background-color: white;
-    -fx-background-radius: 8px;
-    -fx-max-width: 400px;
     -fx-padding: 32px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);
 }
 
-.header-container {
-    -fx-padding: 0 0 24px 0;
+.logo {
+    -fx-preserve-ratio: true;
 }
 
-.logo-container {
-    -fx-min-height: 36px;
-    -fx-min-width: 40px;
-    -fx-alignment: center;
-}
-
-.title {
-    -fx-font-family: "Inter";
+.app-title {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: #000000;
 }
 
-.subtitle {
-    -fx-font-family: "Inter";
+.app-description {
     -fx-font-size: 16px;
     -fx-text-fill: #737373;
 }
 
-.form-container {
-    -fx-spacing: 16px;
-    -fx-min-width: 336px;
-}
-
-.input-label {
-    -fx-font-family: "Inter";
+.form-label {
     -fx-font-size: 14px;
-    -fx-font-weight: 500;
+    -fx-font-weight: bold;
     -fx-text-fill: #404040;
 }
 
-.input-field {
-    -fx-background-color: white;
-    -fx-border-color: #d4d4d4;
-    -fx-border-radius: 6px;
+.form-input {
+    -fx-pref-height: 42px;
     -fx-background-radius: 6px;
-    -fx-padding: 12px;
-    -fx-font-size: 16px;
-    -fx-prompt-text-fill: #adaebc;
+    -fx-border-radius: 6px;
+    -fx-border-color: #d4d4d4;
+    -fx-border-width: 1px;
+    -fx-padding: 0 12px;
 }
 
-.input-field:focused {
+.form-input:focused {
     -fx-border-color: #262626;
-    -fx-border-width: 2px;
 }
 
-.remember-checkbox {
+.remember-me {
     -fx-font-size: 14px;
     -fx-text-fill: #525252;
+}
+
+.remember-me .box {
+    -fx-background-color: white;
+    -fx-border-color: #000000;
+    -fx-border-width: 0.5px;
+    -fx-border-radius: 1px;
+    -fx-pref-width: 13px;
+    -fx-pref-height: 13px;
+}
+
+.forgot-password {
+    -fx-font-size: 14px;
+    -fx-text-fill: #525252;
+    -fx-underline: false;
 }
 
 .login-button {
     -fx-background-color: #262626;
     -fx-text-fill: white;
     -fx-font-size: 16px;
-    -fx-padding: 12px;
+    -fx-pref-height: 40px;
     -fx-background-radius: 6px;
     -fx-cursor: hand;
 }
@@ -78,47 +77,36 @@
     -fx-background-color: #404040;
 }
 
+.register-prompt {
+    -fx-font-size: 14px;
+    -fx-text-fill: #525252;
+}
+
 .register-link {
     -fx-font-size: 14px;
     -fx-text-fill: #262626;
     -fx-underline: false;
 }
 
-.footer-container {
+.terms-text {
+    -fx-font-size: 14px;
+    -fx-fill: #525252;
+}
+
+.legal-link {
     -fx-font-size: 14px;
     -fx-text-fill: #525252;
-}
-
-.hyperlink {
-    -fx-border-width: 0;
-    -fx-text-fill: #525252;
-    -fx-underline: false;
-}
-
-.hyperlink:hover {
     -fx-underline: true;
 }
 
-.hyperlink:focused {
-    -fx-border-color: #262626;
-    -fx-border-width: 1px;
-    -fx-border-radius: 3px;
+.form-group {
+    -fx-spacing: 4;
 }
 
-/* Accessibility Enhancements */
-:focused {
-    -fx-focus-color: #262626;
-    -fx-faint-focus-color: #26262622;
+.login-form {
+    -fx-spacing: 16;
 }
 
-.root {
-    -fx-font-smoothing-type: gray;
+.login-footer {
+    -fx-spacing: 6;
 }
-
-@supports (-fx-focus-visible: true) {
-    :focus-visible {
-        -fx-focus-color: #262626;
-        -fx-faint-focus-color: #26262622;
-    }
-}
-</

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="540.0" maxWidth="480.0" minHeight="560.0" minWidth="480.0" prefHeight="560.0" prefWidth="480.0" spacing="20" styleClass="filter-container" HBox.hgrow="NEVER" VBox.vgrow="NEVER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.FilterResultsController">
+<VBox alignment="CENTER" maxHeight="540.0" maxWidth="480.0" minHeight="560.0" minWidth="480.0" prefHeight="560.0" prefWidth="480.0" spacing="20" styleClass="filter-container" HBox.hgrow="NEVER" VBox.vgrow="NEVER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.filter.FilterResultsController">
     <stylesheets>
         <URL value="@../styles/results-filter.css" />
     </stylesheets>
