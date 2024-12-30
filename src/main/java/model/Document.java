@@ -2,28 +2,30 @@ package model;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Document {
-    private final String id;
-    private final String uploaderId;  // Conventionally, use camel case
-    private final String title;
-    private final String description;
-    private final String department;
-    private final String classification;
-    private final String status;
-    private final LocalDate createdDate;
-    private final LocalDate updatedDate;
-    private final String filePath;
+    private String id;
+    private String uploaderId;
+    private String title;
+    private String description;
+    private String department;
+    private String classification;
+    private String status;
+    private LocalDate deadline;
+    private LocalDate createdDate;
+    private LocalDate updatedDate;
+    private String filePath;
 
     // Constructor
-    public Document(String uploaderId, String title, String description, String department,
+    public Document(String status, String uploaderId, String title, String description, String department,
                     String classification, String filePath,
-                    String id, String status, LocalDate createdDate, LocalDate updatedDate) {
+                    String id, LocalDate deadline, LocalDate createdDate, LocalDate updatedDate) {
 
         // Validate mandatory fields
-        if (uploaderId == null || title == null || description == null || department == null ||
-                classification == null || filePath == null) {
+        if (status == null || uploaderId == null || title == null || description == null || department == null ||
+                classification == null) {
             throw new IllegalArgumentException("Required fields cannot be null");
         }
 
@@ -34,18 +36,18 @@ public class Document {
         this.description = description;
         this.department = department;
         this.classification = classification;
-        this.status = status; // status can be null, if not provided
+        this.status = status;
+        this.deadline = deadline; // deadline can be null
         this.createdDate = (createdDate != null) ? createdDate : LocalDate.now(); // Default created date
         this.updatedDate = (updatedDate != null) ? updatedDate : LocalDate.now(); // Default updated date
-        this.filePath = filePath;
+        this.filePath = filePath; // filePath can be null if the user didn't upload a file
 
         // Validate file path (optional)
-        if (!new File(filePath).exists()) {
+        if (filePath!= null && !new File(filePath).exists()) {
             throw new IllegalArgumentException("File does not exist at the given file path");
         }
     }
 
-    // Getter for uploaderId
     public String getUploaderId() {
         return uploaderId;
     }
@@ -75,6 +77,10 @@ public class Document {
         return status;
     }
 
+    public LocalDate getDeadline() {
+        return deadline;
+    }
+
     public LocalDate getCreatedDate() {
         return createdDate;
     }
@@ -92,10 +98,8 @@ public class Document {
         return "DOC-" + System.currentTimeMillis();
     }
 
-    // Custom toString method with date formatting
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
         return "Document{" +
                 "id='" + id + '\'' +
                 ", uploaderId='" + uploaderId + '\'' +
@@ -104,8 +108,9 @@ public class Document {
                 ", department='" + department + '\'' +
                 ", classification='" + classification + '\'' +
                 ", status='" + status + '\'' +
-                ", createdDate=" + createdDate.format(formatter) +
-                ", updatedDate=" + updatedDate.format(formatter) +
+                ", deadline=" + deadline +
+                ", createdDate=" + createdDate +
+                ", updatedDate=" + updatedDate +
                 ", filePath='" + filePath + '\'' +
                 '}';
     }
