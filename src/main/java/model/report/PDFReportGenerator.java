@@ -13,12 +13,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PDFReportGenerator extends ReportGenerator {
     @Override
-    public boolean generate(List<Map<String, Object>> documents) {
+    public boolean generate(List<LinkedHashMap<String, Object>> documents) {
         if (documents.isEmpty()) {
             throw new IllegalArgumentException("documents list is empty!");
         }
