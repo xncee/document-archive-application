@@ -1,35 +1,30 @@
 package model;
 
-import javafx.scene.control.TextField;
-
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FieldsValidator {
+
     private static boolean isFieldEmpty(String field) {
         return field == null || field.trim().isEmpty();
     }
 
     public static boolean validateName(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            return false;
-        }
-
-        // Split the name into first and last name
-        String[] nameParts = name.trim().split("\\s+");
-
-        return nameParts.length == 2;
+        if (isFieldEmpty(name)) return false;
+        // name should have at least 2 parts.
+        String nameRegex = "^(\\S+\\s+\\S+.*)$";
+        Pattern pattern=Pattern.compile(nameRegex);
+        Matcher matcher=pattern.matcher(name);
+        return matcher.matches();
     }
 
     public static boolean validateUsername(String username) {
-        if (username == null || username.length() < 4) {
-            return false;
-        }
-
-        // Regex pattern for only letters (upper or lower case), numbers, and underscores
-        Pattern pattern = Pattern.compile("^[a-zA-Z0-9_]+$");
+        if (isFieldEmpty(username)) return false;
+        // username should only contain english letter, number and '_'.
+        // username should be at least 4 characters long.
+        String usernameRegex = "^[a-zA-Z0-9_]{4,}$";
+        Pattern pattern = Pattern.compile(usernameRegex);
         Matcher matcher = pattern.matcher(username);
         return matcher.matches();
     }
