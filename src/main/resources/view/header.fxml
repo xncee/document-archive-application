@@ -10,54 +10,71 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<!-- Header section of the page -->
 <VBox fx:id="header" alignment="CENTER" prefHeight="80.0" styleClass="header-content" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.HeaderController">
+    <!-- Including an external stylesheet for header styling -->
     <stylesheets>
         <URL value="@../styles/header-style.css" />
     </stylesheets>
+
+    <!-- Outer HBox container for the entire header section -->
     <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="1280.0">
         <children>
+            <!-- HBox for the brand section with logo and brand name -->
             <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="1099.0" styleClass="brand" HBox.hgrow="ALWAYS">
                 <HBox alignment="CENTER" prefHeight="23.0" prefWidth="143.0" spacing="16.0">
                     <children>
+                        <!-- Logo image displayed in the brand section -->
                         <ImageView fitHeight="24" fitWidth="27" preserveRatio="true" styleClass="logo" HBox.hgrow="ALWAYS">
                             <Image url="@../icons/logo.png" />
                         </ImageView>
+                        <!-- Brand name text -->
                         <Label styleClass="brand-name" text="DocuVault" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
+                <!-- Adding padding to the left side of the brand section -->
                 <padding>
                     <Insets left="24.0" />
                 </padding>
             </HBox>
 
-                                 <HBox alignment="CENTER_LEFT" fillHeight="false" maxHeight="40.0" prefHeight="40.0" prefWidth="114.0" spacing="2.0" styleClass="user-section" HBox.hgrow="ALWAYS">
-            <HBox HBox.hgrow="NEVER">
-               <children>
-                      <Button fx:id="notificationsButton" accessibleText="Notifications" alignment="CENTER" mnemonicParsing="false" onAction="#handleNotifications" styleClass="notification-button" textAlignment="CENTER" HBox.hgrow="NEVER">
-                          <graphic>
-                              <ImageView accessibleRole="BUTTON" focusTraversable="true" preserveRatio="true" styleClass="notification-icon">
-                                  <Image url="@../icons/notification-icon.png" />
-                           <viewport>
-                              <Rectangle2D />
-                           </viewport>
-                              </ImageView>
-                          </graphic>
-                      </Button>
-               </children>
+            <!-- HBox for user notification button section -->
+            <HBox alignment="CENTER_LEFT" fillHeight="false" maxHeight="40.0" prefHeight="40.0" prefWidth="114.0" spacing="2.0" styleClass="user-section" HBox.hgrow="ALWAYS">
+                <HBox HBox.hgrow="NEVER">
+                    <children>
+                        <!-- Button for notifications with associated icon -->
+                        <Button fx:id="notificationsButton" accessibleText="Notifications" alignment="CENTER" mnemonicParsing="false" onAction="#handleNotifications" styleClass="notification-button" textAlignment="CENTER" HBox.hgrow="NEVER">
+                            <graphic>
+                                <!-- Notification icon displayed on the button -->
+                                <ImageView accessibleRole="BUTTON" focusTraversable="true" preserveRatio="true" styleClass="notification-icon">
+                                    <Image url="@../icons/notification-icon.png" />
+                                    <!-- Defining the viewport for the notification icon -->
+                                    <viewport>
+                                        <Rectangle2D />
+                                    </viewport>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </HBox>
             </HBox>
 
-                                     <HBox alignment="CENTER_LEFT" styleClass="user-info" HBox.hgrow="NEVER">
-                    <Button fx:id="userInfoButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleUserInfo" styleClass="user-info-button" HBox.hgrow="NEVER">
-                        <graphic>
-                            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="5">
-                                <ImageView preserveRatio="true" styleClass="user-avatar">
-                                    <Image url="@../icons/user-avatar-icon.png" />
-                                </ImageView>
-                                <Label contentDisplay="CENTER" maxWidth="1.7976931348623157E308" styleClass="user-name" text="Saif Ak" HBox.hgrow="ALWAYS" />
-                            </HBox>
-                        </graphic>
-                    </Button>
-                </HBox>
+            <!-- HBox for user information section -->
+            <HBox alignment="CENTER_LEFT" styleClass="user-info" HBox.hgrow="NEVER">
+                <!-- Button for user info with avatar and name -->
+                <Button fx:id="userInfoButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleUserInfo" styleClass="user-info-button" HBox.hgrow="NEVER">
+                    <graphic>
+                        <!-- HBox containing user avatar and name -->
+                        <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="5">
+                            <!-- User avatar image -->
+                            <ImageView preserveRatio="true" styleClass="user-avatar">
+                                <Image url="@../icons/user-avatar-icon.png" />
+                            </ImageView>
+                            <!-- User name text -->
+                            <Label contentDisplay="CENTER" maxWidth="1.7976931348623157E308" styleClass="user-name" text="Saif Ak" HBox.hgrow="ALWAYS" />
+                        </HBox>
+                    </graphic>
+                </Button>
             </HBox>
         </children>
     </HBox>

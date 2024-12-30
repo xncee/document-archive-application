@@ -8,39 +8,51 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 
+<!-- Title Bar for the window with buttons for minimize, maximize, and close -->
 <HBox fx:id="titleBar" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="33.0" spacing="5.0" styleClass="title-bar" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.TitleBarController">
+    <!-- Including an external stylesheet for title bar styling -->
     <stylesheets>
         <URL value="@../styles/titlebar-style.css" />
     </stylesheets>
-    <children>
-        <!-- Title Bar Region for Dragging (topRegion) -->
-        <Region fx:id="topRegion" maxWidth="Infinity" prefHeight="40.0" HBox.hgrow="ALWAYS" onMousePressed="#handleMousePressed" onMouseDragged="#handleMouseDragged" onMouseMoved="#handleMouseMoved" />
 
-        <!-- Buttons Section (Minimize, Maximize, Close) -->
+    <children>
+        <!-- Region for Dragging the window (topRegion) -->
+        <Region fx:id="topRegion" maxWidth="Infinity" prefHeight="40.0" HBox.hgrow="ALWAYS"
+                onMousePressed="#handleMousePressed" onMouseDragged="#handleMouseDragged" onMouseMoved="#handleMouseMoved" />
+        <!-- This region allows the user to drag the window by clicking and moving on the top bar -->
+
+        <!-- Section containing buttons (Minimize, Maximize, Close) aligned to the right -->
         <HBox alignment="CENTER" prefHeight="27.0" prefWidth="94.0" spacing="10.0">
             <children>
+                <!-- Minimize button -->
                 <Button fx:id="minimizeButton" mnemonicParsing="false" HBox.hgrow="ALWAYS" onAction="#handleMinimize">
                     <graphic>
+                        <!-- Minimize icon (ImageView) displayed inside the button -->
                         <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
                             <Image url="@../icons/minimize-icon.png" />
                         </ImageView>
                     </graphic>
                 </Button>
+                <!-- Maximize button -->
                 <Button fx:id="maximizeButton" mnemonicParsing="false" HBox.hgrow="ALWAYS" onAction="#handleMaximize">
                     <graphic>
+                        <!-- Maximize/Extend icon (ImageView) displayed inside the button -->
                         <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
                             <Image url="@../icons/extend-icon.png" />
                         </ImageView>
                     </graphic>
                 </Button>
+                <!-- Close button -->
                 <Button fx:id="closeButton" mnemonicParsing="false" HBox.hgrow="ALWAYS" onAction="#handleClose">
                     <graphic>
+                        <!-- Close icon (ImageView) displayed inside the button -->
                         <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
                             <Image url="@../icons/x-icon.png" />
                         </ImageView>
                     </graphic>
                 </Button>
             </children>
+            <!-- Adding margin to the right and top of the buttons section for spacing -->
             <HBox.margin>
                 <Insets right="5.0" top="5.0" />
             </HBox.margin>

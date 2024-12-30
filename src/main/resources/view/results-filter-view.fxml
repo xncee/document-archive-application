@@ -12,29 +12,38 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<!-- Main container for the filter section -->
 <VBox alignment="CENTER" maxHeight="540.0" maxWidth="480.0" minHeight="560.0" minWidth="480.0" prefHeight="560.0" prefWidth="480.0" spacing="20" styleClass="filter-container" HBox.hgrow="NEVER" VBox.vgrow="NEVER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.filter.FilterResultsController">
+    <!-- External stylesheet for styling the filter results section -->
     <stylesheets>
         <URL value="@../styles/results-filter.css" />
     </stylesheets>
 
+    <!-- Filter Header with title and close button -->
     <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="432.0" styleClass="filter-header">
         <Label styleClass="header-text" text="Filter Results" />
+        <!-- Spacer to push the close button to the right -->
         <Region prefHeight="38.0" prefWidth="256.0" HBox.hgrow="ALWAYS" />
+        <!-- Close button with an icon to close the filter panel -->
         <Button focusTraversable="true" mnemonicParsing="false" onKeyPressed="#handleCloseKeyPress" onMouseClicked="#handleClose" styleClass="close-button">
             <graphic>
                 <ImageView fitHeight="20.0" fitWidth="15.0" styleClass="close-icon">
                     <Image url="@../icons/x-icon.png" />
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
+                    <!-- Viewport for the close icon -->
+                    <viewport>
+                        <Rectangle2D />
+                    </viewport>
                 </ImageView>
             </graphic>
         </Button>
     </HBox>
 
+    <!-- Main content area for the filter options -->
     <VBox spacing="24" styleClass="filter-content">
+        <!-- Status filter section -->
         <VBox styleClass="filter-group">
             <Label styleClass="filter-label" text="Status" />
+            <!-- Buttons for selecting the status (Completed, Pending, Late) -->
             <HBox spacing="14" styleClass="status-buttons">
                 <Button mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="Completed">
                     <graphic>
@@ -60,32 +69,42 @@
             </HBox>
         </VBox>
 
+        <!-- Department filter dropdown -->
         <VBox styleClass="filter-group">
             <Label styleClass="filter-label" text="Department" />
+            <!-- ComboBox for selecting a department -->
             <ComboBox fx:id="departmentComboBox" maxHeight="40.0" maxWidth="432.0" minHeight="40.0" minWidth="432.0" onAction="#handleDepartmentSelect" prefHeight="40.0" prefWidth="432.0" styleClass="dropdown-select" />
         </VBox>
 
+        <!-- Classification filter dropdown -->
         <VBox styleClass="filter-group">
             <Label styleClass="filter-label" text="Classification" />
+            <!-- ComboBox for selecting a classification -->
             <ComboBox fx:id="classificationComboBox" maxHeight="40.0" maxWidth="432.0" minHeight="40.0" minWidth="432.0" onAction="#handleClassificationSelect" prefHeight="40.0" prefWidth="432.0" styleClass="dropdown-select" />
         </VBox>
 
+        <!-- Date Range filter section -->
         <VBox styleClass="filter-group">
             <Label styleClass="filter-label" text="Date Range" />
+            <!-- Date pickers for selecting start and end date -->
             <HBox alignment="CENTER" spacing="16">
                 <DatePicker fx:id="startDatePicker" onAction="#handleStartDateSelect" prefHeight="37.0" prefWidth="218.0" promptText="Start Date" styleClass="date-input" />
-            <Region prefHeight="37.0" prefWidth="0.0" />
+                <!-- Spacer between the two date pickers -->
+                <Region prefHeight="37.0" prefWidth="0.0" />
                 <DatePicker fx:id="endDatePicker" onAction="#handleEndDateSelect" prefHeight="37.0" prefWidth="211.0" promptText="End Date" styleClass="date-input" />
             </HBox>
         </VBox>
     </VBox>
 
+    <!-- Action buttons for resetting and applying filters -->
     <HBox alignment="CENTER_RIGHT" spacing="12" styleClass="filter-actions">
+        <!-- Reset button to clear all selections -->
         <Button mnemonicParsing="false" onAction="#handleReset" prefHeight="42.0" prefWidth="100.0" styleClass="reset-button">
             <graphic>
                 <Label styleClass="button-text" text="Reset" />
             </graphic>
         </Button>
+        <!-- Apply button to apply the selected filters -->
         <Button defaultButton="true" maxHeight="42.0" maxWidth="150.0" minHeight="42.0" minWidth="150.0" mnemonicParsing="false" onAction="#handleApply" prefHeight="42.0" prefWidth="150.0" styleClass="apply-button">
             <graphic>
                 <Label styleClass="button-text" text="Apply Filters" />
