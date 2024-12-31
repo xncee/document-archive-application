@@ -12,70 +12,81 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefWidth="1440.0" styleClass="signup-container" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.login.SignupController">
+<StackPane styleClass="signup-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.login.SignupController">
     <stylesheets>
         <URL value="@../styles/signup.css" />
     </stylesheets>
-   <StackPane prefWidth="1440.0" VBox.vgrow="ALWAYS">
-      <children>
-          <VBox alignment="CENTER" styleClass="signup-card">
-              <VBox styleClass="signup-header">
-                  <StackPane styleClass="logo-wrapper">
-                      <ImageView fitHeight="36" fitWidth="32" preserveRatio="true" styleClass="logo">
-                          <Image url="@../icons/user-icon.png" />
-                      </ImageView>
-                  </StackPane>
-      
-                  <Label styleClass="signup-title" text="Create your account" />
-                  <Label styleClass="signup-subtitle" text="Fill in your information to get started" />
-              </VBox>
-      
-              <VBox styleClass="signup-form">
-                  <VBox styleClass="form-group">
-                      <Label styleClass="form-label" text="Username *" />
-                      <TextField fx:id="username" promptText="Enter username" styleClass="form-input" />
-                  </VBox>
-      
-                  <VBox styleClass="form-group">
-                      <Label styleClass="form-label" text="Email address *" />
-                      <TextField fx:id="email" promptText="Enter email" styleClass="form-input" />
-                  </VBox>
-      
-                  <VBox styleClass="form-group">
-                      <Label styleClass="form-label" text="Full name *" />
-                      <TextField fx:id="fullname" promptText="Enter full name" styleClass="form-input" />
-                  </VBox>
-      
-                  <VBox styleClass="form-group">
-                      <Label styleClass="form-label" text="Password *" />
-                      <PasswordField fx:id="password" promptText="Enter password" styleClass="form-input" />
-                  </VBox>
-      
-                  <VBox styleClass="form-group">
-                      <Label styleClass="form-label" text="Confirm password *" />
-                      <PasswordField fx:id="confirmPassword" promptText="Confirm password" styleClass="form-input" />
-                  </VBox>
-      
-                  <HBox styleClass="terms-group">
-                      <CheckBox fx:id="termsCheckbox" styleClass="terms-checkbox" />
-                      <HBox alignment="TOP_CENTER" styleClass="terms-text">
-                          <Label text="I agree to the " />
-                          <Hyperlink styleClass="terms-link" text="Terms of Service" />
-                          <Label text=" and " />
-                          <Hyperlink styleClass="terms-link" text="Privacy Policy" />
-                          <Label text=" *" />
-                      </HBox>
-                  </HBox>
-      
-                  <Button onAction="#handleSignup" prefHeight="48.0" prefWidth="438.0" styleClass="submit-button" text="Create Account" VBox.vgrow="ALWAYS" />
-              </VBox>
-      
-              <VBox styleClass="login-prompt">
-                  <Label styleClass="login-text" text="Already have an account?" />
-                  <Hyperlink onAction="#handleSignin" styleClass="login-link" text="Sign in" />
-              </VBox>
-          </VBox>
-      </children>
-   </StackPane>
-</VBox>
+    <VBox alignment="CENTER" spacing="20" styleClass="signup-card">
+        <!-- Header Section -->
+        <VBox alignment="CENTER" spacing="10" styleClass="header-section">
+            <!-- Logo -->
+            <ImageView fitHeight="36" fitWidth="32" preserveRatio="true">
+                <Image url="@../icons/user-icon.png" />
+            </ImageView>
+
+            <!-- Title -->
+            <Label styleClass="signup-title" text="Create your account" />
+            <Label styleClass="signup-subtitle" text="Fill in your information to get started" />
+        </VBox>
+
+        <!-- Signup Form -->
+        <VBox spacing="15" styleClass="signup-form">
+            <!-- Username -->
+            <VBox spacing="5" styleClass="form-group">
+                <Label styleClass="form-label" text="Username *" />
+                <TextField fx:id="usernameField" promptText="Enter your username" styleClass="form-input" />
+            </VBox>
+
+            <!-- Email -->
+            <VBox spacing="5" styleClass="form-group">
+                <Label styleClass="form-label" text="Email address *" />
+                <TextField fx:id="emailField" promptText="Enter your email" styleClass="form-input" />
+            </VBox>
+
+            <!-- Fullname -->
+            <VBox spacing="5" styleClass="form-group">
+                <Label styleClass="form-label" text="Full name *" />
+                <TextField fx:id="fullnameField" promptText="Enter your full name" styleClass="form-input" />
+            </VBox>
+
+            <!-- Password -->
+            <VBox spacing="5" styleClass="form-group">
+                <Label styleClass="form-label" text="Password *" />
+                <PasswordField fx:id="passwordField" promptText="Enter your password" styleClass="form-input" />
+            </VBox>
+
+            <!-- Confirm Password -->
+            <VBox spacing="5" styleClass="form-group">
+                <Label styleClass="form-label" text="Confirm password *" />
+                <PasswordField fx:id="confirmPasswordField" promptText="Re-enter your password" styleClass="form-input" />
+            </VBox>
+            <!-- Terms Section -->
+             <HBox prefHeight="22.0" prefWidth="284.0" styleClass="terms-section">
+                <children>
+                   <CheckBox fx:id="termsCheckbox" mnemonicParsing="false" />
+                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="I agree to the" />
+                   <Hyperlink text="Terms of Service" />
+                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="and" />
+                   <Hyperlink text="Privacy Policy*" />
+                </children>
+             </HBox>
+            <VBox VBox.vgrow="ALWAYS">
+                <children>
+                    <!-- Make sure errorLabel is visible and can grow to fit its content -->
+                    <Label fx:id="errorLabel" styleClass="errorLabel" visible="false" wrapText="true" VBox.vgrow="NEVER" />
+                </children>
+            </VBox>
+
+            <!-- Submit Button -->
+            <Button fx:id="signupButton" defaultButton="true" maxWidth="Infinity" onAction="#handleSignup" styleClass="submit-button" text="Create Account" />
+        </VBox>
+
+        <!-- Login Section -->
+        <VBox alignment="CENTER" spacing="6" styleClass="login-section">
+            <Label styleClass="login-text" text="Already have an account?" />
+            <Hyperlink fx:id="signinLink" onAction="#handleSignin" styleClass="login-link" text="Sign in" />
+        </VBox>
+    </VBox>
+</StackPane>

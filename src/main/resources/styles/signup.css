@@ -1,121 +1,117 @@
+/* General Container */
 .signup-container {
     -fx-background-color: #fafafa;
-    -fx-alignment: center;
-    -fx-padding: 315 80;
+    -fx-padding: 100 20;
 }
 
+/* Signup Card */
 .signup-card {
-    -fx-background-color: white;
+    -fx-background-color: #fff;
+    -fx-border-radius: 8;
     -fx-background-radius: 8;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
-    -fx-max-width: 448;
     -fx-padding: 32 30;
-}
-
-.signup-header {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 2, 0, 0, 1);
+    -fx-spacing: 20;
     -fx-alignment: center;
-    -fx-padding: 3 45;
+    -fx-max-width: 448px;
 }
 
-.logo-wrapper {
-    -fx-min-height: 36;
-    -fx-pref-width: 32;
+/* Header Section */
+.header-section {
+    -fx-alignment: center;
+    -fx-spacing: 10;
 }
 
+/* Logo */
+.logo {
+    -fx-fit-width: 32;
+    -fx-fit-height: 36;
+}
+
+/* Titles */
 .signup-title {
     -fx-text-fill: #171717;
-    -fx-font-family: "Inter";
-    -fx-font-size: 30;
+    -fx-font-size: 30px;
     -fx-font-weight: bold;
-    -fx-padding: 24 0 0 0;
 }
 
 .signup-subtitle {
     -fx-text-fill: #525252;
-    -fx-font-family: "Inter";
-    -fx-font-size: 14;
-    -fx-padding: 17 0 0 0;
+    -fx-font-size: 14px;
 }
 
+/* Signup Form */
 .signup-form {
-    -fx-padding: 32 0 0 0;
-    -fx-spacing: 13;
+    -fx-spacing: 15;
 }
 
+/* Form Groups */
 .form-group {
-    -fx-padding: 2;
+    -fx-spacing: 5;
 }
 
 .form-label {
     -fx-text-fill: #404040;
-    -fx-font-family: "Inter";
-    -fx-font-size: 14;
+    -fx-font-size: 14px;
     -fx-font-weight: 500;
-    -fx-padding: 1 0 9 0;
 }
 
 .form-input {
-    -fx-background-color: white;
-    -fx-background-radius: 6;
+    -fx-background-color: #fff;
     -fx-border-color: #d4d4d4;
     -fx-border-radius: 6;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
-    -fx-pref-height: 42;
-    -fx-padding: 0 12;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12;
 }
 
-.terms-group {
-    -fx-padding: 21 16 0 0;
-    -fx-spacing: 12;
+/* Terms Section */
+.terms-section {
+    -fx-spacing: 10;
     -fx-alignment: center-left;
 }
 
 .terms-checkbox {
-    -fx-pref-width: 16;
-    -fx-pref-height: 16;
+    -fx-border-color: #d4d4d4;
+    -fx-border-radius: 1;
 }
 
 .terms-text {
     -fx-text-fill: #525252;
-    -fx-font-family: "Inter";
-    -fx-font-size: 14;
-    -fx-alignment: center-left;
-    -fx-spacing: 4;
+    -fx-font-size: 14px;
 }
 
 .terms-link {
-    -fx-text-fill: #171717;
-    -fx-underline: false;
+    -fx-fill: #171717;
+    -fx-underline: true;
 }
 
+.errorLabel {
+    -fx-font-size: 10px;
+    -fx-text-fill: red;
+}
+/* Submit Button */
 .submit-button {
     -fx-background-color: #262626;
     -fx-text-fill: white;
-    -fx-font-family: "Inter";
-    -fx-font-size: 14;
-    -fx-font-weight: 500;
+    -fx-border-radius: 6;
     -fx-background-radius: 6;
-    -fx-padding: 14;
-    -fx-cursor: hand;
-    -fx-margin: 23 0 0 0;
+    -fx-font-size: 14px;
+    -fx-padding: 12;
 }
 
-.login-prompt {
+/* Login Section */
+.login-section {
     -fx-alignment: center;
-    -fx-padding: 29 0 0 0;
+    -fx-spacing: 6;
 }
 
 .login-text {
     -fx-text-fill: #525252;
-    -fx-font-family: "Inter";
-    -fx-font-size: 14;
+    -fx-font-size: 14px;
 }
 
 .login-link {
     -fx-text-fill: #171717;
-    -fx-font-family: "Inter";
-    -fx-font-size: 16;
+    -fx-font-size: 16px;
     -fx-font-weight: 500;
-    -fx-underline: false;
-    -fx-padding: 6 0 0 0;
 }

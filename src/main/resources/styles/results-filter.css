@@ -1,134 +1,156 @@
+/* Filter container styling */
 .filter-container {
-    -fx-background-color: white;
-    -fx-padding: 24px;
-    -fx-border-radius: 8px;
-    -fx-background-radius: 8px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);
+    -fx-background-color: white; /* White background for filter container */
+    -fx-padding: 24px; /* Padding inside the filter container */
+    -fx-border-radius: 8px; /* Rounded corners */
+    -fx-background-radius: 8px; /* Rounded background corners */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4); /* Drop shadow effect for subtle depth */
 }
 
+/* Filter header styling */
 .filter-header {
-    -fx-padding: 4px 0;
+    -fx-padding: 4px 0; /* Padding on top and bottom of the header */
 }
 
+/* Header text styling */
 .header-text {
-    -fx-font-family: "Inter";
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
+    -fx-font-family: "Inter"; /* Font family */
+    -fx-font-size: 18px; /* Font size for header */
+    -fx-font-weight: bold; /* Bold text for header */
 }
 
+/* Close button styling */
 .close-button {
-    -fx-background-color: transparent;
-    -fx-padding: 4px;
-    -fx-cursor: hand;
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-padding: 4px; /* Padding inside the button */
+    -fx-cursor: hand; /* Pointer cursor on hover */
 }
 
+/* Close button hover effect */
 .close-button:hover {
-    -fx-background-color: rgba(0,0,0,0.1);
+    -fx-background-color: rgba(0,0,0,0.1); /* Background color change on hover */
 }
 
+/* Close icon settings */
 .close-icon {
-    -fx-fit-width: 15px;
-    -fx-fit-height: 20px;
-    -fx-preserve-ratio: true;
+    -fx-fit-width: 15px; /* Set width for the icon */
+    -fx-fit-height: 20px; /* Set height for the icon */
+    -fx-preserve-ratio: true; /* Preserve aspect ratio */
 }
 
+/* Filter label styling */
 .filter-label {
-    -fx-font-family: "Inter";
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #404040;
-    -fx-padding: 0 0 8px 0;
+    -fx-font-family: "Inter"; /* Font family */
+    -fx-font-size: 14px; /* Font size for labels */
+    -fx-font-weight: bold; /* Bold label text */
+    -fx-text-fill: #404040; /* Dark gray color for the text */
+    -fx-padding: 0 0 8px 0; /* Padding below the label */
 }
 
+/* Container for status buttons */
 .status-buttons {
-    -fx-spacing: 14px;
+    -fx-spacing: 14px; /* Spacing between status buttons */
 }
 
+/* Status button styling */
 .status-button {
-    -fx-background-color: transparent;
-    -fx-border-color: #E5E7EB;
-    -fx-border-radius: 6px;
-    -fx-padding: 20px;
-    -fx-font-family: "Inter";
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-alignment: center;
-    -fx-content-display: left;
-    -fx-graphic-text-gap: 14px;
-    -fx-cursor: hand;
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-border-color: #E5E7EB; /* Light gray border color */
+    -fx-border-radius: 6px; /* Rounded corners */
+    -fx-padding: 20px; /* Padding inside the button */
+    -fx-font-family: "Inter"; /* Font family */
+    -fx-font-size: 16px; /* Font size */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-alignment: center; /* Align content to the center */
+    -fx-content-display: left; /* Display content to the left */
+    -fx-graphic-text-gap: 14px; /* Space between icon and text */
+    -fx-cursor: hand; /* Pointer cursor on hover */
 }
 
+/* Status button hover effect */
 .status-button:hover {
-    -fx-background-color: rgba(0,0,0,0.05);
+    -fx-background-color: rgba(0,0,0,0.05); /* Light background color on hover */
 }
 
+/* Styling for selected status button */
 .status-button.selected {
-    -fx-border-color: #171717;
-    -fx-background-color: rgba(0,0,0,0.05);
+    -fx-border-color: #171717; /* Dark border for selected button */
+    -fx-background-color: rgba(0,0,0,0.05); /* Light background for selected button */
 }
 
+/* Icon inside the status button */
 .status-icon {
-    -fx-fit-width: 16px;
-    -fx-fit-height: 16px;
-    -fx-preserve-ratio: true;
+    -fx-fit-width: 16px; /* Set width for the icon */
+    -fx-fit-height: 16px; /* Set height for the icon */
+    -fx-preserve-ratio: true; /* Preserve aspect ratio */
 }
 
+/* Dropdown select box styling */
 .dropdown-select {
-    -fx-background-color: #EFEFEF;
-    -fx-border-color: #D4D4D4;
-    -fx-border-radius: 6px;
-    -fx-padding: 12px;
-    -fx-font-family: "Inter";
-    -fx-font-size: 16px;
+    -fx-background-color: #EFEFEF; /* Light gray background */
+    -fx-border-color: #D4D4D4; /* Light border color */
+    -fx-border-radius: 6px; /* Rounded corners */
+    -fx-padding: 12px; /* Padding inside the dropdown */
+    -fx-font-family: "Inter"; /* Font family */
+    -fx-font-size: 16px; /* Font size */
 }
 
+/* Date input field styling */
 .date-input {
-    -fx-background-color: white;
-    -fx-border-color: #D4D4D4;
-    -fx-border-radius: 6px;
-    -fx-font-family: "Inter";
-    -fx-font-size: 16px;
-    -fx-pref-width: 200px;
+    -fx-background-color: white; /* White background */
+    -fx-border-color: #D4D4D4; /* Light border color */
+    -fx-border-radius: 6px; /* Rounded corners */
+    -fx-font-family: "Inter"; /* Font family */
+    -fx-font-size: 16px; /* Font size */
+    -fx-pref-width: 200px; /* Preferred width for the date input */
 }
 
+/* Container for filter action buttons */
 .filter-actions {
-    -fx-padding: 32px 0 0 80px;
+    -fx-padding: 32px 0 0 80px; /* Padding with left offset for action buttons */
 }
 
+/* Reset button styling */
 .reset-button {
-    -fx-background-color: transparent;
-    -fx-border-color: #E5E7EB;
-    -fx-border-radius: 6px;
-    -fx-padding: 8px 16px;
-    -fx-cursor: hand;
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-border-color: #E5E7EB; /* Light gray border color */
+    -fx-border-radius: 6px; /* Rounded corners */
+    -fx-padding: 8px 16px; /* Padding inside the button */
+    -fx-cursor: hand; /* Pointer cursor on hover */
 }
 
+/* Reset button hover effect */
 .reset-button:hover {
-    -fx-background-color: rgba(0,0,0,0.05);
+    -fx-background-color: rgba(0,0,0,0.05); /* Light background on hover */
 }
 
+/* Apply button styling */
 .apply-button {
-    -fx-background-color: #171717;
-    -fx-border-radius: 6px;
-    -fx-background-radius: 6px;
-    -fx-padding: 8px 16px;
-    -fx-cursor: hand;
+    -fx-background-color: #171717; /* Dark background */
+    -fx-border-radius: 6px; /* Rounded corners */
+    -fx-background-radius: 6px; /* Rounded background */
+    -fx-padding: 8px 16px; /* Padding inside the button */
+    -fx-cursor: hand; /* Pointer cursor on hover */
 }
 
+/* Apply button hover effect */
 .apply-button:hover {
-    -fx-background-color: #2D2D2D;
+    -fx-background-color: #2D2D2D; /* Darker background on hover */
 }
 
+/* Text styling for buttons */
 .button-text {
-    -fx-font-family: "Inter";
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
+    -fx-font-family: "Inter"; /* Font family */
+    -fx-font-size: 16px; /* Font size */
+    -fx-font-weight: bold; /* Bold text */
 }
 
+/* Text styling for apply button */
 .apply-button .button-text {
-    -fx-text-fill: white;
+    -fx-text-fill: white; /* White text for apply button */
 }
 
+/* Text styling for reset button */
 .reset-button .button-text {
-    -fx-text-fill: black;
+    -fx-text-fill: black; /* Black text for reset button */
 }

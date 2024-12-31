@@ -48,9 +48,10 @@ public class SignInController {
             // save the session in a file
         }
 
-        boolean loggedIn = Login.signIn(usernameField.getText(), passwordField.getText());
+        Login login = new Login();
+        boolean loggedIn = login.signIn(usernameField.getText(), passwordField.getText());
         if (!loggedIn) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, LoginError.INVALID_CREDENTIALS.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR, LoginError.INVALID_LOGIN_DETAILS.getMessage());
             alert.showAndWait();
             return;
         }
