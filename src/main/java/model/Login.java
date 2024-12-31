@@ -8,11 +8,29 @@ import java.util.List;
 import java.util.Map;
 
 public class Login {
-    private final static DBFacade dbFacade = new DBFacade(Dotenv.load().get("DATABASE_URL"));
+    public static Login instance = null;
+    private String username;
+    private String email;
+    private String fullname;
 
-    public static boolean signIn(String username, String password) {
+    private final static DBFacade dbFacade = new DBFacade(Dotenv.load().get("DATABASE_URL"));
+    public Login() {
+        instance = this;
+    }
+
+    public static Login getInstance() {
+        if (instance == null) {
+            instance = new Login();
+        }
+        return instance;
+    }
+    public boolean signIn(String username, String password) {
         try {
-            return dbFacade.authUser(username, password);
+            boolean loggedIn = dbFacade.authUser(username, password);
+            if (loggedIn) {
+                this.username = username;
+            }
+            return loggedIn;
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -20,14 +38,15 @@ public class Login {
         }
     }
 
-    public static boolean signUp(String username, String email, String fullName, String password) {
+    public boolean signUp(String username, String email, String fullname, String password) {
         try {
-            if (!isUsernameAvailable(username)) {
-                return false;
+            boolean created = dbFacade.addUser(username, email, password, fullname);
+            if (created) {
+                this.username = username;
+                this.email = email;
+                this.fullname = fullname;
             }
-
-            return dbFacade.addUser(username, email, password, fullName);
-
+            return created;
         }
         catch (SQLException e) {
             //e.printStackTrace();
@@ -35,9 +54,15 @@ public class Login {
         }
     }
 
+    public String getUsername() {
+        return username;
+    }
 
-    public static boolean isUsernameAvailable(String username) {
-        List<Map<String, String>> userData = dbFacade.searchUsers(username, true, "username");
-        return userData.isEmpty();
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFullname() {
+        return fullname;
     }
 }
