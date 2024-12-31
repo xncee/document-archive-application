@@ -71,7 +71,7 @@
 }
 
 .terms-checkbox {
-    -fx-border-color: black;
+    -fx-border-color: #d4d4d4;
     -fx-border-radius: 1;
 }
 
@@ -85,6 +85,10 @@
     -fx-underline: true;
 }
 
+.errorLabel {
+    -fx-font-size: 10px;
+    -fx-text-fill: red;
+}
 /* Submit Button */
 .submit-button {
     -fx-background-color: #262626;
