@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Text?>
 
 <!-- Root VBox container for the entire login page -->
-<VBox alignment="CENTER" prefHeight="1051.0" prefWidth="1440.0" styleClass="login-container" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.login.SignInController">
+<VBox alignment="CENTER" prefHeight="1051.0" prefWidth="1440.0" styleClass="login-container" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignInController">
     <!-- Link to external CSS file -->
     <stylesheets>
         <URL value="@../styles/signin.css" />
