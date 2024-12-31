@@ -1,23 +1,15 @@
 package control.login;
 
-import com.itextpdf.kernel.color.Lab;
 import control.ContentSwitcher;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
 import model.FieldsValidator;
-import model.Login;
-import model.LoginError;
+import model.login.Login;
+import model.Messages;
+import model.login.SignUpServices;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 
 public class SignupController {
     @FXML private TextField usernameField;
@@ -60,10 +52,10 @@ public class SignupController {
             setFieldInvalid(usernameField, "");
             valid = false;
         } else if (!FieldsValidator.validateUsername(usernameField.getText())) {
-            setFieldInvalid(usernameField, LoginError.USERNAME_REQUIREMENTS_NOT_MET.getMessage());
+            setFieldInvalid(usernameField, Messages.USERNAME_REQUIREMENTS_NOT_MET.getMessage());
             valid = false;
         } else if (!SignUpServices.isUsernameAvailable(usernameField.getText())) {
-            setFieldInvalid(usernameField, LoginError.USERNAME_TAKEN.getMessage());
+            setFieldInvalid(usernameField, Messages.USERNAME_TAKEN.getMessage());
             valid = false;
         } else {
             setFieldValid(usernameField);
@@ -74,10 +66,10 @@ public class SignupController {
             setFieldInvalid(emailField, "");
             valid = false;
         } else if (!FieldsValidator.validateEmail(emailField.getText())) {
-            setFieldInvalid(emailField, LoginError.EMAIL_REQUIREMENTS_NOT_MET.getMessage());
+            setFieldInvalid(emailField, Messages.EMAIL_REQUIREMENTS_NOT_MET.getMessage());
             valid = false;
         } else if (!SignUpServices.isEmailAvailable(emailField.getText())) {
-            setFieldInvalid(emailField, LoginError.EMAIL_ALREADY_REGISTERED.getMessage());
+            setFieldInvalid(emailField, Messages.EMAIL_ALREADY_REGISTERED.getMessage());
             valid = false;
         } else {
             setFieldValid(emailField);
@@ -97,7 +89,7 @@ public class SignupController {
             setFieldInvalid(passwordField, "");
             valid = false;
         } else if (!FieldsValidator.validatePassword(passwordField.getText())) {
-            setFieldInvalid(passwordField, LoginError.PASSWORD_REQUIREMENTS_NOT_MET.getMessage());
+            setFieldInvalid(passwordField, Messages.PASSWORD_REQUIREMENTS_NOT_MET.getMessage());
             valid = false;
         } else {
             setFieldValid(passwordField);
@@ -109,7 +101,7 @@ public class SignupController {
             valid = false;
         } else if (!passwordField.getText().equals(confirmPasswordField.getText())) {
             confirmPasswordField.setText("");
-            setFieldInvalid(confirmPasswordField, LoginError.PASSWORD_CONFIRMATION_MISMATCH.getMessage());
+            setFieldInvalid(confirmPasswordField, Messages.PASSWORD_CONFIRMATION_MISMATCH.getMessage());
             valid = false;
         } else {
             setFieldValid(confirmPasswordField);
