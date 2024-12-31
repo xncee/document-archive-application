@@ -5,12 +5,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import services.FieldsServices;
+import utils.ErrorHandler;
 import validators.FieldsValidator;
 import models.login.Login;
 import utils.Messages;
 import services.SignUpServices;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class SignupController {
     @FXML private TextField usernameField;
@@ -22,13 +24,14 @@ public class SignupController {
     @FXML private Label errorLabel;
 
     private void setFieldInvalid(TextField field, String errorMessage) {
-        FieldsServices.setFieldInvalid(field, errorLabel, errorMessage);
+        FieldsServices.setRedBorder(field);
+        FieldsServices.addErrorMessage(errorLabel, errorMessage);
     }
 
     private void setFieldValid(TextField field) {
         FieldsServices.setFieldValid(field);
     }
-    private boolean validateForm() {
+    private boolean validateForm() throws SQLException {
         errorLabel.setText("");
         boolean valid = true;
 
@@ -106,10 +109,14 @@ public class SignupController {
         alert.showAndWait();
     }
     @FXML
-    public void handleSignup(ActionEvent event) throws IOException {
-        if (!validateForm()) {
-            showError("Please fill in all fields correctly and accept the terms.");
-            return;
+    public void handleSignup(ActionEvent event) {
+        try {
+            if (!validateForm()) {
+                showError("Please fill in all fields correctly and accept the terms.");
+                return;
+            }
+        } catch (SQLException e) {
+            ErrorHandler.handle(e, "An error occurred while validating signup-form.");
         }
 
         Login login = new Login();
@@ -118,7 +125,11 @@ public class SignupController {
             return;
         }
         System.out.println("Signed up "+usernameField.getText());
-        ContentSwitcher.switchContent(event, "/view/dashboard-view.fxml");
+        try {
+            ContentSwitcher.switchContent(event, "/view/dashboard-view.fxml");
+        } catch (IOException e) {
+            ErrorHandler.handle(e, "An error occurred while switching pages signup-page -> dashboard-page.");
+        }
     }
 
     @FXML

@@ -2,6 +2,8 @@ package services;
 
 import data.DBFacade;
 
+import java.sql.SQLException;
+
 public class SignUpServices {
     private static final DBFacade dbFacade = DBFacade.getInstance();
 

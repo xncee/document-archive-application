@@ -29,14 +29,14 @@ public class SignInController {
     private boolean validateForm() {
         boolean valid  = true;
         if (usernameField.getText().isBlank()) {
-            FieldsServices.setFieldInvalid(usernameField);
+            FieldsServices.setRedBorder(usernameField);
             valid = false;
         }
         else {
             FieldsServices.setFieldValid(usernameField);
         }
         if (passwordField.getText().isBlank()) {
-            FieldsServices.setFieldInvalid(passwordField);
+            FieldsServices.setRedBorder(passwordField);
             valid = false;
         } else {
             FieldsServices.setFieldValid(passwordField);
