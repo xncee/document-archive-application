@@ -1,16 +1,20 @@
 package controllers;
 
+import data.DBFacade;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import models.Document;
+import models.login.Login;
+import services.DocumentServices;
 import services.FieldsServices;
 import utils.ContentSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import utils.Messages;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 public class AddDocumentController {
     @FXML
@@ -20,12 +24,13 @@ public class AddDocumentController {
     @FXML
     private TextField title;
     @FXML
-    private TextField description;
+    private TextArea description;
     @FXML
-    private ComboBox<String> department;
+    private ComboBox<String> departmentComboBox;
     @FXML
-    private ComboBox<String> classification;
-
+    private ComboBox<String> classificationComboBox;
+    @FXML
+    private DatePicker deadline;
     @FXML
     private Button cancelButton;
     @FXML
@@ -33,34 +38,39 @@ public class AddDocumentController {
 
     @FXML
     private void initialize() {
-        // add departments & classifications to combo box
-        setDepartments();
-        setClassifications();
-
+        setupComboBoxes();
     }
 
-    private void setDepartments() {
-        department.getItems().addAll("Option 1", "Option 2", "Option 3", "Option 4");
+    private void setupComboBoxes() {
+        DBFacade dbFacade = DBFacade.getInstance();
 
-        // Set a default value (optional)
-        department.setValue("Option 1");
-    }
-    private void setClassifications() {
+        // Add Departments
+        List<Map<String, Object>> departments = dbFacade.getDepartments();
+        for (Map<String, Object> dept: departments) {
+            departmentComboBox.getItems().add((String) dept.get("name"));
+        }
 
+        // Add Classifications
+        List<Map<String, Object>> classifications = dbFacade.getClassifications();
+        for (Map<String, Object> cls: classifications) {
+            classificationComboBox.getItems().add((String) cls.get("name"));
+        }
     }
+
     @FXML
     public void handleCancel(ActionEvent event) throws IOException {
         ContentSwitcher.switchContent(event, "/view/dashboard-view.fxml");
     }
-    public void setFieldValid(TextField field) {
+    public void setFieldValid(Node field) {
         FieldsServices.setFieldValid(field);
     }
-    public void setFieldInvalid(TextField field, String errorMessage) {
-        FieldsServices.setFieldInvalid(field, errorLabel, errorMessage);
+    public void setFieldInvalid(Node field, String errorMessage) {
+        FieldsServices.setRedBorder(field);
+        FieldsServices.addErrorMessage(errorLabel, errorMessage);
     }
     private boolean validateForm() {
+        errorLabel.setText("");
         boolean valid = true;
-        // validation logic here
         // documentId is optional
         if (title.getText().isBlank()) {
             setFieldInvalid(title, "Title: "+Messages.THIS_FIELD_IS_REQUIRED.getMessage());
@@ -69,32 +79,54 @@ public class AddDocumentController {
             setFieldValid(title);
         }
         if (description.getText().isBlank()) {
-            setFieldInvalid(title, "Title: "+Messages.THIS_FIELD_IS_REQUIRED.getMessage());
+            setFieldInvalid(description, "Description: "+Messages.THIS_FIELD_IS_REQUIRED.getMessage());
             valid = false;
         } else {
             setFieldValid(description);
         }
-        if (department.getValue() == null) {
-            FieldsServices.setRedBorder(department);
+        if (departmentComboBox.getValue() == null) {
+            setFieldInvalid(departmentComboBox, "Department: "+Messages.THIS_FIELD_IS_REQUIRED.getMessage());
+            valid = false;
         } else {
-            FieldsServices.resetBorderColor(department);
+            setFieldValid(departmentComboBox);
         }
-        if (classification.getValue() == null) {
-            FieldsServices.setRedBorder(classification);
+        if (classificationComboBox.getValue() == null) {
+            setFieldInvalid(classificationComboBox, "Classification: "+Messages.THIS_FIELD_IS_REQUIRED.getMessage());
+            valid = false;
         } else {
-            FieldsServices.resetBorderColor(classification);
+            setFieldValid(classificationComboBox);
         }
 
         return valid;
     }
     @FXML
     public void handleSave(ActionEvent event) throws IOException {
-        // add document logic here
         if (!validateForm()) {
             // display some error message.
             return;
         }
 
-        ContentSwitcher.switchContent(event, "/view/dashboard-view.fxml");
+        int uploaderId = Login.getInstance().getId();
+        Document.Builder documentBuilder = new Document.Builder(
+                "Pending",
+                uploaderId, title.getText(),
+                description.getText(),
+                departmentComboBox.getValue(),
+                classificationComboBox.getValue());
+
+        // created date is current date by default.
+        // updated date is initially null.
+        String filePath = "C:\\Users\\xncee\\OneDrive\\Desktop\\testReport.pdf";
+        documentBuilder.id(documentId.getText()).deadline(deadline.getValue()).filePath(filePath);
+
+        Document document = documentBuilder.build();
+        if (!DocumentServices.saveDocument(document)) {
+            errorLabel.setText("Upload failed.");
+            return;
+        }
+        else {
+            System.out.println("Document added "+document.getId());
+            ContentSwitcher.switchContent(event, "/view/dashboard-view.fxml");
+        }
     }
 }
