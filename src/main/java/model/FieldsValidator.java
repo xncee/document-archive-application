@@ -41,7 +41,8 @@ public class FieldsValidator {
     public static boolean validatePassword(String password) {
         if (isFieldEmpty(password)) return false;
 
-        String passwordRegex = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}";
+        //String passwordRegex = "(?=.[0-9])(?=.[a-z])(?=.*[A-Z]).{8,}"; // requires at least one lower case
+        String passwordRegex = "^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,}$";
         Pattern pattern = Pattern.compile(passwordRegex);
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
