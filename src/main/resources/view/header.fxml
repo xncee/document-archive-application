@@ -11,7 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 
 <!-- Header section of the page -->
-<VBox fx:id="header" alignment="CENTER" prefHeight="80.0" styleClass="header-content" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.HeaderController">
+
+<VBox fx:id="header" alignment="CENTER" prefHeight="80.0" styleClass="header-content" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.HeaderController">
     <!-- Including an external stylesheet for header styling -->
     <stylesheets>
         <URL value="@../styles/header-style.css" />
@@ -43,7 +44,7 @@
                 <HBox HBox.hgrow="NEVER">
                     <children>
                         <!-- Button for notifications with associated icon -->
-                        <Button fx:id="notificationsButton" accessibleText="Notifications" alignment="CENTER" mnemonicParsing="false" onAction="#handleNotifications" styleClass="notification-button" textAlignment="CENTER" HBox.hgrow="NEVER">
+                        <Button fx:id="notificationsButton" accessibleText="Notifications" alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#handleNotifications" styleClass="notification-button" textAlignment="CENTER" HBox.hgrow="NEVER">
                             <graphic>
                                 <!-- Notification icon displayed on the button -->
                                 <ImageView accessibleRole="BUTTON" focusTraversable="true" preserveRatio="true" styleClass="notification-icon">
@@ -62,7 +63,7 @@
             <!-- HBox for user information section -->
             <HBox alignment="CENTER_LEFT" styleClass="user-info" HBox.hgrow="NEVER">
                 <!-- Button for user info with avatar and name -->
-                <Button fx:id="userInfoButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleUserInfo" styleClass="user-info-button" HBox.hgrow="NEVER">
+                <Button fx:id="userInfoButton" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#handleUserInfo" styleClass="user-info-button" HBox.hgrow="NEVER">
                     <graphic>
                         <!-- HBox containing user avatar and name -->
                         <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="5">
@@ -71,7 +72,7 @@
                                 <Image url="@../icons/user-avatar-icon.png" />
                             </ImageView>
                             <!-- User name text -->
-                            <Label contentDisplay="CENTER" maxWidth="1.7976931348623157E308" styleClass="user-name" text="Saif Ak" HBox.hgrow="ALWAYS" />
+                            <Label fx:id="loggedInUserLabel" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" styleClass="user-name" text="\@username" HBox.hgrow="ALWAYS" />
                         </HBox>
                     </graphic>
                 </Button>
