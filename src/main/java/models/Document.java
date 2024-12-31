@@ -4,55 +4,56 @@ import java.io.File;
 import java.time.LocalDate;
 
 public class Document {
-    private String id;
-    private String uploaderId;
-    private String title;
-    private String description;
-    private String department;
-    private String classification;
-    private String status;
-    private LocalDate deadline;
-    private LocalDate createdDate;
-    private LocalDate updatedDate;
-    private String filePath;
+    private final String id;
+    private final Integer uploaderId;
+    private final String title;
+    private final String description;
+    private final String department;
+    private final String classification;
+    private final String status;
+    private final LocalDate deadline;
+    private final LocalDate createdDate;
+    private final LocalDate updatedDate;
+    private final String filePath;
 
-    // Constructor
-    public Document(String status, String uploaderId, String title, String description, String department,
-                    String classification, String filePath,
-                    String id, LocalDate deadline, LocalDate createdDate, LocalDate updatedDate) {
-
+    // Private constructor to ensure objects are created through the builder
+    private Document(Builder builder) {
         // Validate mandatory fields
-        if (status == null || uploaderId == null || title == null || description == null || department == null ||
-                classification == null) {
-            throw new IllegalArgumentException("Required fields cannot be null");
+        if (
+                builder.title == null || builder.title.isBlank() ||
+                builder.description == null || builder.description.isBlank() ||
+                builder.department == null || builder.department.isBlank() ||
+                builder.classification == null || builder.classification.isBlank() ||
+                builder.status == null ||
+                builder.uploaderId == null) {
+            throw new IllegalArgumentException("Required fields cannot be null or blank");
         }
 
-        // Initialize fields
-        this.uploaderId = uploaderId;
-        this.id = (id != null) ? id : generateId(); // Generate ID if not provided
-        this.title = title;
-        this.description = description;
-        this.department = department;
-        this.classification = classification;
-        this.status = status;
-        this.deadline = deadline; // deadline can be null
-        this.createdDate = (createdDate != null) ? createdDate : LocalDate.now(); // Default created date
-        this.updatedDate = (updatedDate != null) ? updatedDate : LocalDate.now(); // Default updated date
-        this.filePath = filePath; // filePath can be null if the user didn't upload a file
+        this.uploaderId = builder.uploaderId;
+        this.id = (builder.id != null) ? builder.id : generateId(); // Generate ID if not provided
+        this.title = builder.title;
+        this.description = builder.description;
+        this.department = builder.department;
+        this.classification = builder.classification;
+        this.status = builder.status;
+        this.deadline = builder.deadline; // deadline can be null
+        this.createdDate = (builder.createdDate != null) ? builder.createdDate : LocalDate.now(); // Default created date
+        this.updatedDate = builder.updatedDate; // updatedDate can be null initially
+        this.filePath = builder.filePath; // filePath can be null if the user didn't upload a file
 
         // Validate file path (optional)
-        if (filePath!= null && !new File(filePath).exists()) {
+        if (filePath != null && !new File(filePath).exists()) {
             throw new IllegalArgumentException("File does not exist at the given file path");
         }
     }
 
-    public String getUploaderId() {
-        return uploaderId;
-    }
-
-    // Getters for other fields
+    // Getters for fields
     public String getId() {
         return id;
+    }
+
+    public Integer getUploaderId() {
+        return uploaderId;
     }
 
     public String getTitle() {
@@ -100,16 +101,73 @@ public class Document {
     public String toString() {
         return "Document{" +
                 "id='" + id + '\'' +
-                ", uploaderId='" + uploaderId + '\'' +
+                ", uploaderId=" + uploaderId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", department='" + department + '\'' +
-                ", Classification='" + classification + '\'' +
+                ", classification='" + classification + '\'' +
                 ", status='" + status + '\'' +
                 ", deadline=" + deadline +
                 ", createdDate=" + createdDate +
                 ", updatedDate=" + updatedDate +
                 ", filePath='" + filePath + '\'' +
                 '}';
+    }
+
+    // Builder Class
+    public static class Builder {
+        private String id;
+        private Integer uploaderId;
+        private String title;
+        private String description;
+        private String department;
+        private String classification;
+        private String status;
+        private LocalDate deadline;
+        private LocalDate createdDate;
+        private LocalDate updatedDate;
+        private String filePath;
+
+        // Required fields constructor
+        public Builder(String status, Integer uploaderId, String title, String description, String department, String classification) {
+            this.status = status;
+            this.uploaderId = uploaderId;
+            this.title = title;
+            this.description = description;
+            this.department = department;
+            this.classification = classification;
+        }
+
+        // Optional fields setters
+        public Builder id(String id) {
+            if (!id.isBlank())
+                this.id = id;
+            return this;
+        }
+
+        public Builder deadline(LocalDate deadline) {
+            this.deadline = deadline;
+            return this;
+        }
+
+        public Builder createdDate(LocalDate createdDate) {
+            this.createdDate = createdDate;
+            return this;
+        }
+
+        public Builder updatedDate(LocalDate updatedDate) {
+            this.updatedDate = updatedDate;
+            return this;
+        }
+
+        public Builder filePath(String filePath) {
+            this.filePath = filePath;
+            return this;
+        }
+
+        // Build method to create a Document instance
+        public Document build() {
+            return new Document(this);
+        }
     }
 }
