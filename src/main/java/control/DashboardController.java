@@ -6,10 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
@@ -19,12 +16,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Document;
+import model.Login;
 import model.report.ReportGenerator;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
 public class DashboardController {
+
     @FXML
     private Button addDocumentButton;
 
@@ -59,10 +58,6 @@ public class DashboardController {
 
     @FXML
     private void initialize() {
-        // getStatusCount("pending")
-        // getStatusCount("recent") // last 24 hours
-        // getStatusCount() // all
-
         documentTable.getStylesheets().add(getClass().getResource("/styles/table-style.css").toExternalForm());
         setupTableColumns();
         loadDocuments();
@@ -124,8 +119,7 @@ public class DashboardController {
 
     @FXML
     private void handleAddDocument(ActionEvent event) throws IOException {
-        //ContentSwitcher contentSwitcher = new ContentSwitcher(borderPane);
-        //contentSwitcher.switchContent(event, "/view/document-upload-view.fxml");
+        ContentSwitcher.switchContent(event, "/view/document-upload-view.fxml");
     }
 
     @FXML
