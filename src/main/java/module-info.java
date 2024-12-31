@@ -9,6 +9,7 @@ module zarqa.governmentproject {
     requires org.apache.poi.ooxml;
     requires kernel;
     requires layout;
+    requires java.prefs;
 
 
     opens view to javafx.fxml;

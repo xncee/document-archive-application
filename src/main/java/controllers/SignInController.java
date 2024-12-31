@@ -1,5 +1,6 @@
 package controllers;
 
+import models.login.RememberMe;
 import services.FieldsServices;
 import utils.ContentSwitcher;
 import javafx.event.ActionEvent;
@@ -25,6 +26,23 @@ public class SignInController {
 
     @FXML
     private Hyperlink signUpLink;
+
+    @FXML
+    public void initialize(){
+        loadRememberMe();
+    }
+
+    private void loadRememberMe() {
+        String[] credentials = RememberMe.getCredentials();
+        String savedUsername = credentials[0];
+        String savedPassword = credentials[1];
+
+        if (savedUsername != null && savedPassword != null) {
+            usernameField.setText(savedUsername);
+            passwordField.setText(savedPassword);
+            rememberMeCheckbox.setSelected(true);
+        }
+    }
 
     private boolean validateForm() {
         boolean valid  = true;
@@ -54,9 +72,10 @@ public class SignInController {
             return;
         }
 
-        if (rememberMeCheckbox!= null && rememberMeCheckbox.isSelected()) {
-            // save the session in a file
-        }
+        if (rememberMeCheckbox!= null && rememberMeCheckbox.isSelected())
+            RememberMe.saveCredentials(usernameField.getText(),passwordField.getText());
+        else
+            RememberMe.clearCredentials();
 
         Login login = new Login();
         boolean loggedIn = login.signIn(usernameField.getText(), passwordField.getText());
