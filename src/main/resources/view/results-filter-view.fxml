@@ -72,7 +72,7 @@
         <!-- Department filter dropdown -->
         <VBox styleClass="filter-group">
             <Label styleClass="filter-label" text="Department" />
-            <!-- ComboBox for selecting a department -->
+            <!-- ComboBox for selecting a departmentComboBox -->
             <ComboBox fx:id="departmentComboBox" maxHeight="40.0" maxWidth="432.0" minHeight="40.0" minWidth="432.0" onAction="#handleDepartmentSelect" prefHeight="40.0" prefWidth="432.0" styleClass="dropdown-select" />
         </VBox>
 
