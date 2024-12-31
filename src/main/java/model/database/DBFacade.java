@@ -48,7 +48,8 @@ public class DBFacade {
                 "username", username,
                 "email", email,
                 "password", password,
-                "name", name
+                "fullname", name,
+                "isAdmin", 0
         );
         return dbManager.insert("users", map) > 0;
     }
