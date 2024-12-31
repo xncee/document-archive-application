@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- Import necessary JavaFX components -->
+
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -16,7 +17,8 @@
 <?import javafx.scene.layout.VBox?>
 
 <!-- Root VBox container for the entire Dashboard page -->
-<VBox prefHeight="1051.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.DashboardController">
+
+<VBox prefHeight="1051.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.DashboardController">
     <!-- Link to external CSS for styling the dashboard -->
     <stylesheets>
         <URL value="@../styles/dashboard-style.css" />
@@ -103,7 +105,7 @@
                                 <!-- Button to generate a report -->
                                 <HBox spacing="10.0">
                                     <children>
-                                        <Button onAction="#handleGenerateReport" prefHeight="40.0" prefWidth="170.0" styleClass="btn-secondary" text="Generate Report" HBox.hgrow="ALWAYS" />
+                                        <Button fx:id="generateReportBurron" onAction="#handleGenerateReport" prefHeight="40.0" prefWidth="170.0" styleClass="btn-secondary" text="Generate Report" HBox.hgrow="ALWAYS" />
                                         <!-- Button to add a document -->
                                         <Button fx:id="addDocumentButton" minHeight="-Infinity" onAction="#handleAddDocument" prefHeight="40.0" prefWidth="165.0" styleClass="btn-primary" HBox.hgrow="ALWAYS">
                                             <graphic>

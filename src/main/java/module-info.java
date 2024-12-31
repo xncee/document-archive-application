@@ -23,4 +23,8 @@ module zarqa.governmentproject {
     opens control.filter to javafx.fxml;
     exports control.login;
     opens control.login to javafx.fxml;
+    exports model.entities;
+    opens model.entities to javafx.fxml;
+    exports model.login;
+    opens model.login to javafx.fxml;
 }

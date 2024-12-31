@@ -1,6 +1,6 @@
 package model;
 
-public enum LoginError {
+public enum Messages {
     INVALID_LOGIN_DETAILS("Incorrect username or password. Try again."),
     THIS_FIELD_IS_REQUIRED("Please fill out this field."),
     USERNAME_TAKEN("This username is already in use."),
@@ -21,7 +21,7 @@ public enum LoginError {
     SEARCH_YIELDED_NO_RESULTS("No matching documents found. Check your search criteria.");
     private final String message;
 
-    LoginError(String message) {
+    Messages(String message) {
         this.message = message;
     }
 

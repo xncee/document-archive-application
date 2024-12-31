@@ -1,11 +1,9 @@
-package model;
+package model.login;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import model.database.DBFacade;
 
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 
 public class Login {
     public static Login instance = null;

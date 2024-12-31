@@ -1,4 +1,4 @@
-package control.login;
+package model.login;
 
 import model.database.DBFacade;
 

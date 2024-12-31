@@ -33,7 +33,7 @@ public class FilterResultsController {
         classificationComboBox.setFocusTraversable(true);
         classificationComboBox.getStyleClass().add("accessible-combo-box");
         classificationComboBox.setAccessibleRole(AccessibleRole.COMBO_BOX);
-        classificationComboBox.setAccessibleText("Select classification filter");
+        classificationComboBox.setAccessibleText("Select Classification filter");
 
         startDatePicker.setFocusTraversable(true);
         startDatePicker.setAccessibleRole(AccessibleRole.DATE_PICKER);

@@ -2,7 +2,7 @@ package control.document;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Document;
+import model.entities.Document;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package model;
+package model.entities;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -106,7 +106,7 @@ public class Document {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", department='" + department + '\'' +
-                ", classification='" + classification + '\'' +
+                ", Classification='" + classification + '\'' +
                 ", status='" + status + '\'' +
                 ", deadline=" + deadline +
                 ", createdDate=" + createdDate +
