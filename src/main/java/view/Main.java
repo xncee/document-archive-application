@@ -4,16 +4,13 @@ import control.ContentSwitcher;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.Login;
 import model.database.DBFacade;
-import model.database.DBManager;
 
 public class Main extends Application {
     public static void main(String[] args) {
@@ -24,12 +21,18 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         DBFacade dbFacade = new DBFacade(Dotenv.load().get("DATABASE_URL"));
         if (!dbFacade.isConnected()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Failed to connect to database!");
+            alert.showAndWait();
             throw new RuntimeException("database connection failed.");
         }
         //main-layout-view.fxml
-        //document-upload-view.fxml
-        //dashboard-view.fxml
         //signin-view.fxml
+        //signup-view.fxml
+        //dashboard-view.fxml
+        //document-upload-view.fxml
+        //generate-report-view.fxml
+        //document-view.fxml
+        //user-profile-view.fxml
 
         // Loading the main layout
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main-layout-view.fxml"));
