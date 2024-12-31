@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import model.Login;
+import model.login.Login;
 
 public class HeaderController {
     public VBox header;

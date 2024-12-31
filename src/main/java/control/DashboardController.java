@@ -10,14 +10,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.Document;
-import model.Login;
-import model.report.ReportGenerator;
+import model.entities.Document;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -26,6 +22,9 @@ public class DashboardController {
 
     @FXML
     private Button addDocumentButton;
+
+    @FXML
+    private Button generateReportButton;
 
     @FXML
     private Button filterButton;

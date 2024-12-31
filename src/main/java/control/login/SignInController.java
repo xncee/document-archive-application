@@ -3,14 +3,9 @@ package control.login;
 import control.ContentSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-import model.Login;
-import model.LoginError;
+import model.login.Login;
+import model.Messages;
 
 import java.io.IOException;
 
@@ -51,7 +46,7 @@ public class SignInController {
         Login login = new Login();
         boolean loggedIn = login.signIn(usernameField.getText(), passwordField.getText());
         if (!loggedIn) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, LoginError.INVALID_LOGIN_DETAILS.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR, Messages.INVALID_LOGIN_DETAILS.getMessage());
             alert.showAndWait();
             return;
         }
