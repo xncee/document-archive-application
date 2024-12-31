@@ -39,7 +39,7 @@ public class SignupController {
         }
 
         // Username validation
-        if (usernameField.getText().isEmpty()) {
+        if (usernameField.getText().isBlank()) {
             setFieldInvalid(usernameField, null);
             valid = false;
         } else if (!FieldsValidator.validateUsername(usernameField.getText())) {
@@ -53,7 +53,7 @@ public class SignupController {
         }
 
         // Email validation
-        if (emailField.getText().isEmpty()) {
+        if (emailField.getText().isBlank()) {
             setFieldInvalid(emailField, null);
             valid = false;
         } else if (!FieldsValidator.validateEmail(emailField.getText())) {
@@ -67,7 +67,7 @@ public class SignupController {
         }
 
         // Fullname validation
-        if (fullnameField.getText().isEmpty()) {
+        if (fullnameField.getText().isBlank()) {
             setFieldInvalid(fullnameField, null);
             valid = false;
         }
@@ -76,7 +76,7 @@ public class SignupController {
         }
 
         // Password validation
-        if (passwordField.getText().isEmpty()) {
+        if (passwordField.getText().isBlank()) {
             setFieldInvalid(passwordField, null);
             valid = false;
         } else if (!FieldsValidator.validatePassword(passwordField.getText())) {
@@ -87,7 +87,7 @@ public class SignupController {
         }
 
         // Confirm Password validation
-        if (confirmPasswordField.getText().isEmpty()) {
+        if (confirmPasswordField.getText().isBlank()) {
             setFieldInvalid(confirmPasswordField, null);
             valid = false;
         } else if (!passwordField.getText().equals(confirmPasswordField.getText())) {
@@ -113,7 +113,7 @@ public class SignupController {
         }
 
         Login login = new Login();
-        if (!login.signUp(usernameField.getText(), emailField.getText(), fullnameField.getText(), passwordField.getText())) {
+        if (!login.signUp(usernameField.getText().strip(), emailField.getText().strip(), fullnameField.getText().strip(), passwordField.getText())) {
             errorLabel.setText("Login Failed.");
             return;
         }

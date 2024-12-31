@@ -26,7 +26,7 @@ public class Login {
         try {
             boolean loggedIn = dbFacade.authUser(username, password);
             if (loggedIn) {
-                this.username = username;
+                this.username = username.toLowerCase();
             }
             return loggedIn;
         }
@@ -40,8 +40,8 @@ public class Login {
         try {
             boolean created = dbFacade.addUser(username, email, password, fullname);
             if (created) {
-                this.username = username;
-                this.email = email;
+                this.username = username.toLowerCase();
+                this.email = email.toLowerCase();
                 this.fullname = fullname;
             }
             return created;

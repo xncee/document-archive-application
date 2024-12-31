@@ -1,5 +1,6 @@
 package controllers;
 
+import services.FieldsServices;
 import utils.ContentSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,8 +27,22 @@ public class SignInController {
     private Hyperlink signUpLink;
 
     private boolean validateForm() {
-        return !usernameField.getText().isEmpty() &&
-                !passwordField.getText().isEmpty();
+        boolean valid  = true;
+        if (usernameField.getText().isBlank()) {
+            FieldsServices.setFieldInvalid(usernameField);
+            valid = false;
+        }
+        else {
+            FieldsServices.setFieldValid(usernameField);
+        }
+        if (passwordField.getText().isBlank()) {
+            FieldsServices.setFieldInvalid(passwordField);
+            valid = false;
+        } else {
+            FieldsServices.setFieldValid(passwordField);
+        }
+
+        return valid;
     }
 
     @FXML
