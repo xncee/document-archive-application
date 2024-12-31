@@ -16,7 +16,8 @@
 <?import javafx.scene.layout.VBox?>
 
 <!-- Main container for the page -->
-<VBox prefHeight="1051.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<VBox prefHeight="1051.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddDocumentController">
     <!-- Including external stylesheet for the page -->
     <stylesheets>
         <URL value="@../styles/document-upload.css" />
@@ -41,6 +42,13 @@
                             <Label styleClass="page-title" text="Add New Document" />
                             <Label styleClass="page-description" text="Fill in the document details and upload your file" />
                         </VBox>
+                        <!-- error label to display error messages -->
+                        <VBox VBox.vgrow="ALWAYS">
+                            <children>
+                                <!-- Make sure errorLabel is visible and can grow to fit its content -->
+                                <Label fx:id="errorLabel" styleClass="errorLabel" visible="false" wrapText="true" VBox.vgrow="NEVER" />
+                            </children>
+                        </VBox>
 
                         <!-- Form container for input fields -->
                         <VBox alignment="CENTER" prefHeight="765.0" spacing="24" styleClass="form-container">
@@ -52,19 +60,19 @@
                             <HBox spacing="24">
                                 <VBox spacing="8" HBox.hgrow="ALWAYS">
                                     <Label styleClass="form-label" text="Document ID" />
-                                    <TextField promptText="AUTO-GENERATED"/>
+                                    <TextField fx:id="documentId" promptText="AUTO-GENERATED" />
                                 </VBox>
 
                                 <VBox spacing="8" HBox.hgrow="ALWAYS">
                                     <Label styleClass="form-label" text="Title" />
-                                    <TextField promptText="Enter document title" />
+                                    <TextField fx:id="title" promptText="Enter document title" />
                                 </VBox>
                             </HBox>
 
                             <!-- Document description text area -->
                             <VBox spacing="8">
                                 <Label styleClass="form-label" text="Description" />
-                                <TextArea prefRowCount="4" promptText="Enter document description" style="-fx-background-color: transparent;-fx-border-color: E5E7EB;" wrapText="true" />
+                                <TextArea fx:id="description" prefRowCount="4" promptText="Enter document description" style="-fx-background-color: transparent;-fx-border-color: E5E7EB;" wrapText="true" />
                             </VBox>
 
                             <!-- Department and Classification dropdowns -->
@@ -73,13 +81,13 @@
                                     <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" HBox.hgrow="ALWAYS">
                                         <children>
                                             <Label styleClass="form-label" text="Department" />
-                                            <ComboBox styleClass="combo-box" maxWidth="1.7976931348623157E308" prefWidth="150.0" />
+                                            <ComboBox fx:id="department" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="combo-box" />
                                         </children>
                                     </VBox>
                                     <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" HBox.hgrow="ALWAYS">
                                         <children>
                                             <Label styleClass="form-label" text="Classification" />
-                                            <ComboBox styleClass="combo-box" maxWidth="1.7976931348623157E308" prefWidth="150.0" />
+                                            <ComboBox fx:id="classification" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="combo-box" />
                                         </children>
                                     </VBox>
                                 </children>
@@ -88,7 +96,7 @@
                             <!-- Deadline date picker -->
                             <VBox spacing="8">
                                 <Label styleClass="form-label" text="Deadline Date (Optional)" />
-                                <DatePicker prefWidth="Infinity" promptText="mm/dd/yyyy" />
+                                <DatePicker fx:id="deadline" prefWidth="Infinity" promptText="mm/dd/yyyy" />
                             </VBox>
 
                             <!-- File upload zone -->
@@ -105,7 +113,7 @@
                                 <!-- Instructions for file upload -->
                                 <VBox alignment="CENTER" spacing="6">
                                     <Label styleClass="upload-text" text="Drag and drop your PDF file here, or" />
-                                    <Hyperlink styleClass="browse-link" text="browse files" />
+                                    <Hyperlink fx:id="browseFilesLink" styleClass="browse-link" text="browse files" />
                                 </VBox>
 
                                 <!-- File size limit message -->
@@ -114,8 +122,8 @@
 
                             <!-- Buttons for canceling or saving the document -->
                             <HBox alignment="CENTER_RIGHT" spacing="16">
-                                <Button styleClass="btn-secondary" text="Cancel" />
-                                <Button styleClass="btn-primary" text="Save Document" />
+                                <Button fx:id="cancelButton" onAction="#handleCancel" styleClass="btn-secondary" text="Cancel" />
+                                <Button fx:id="saveButton" onAction="#handleSave" styleClass="btn-primary" text="Save Document" />
                             </HBox>
                         </VBox>
                     </VBox>

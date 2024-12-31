@@ -18,7 +18,7 @@
 
 <!-- Root VBox container for the entire Dashboard page -->
 
-<VBox prefHeight="1051.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.DashboardController">
+<VBox prefHeight="1051.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
     <!-- Link to external CSS for styling the dashboard -->
     <stylesheets>
         <URL value="@../styles/dashboard-style.css" />

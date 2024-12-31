@@ -157,3 +157,10 @@ Button {
     -fx-font-size: 14; /* Font size */
     -fx-text-fill: #525252; /* Dark gray text color */
 }
+
+.errorLabel {
+    -fx-font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    -fx-font-size: 10px;
+    -fx-text-fill: red;
+    -fx-padding: 0;
+}

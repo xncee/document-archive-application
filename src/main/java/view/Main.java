@@ -1,6 +1,6 @@
 package view;
 
-import control.ContentSwitcher;
+import utils.ContentSwitcher;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.database.DBFacade;
+import data.DBFacade;
 
 public class Main extends Application {
     public static void main(String[] args) {

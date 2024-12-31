@@ -13,18 +13,16 @@ module zarqa.governmentproject {
 
     opens view to javafx.fxml;
     exports view;
-    exports control;
-    opens control to javafx.fxml;
-    exports model;
-    opens model to javafx.fxml;
-    exports control.document;
-    opens control.document to javafx.fxml;
-    exports control.filter;
-    opens control.filter to javafx.fxml;
-    exports control.login;
-    opens control.login to javafx.fxml;
-    exports model.entities;
-    opens model.entities to javafx.fxml;
-    exports model.login;
-    opens model.login to javafx.fxml;
+    exports controllers;
+    opens controllers to javafx.fxml;
+    exports models;
+    opens models to javafx.fxml;
+    exports utils;
+    opens utils to javafx.fxml;
+    exports services;
+    opens services to javafx.fxml;
+    exports validators;
+    opens validators to javafx.fxml;
+    exports data;
+    opens data to javafx.fxml;
 }

@@ -12,7 +12,7 @@
 
 <!-- Header section of the page -->
 
-<VBox fx:id="header" alignment="CENTER" prefHeight="80.0" styleClass="header-content" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.HeaderController">
+<VBox fx:id="header" alignment="CENTER" prefHeight="80.0" styleClass="header-content" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HeaderController">
     <!-- Including an external stylesheet for header styling -->
     <stylesheets>
         <URL value="@../styles/header-style.css" />

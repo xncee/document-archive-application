@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <!-- Main container for the filter section -->
-<VBox alignment="CENTER" maxHeight="540.0" maxWidth="480.0" minHeight="560.0" minWidth="480.0" prefHeight="560.0" prefWidth="480.0" spacing="20" styleClass="filter-container" HBox.hgrow="NEVER" VBox.vgrow="NEVER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.filter.FilterResultsController">
+<VBox alignment="CENTER" maxHeight="540.0" maxWidth="480.0" minHeight="560.0" minWidth="480.0" prefHeight="560.0" prefWidth="480.0" spacing="20" styleClass="filter-container" HBox.hgrow="NEVER" VBox.vgrow="NEVER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FilterResultsController">
     <!-- External stylesheet for styling the filter results section -->
     <stylesheets>
         <URL value="@../styles/results-filter.css" />
