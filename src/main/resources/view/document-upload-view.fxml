@@ -17,7 +17,7 @@
 
 <!-- Main container for the page -->
 
-<VBox prefHeight="1051.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddDocumentController">
+<VBox prefHeight="1051.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddDocumentController">
     <!-- Including external stylesheet for the page -->
     <stylesheets>
         <URL value="@../styles/document-upload.css" />
@@ -46,7 +46,7 @@
                         <VBox VBox.vgrow="ALWAYS">
                             <children>
                                 <!-- Make sure errorLabel is visible and can grow to fit its content -->
-                                <Label fx:id="errorLabel" styleClass="errorLabel" visible="false" wrapText="true" VBox.vgrow="NEVER" />
+                                <Label fx:id="errorLabel" styleClass="errorLabel" visible="false" wrapText="true" VBox.vgrow="ALWAYS" />
                             </children>
                         </VBox>
 
@@ -81,13 +81,13 @@
                                     <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" HBox.hgrow="ALWAYS">
                                         <children>
                                             <Label styleClass="form-label" text="Department" />
-                                            <ComboBox fx:id="department" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="combo-box" />
+                                            <ComboBox fx:id="departmentComboBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="combo-box" />
                                         </children>
                                     </VBox>
                                     <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" HBox.hgrow="ALWAYS">
                                         <children>
                                             <Label styleClass="form-label" text="Classification" />
-                                            <ComboBox fx:id="classification" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="combo-box" />
+                                            <ComboBox fx:id="classificationComboBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="combo-box" />
                                         </children>
                                     </VBox>
                                 </children>
@@ -123,7 +123,7 @@
                             <!-- Buttons for canceling or saving the document -->
                             <HBox alignment="CENTER_RIGHT" spacing="16">
                                 <Button fx:id="cancelButton" onAction="#handleCancel" styleClass="btn-secondary" text="Cancel" />
-                                <Button fx:id="saveButton" onAction="#handleSave" styleClass="btn-primary" text="Save Document" />
+                                <Button fx:id="saveButton" defaultButton="true" onAction="#handleSave" styleClass="btn-primary" text="Save Document" />
                             </HBox>
                         </VBox>
                     </VBox>
