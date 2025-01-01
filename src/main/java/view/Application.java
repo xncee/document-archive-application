@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -28,6 +29,9 @@ public class Application  {
     }
 
     private void start() throws IOException {
+        // setting application icon
+        Image icon = new Image(getClass().getResourceAsStream("/icons/logo.png"));
+        primaryStage.getIcons().add(icon);
         // Loading the main layout
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main-layout-view.fxml"));
         BorderPane root = loader.load();
@@ -59,12 +63,11 @@ public class Application  {
     private void setup_screen() {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
-        // Set the stage's minimum width and height so it doesn't exceed the screen size
         primaryStage.setMinWidth(300);  // Minimum width for the application window
         primaryStage.setMinHeight(200); // Minimum height for the application window
-
+        primaryStage.setMaximized(true);
         // Set the initial size of the window to fit within the screen
-        primaryStage.setWidth(screenBounds.getWidth()*0.8);
-        primaryStage.setHeight(screenBounds.getHeight()*0.8);
+        primaryStage.setWidth(screenBounds.getWidth());
+        primaryStage.setHeight(screenBounds.getHeight());
     }
 }
