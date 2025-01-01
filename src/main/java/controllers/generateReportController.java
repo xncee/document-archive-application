@@ -5,9 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
-import reporting.ExcelReportGenerator;
-import reporting.PDFReportGenerator;
-import reporting.ReportGenerator;
+import reports.ExcelReportGenerator;
+import reports.PDFReportGenerator;
+import reports.ReportGenerator;
 import utils.ContentSwitcher;
 
 import java.time.LocalDate;
