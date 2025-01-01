@@ -10,3 +10,12 @@
     -fx-alignment: center;
     -fx-min-height: 64px;
 }
+.combo-box {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
+    -fx-border-color: transparent; /* Light gray border color */
+    -fx-border-radius: 6; /* Rounded corners for inputs */
+    -fx-background-radius: 6; /* Rounded background */
+    -fx-font-family: "Inter"; /* Font family */
+    -fx-font-size: 16; /* Font size for input fields */
+}
