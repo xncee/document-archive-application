@@ -126,6 +126,10 @@
     -fx-background-color: #404040;
 }
 
+.login-button:pressed {
+    -fx-background-color: #1a1a1a;
+}
+
 /* Register Prompt */
 .register-prompt {
     /* Font size for the prompt text */

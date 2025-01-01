@@ -19,7 +19,7 @@
 
 <!-- Root VBox container for the entire login page -->
 
-<VBox alignment="CENTER" prefHeight="1051.0" prefWidth="1440.0" styleClass="login-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignInController">
+<VBox alignment="CENTER" styleClass="login-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignInController">
     <!-- Link to external CSS file -->
     <stylesheets>
         <URL value="@../styles/signin.css" />
@@ -28,7 +28,7 @@
     <!-- Background container -->
     <StackPane styleClass="main-background" VBox.vgrow="NEVER">
         <!-- Login card container -->
-        <VBox maxWidth="400" spacing="32" styleClass="login-card">
+        <VBox alignment="CENTER" maxWidth="400.0" spacing="32" styleClass="login-card">
 
             <!-- Header section: Logo, app title, and description -->
             <VBox alignment="CENTER" spacing="8" styleClass="login-header">

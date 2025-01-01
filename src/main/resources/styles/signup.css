@@ -8,9 +8,9 @@
 .signup-card {
     -fx-background-color: #fff;
     -fx-border-radius: 8;
-    -fx-background-radius: 8;
+    -fx-background-radius: 8px;
     -fx-padding: 32 30;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 2, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);
     -fx-spacing: 20;
     -fx-alignment: center;
     -fx-max-width: 448px;
