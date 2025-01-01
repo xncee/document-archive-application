@@ -16,6 +16,7 @@ public enum Messages {
     PASSWORD_RESET_SUCCESSFUL("Your password has been updated. Log in to continue."),
     DOCUMENT_UPLOAD_SUCCESSFUL("Document uploaded successfully."),
     DOCUMENT_UPLOAD_FAILED("Failed to upload the document. Try again."),
+    FILE_IS_INVALID("Selected file is invalid."),
     FILE_FORMAT_NOT_SUPPORTED("Unsupported file format. Please upload a valid document."),
     ACCESS_DENIED("You do not have permission to access this section."),
     SEARCH_YIELDED_NO_RESULTS("No matching documents found. Check your search criteria.");
