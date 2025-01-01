@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox accessibleText="Generate Report Dialog" alignment="CENTER" focusTraversable="true" prefHeight="616.0" prefWidth="480.0" spacing="0" styleClass="main-container" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.generateReportController">
+<VBox accessibleText="Generate Report Dialog" alignment="CENTER" focusTraversable="true" prefHeight="616.0" prefWidth="480.0" spacing="0" styleClass="main-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.generateReportController">
 
     <!-- Link to the stylesheet -->
     <stylesheets>
@@ -155,9 +155,8 @@
                      <Label styleClass="section-title" text="Report Options" />
                      <VBox spacing="12">
                          <!-- Checkboxes for report options -->
-                         <CheckBox focusTraversable="true" mnemonicParsing="false" styleClass="option-checkbox" text="Include " />
+                         <CheckBox focusTraversable="true" mnemonicParsing="false" styleClass="option-checkbox" text="Option 1" />
                          <CheckBox focusTraversable="true" mnemonicParsing="false" styleClass="option-checkbox" text="Option 2" />
-                         <CheckBox focusTraversable="true" mnemonicParsing="false" styleClass="option-checkbox" text="Option 3" />
                      </VBox>
                  </VBox>
              </VBox>
