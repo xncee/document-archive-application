@@ -1,4 +1,4 @@
-package reporting;
+package reports;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -18,10 +18,17 @@ public class PDFReportGenerator extends ReportGenerator {
         if (documents.isEmpty()) {
             throw new IllegalArgumentException("documents list is empty!");
         }
+
+        // Select a location to save the generated report
         File file = askForFileLocation(List.of("pdf"));
         if (file ==  null) {
             return false;
         }
+        // Verify that the file is in the correct format
+        if (!file.getName().endsWith(".pdf")) {
+            file = new File(file.getAbsolutePath()+".pdf");
+        }
+
         PdfWriter writer = null;
         try {
             writer = new PdfWriter(file.getAbsolutePath());
@@ -52,10 +59,15 @@ public class PDFReportGenerator extends ReportGenerator {
             i++;
         }
 
-        // Add the table to the PDFDocument
-        PDFDocument.add(table);
+        // Add the table to the PDFDocument & Save the generated report.
+        try {
+            PDFDocument.add(table);
+        }
+        catch (Exception e) {
+            return false;
+        }
         PDFDocument.close();
-        //System.out.println("PDF Report Generated: " + file.getAbsolutePath());
+        System.out.println("PDF Report Generated: " + file.getAbsolutePath());
         return true;
     }
 

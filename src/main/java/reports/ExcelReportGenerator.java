@@ -1,4 +1,4 @@
-package reporting;
+package reports;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -17,6 +17,17 @@ public class ExcelReportGenerator extends ReportGenerator {
         if (documents.isEmpty()) {
             throw new IllegalArgumentException("documents list is empty!");
         }
+
+        // Select a location to save the generated report
+        File file = askForFileLocation(List.of("xlsx"));
+        if (file ==  null) {
+            return false;
+        }
+        // Verify that the file is in the correct format
+        if (!file.getName().endsWith(".xlsx")) {
+            file = new File(file.getAbsolutePath()+".xlsx");
+        }
+
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Documents Report - "+ LocalDate.now());
 
@@ -66,10 +77,7 @@ public class ExcelReportGenerator extends ReportGenerator {
             sheet.autoSizeColumn(i);
         }
 
-        File file = askForFileLocation(List.of("xlsx", "xls"));
-        if (file == null) {
-            return false;
-        }
+        // Save the generated report.
         try (FileOutputStream fileOut = new FileOutputStream(file)) {
             workbook.write(fileOut);
             workbook.close();
@@ -77,7 +85,7 @@ public class ExcelReportGenerator extends ReportGenerator {
             return true;
         }
         catch (IOException e) {
-            throw new RuntimeException(e);
+            return false;
         }
     }
 }
