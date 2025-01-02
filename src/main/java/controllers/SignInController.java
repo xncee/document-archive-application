@@ -1,6 +1,6 @@
 package controllers;
 
-import models.login.RememberMe;
+import utils.UserPreffrences;
 import services.FieldsServices;
 import utils.ContentSwitcher;
 import javafx.event.ActionEvent;
@@ -33,7 +33,7 @@ public class SignInController {
     }
 
     private void loadRememberMe() {
-        String[] credentials = RememberMe.getCredentials();
+        String[] credentials = UserPreffrences.getCredentials();
         String savedUsername = credentials[0];
         String savedPassword = credentials[1];
 
@@ -73,9 +73,9 @@ public class SignInController {
         }
 
         if (rememberMeCheckbox!= null && rememberMeCheckbox.isSelected())
-            RememberMe.saveCredentials(usernameField.getText(),passwordField.getText());
+            UserPreffrences.saveCredentials(usernameField.getText(),passwordField.getText());
         else
-            RememberMe.clearCredentials();
+            UserPreffrences.clearCredentials();
 
         Login login = new Login();
         boolean loggedIn = login.signIn(usernameField.getText(), passwordField.getText());

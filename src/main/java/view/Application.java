@@ -10,11 +10,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import utils.UserPreffrences;
 import utils.ContentSwitcher;
+import utils.LocalizationUtil;
 
 import java.io.IOException;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class Application  {
     private Stage primaryStage;
@@ -34,16 +35,19 @@ public class Application  {
         // setting application icon
         Image icon = new Image(getClass().getResourceAsStream("/icons/logo.png"));
         primaryStage.getIcons().add(icon);
+        // Set user preferred language
+        System.out.println(UserPreffrences.getLanguage());
+        LocalizationUtil.setLocale(new Locale(UserPreffrences.getLanguage()));
         // Loading the main layout
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main-layout-view.fxml"));
         BorderPane root = loader.load();
-        // Loading the content
-        ResourceBundle bundle = ResourceBundle.getBundle("messages", Locale.getDefault());
-        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("signin-view.fxml"), bundle);
-        // setting content at the center
-        root.setCenter(loader1.load());
         // setting mainContainer to ContentSwitcher
         ContentSwitcher.setMainContainer(root);
+        // Loading the content
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("signin-view.fxml"), LocalizationUtil.getResourceBundle());
+        // setting content at the center
+        root.setCenter(loader1.load());
+
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();

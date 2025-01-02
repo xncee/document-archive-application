@@ -10,6 +10,10 @@ public class LocalizationUtil {
         resourceBundle = ResourceBundle.getBundle("messages", locale);
     }
 
+    public static ResourceBundle getResourceBundle() {
+        return resourceBundle;
+    }
+
     public static String getString(String key) {
         return resourceBundle.getString(key);
     }
