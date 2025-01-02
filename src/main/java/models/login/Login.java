@@ -1,5 +1,6 @@
 package models.login;
 
+import exceptions.DatabaseOperationException;
 import io.github.cdimascio.dotenv.Dotenv;
 import data.DBFacade;
 import utils.ErrorHandler;
@@ -50,24 +51,30 @@ public class Login {
     }
 
     public boolean signUp(String username, String email, String fullname, String password) {
-        boolean created = dbFacade.addUser(username, email, password, fullname);
-        if (created) {
-            // userId is auto-generated, so we need to retrieve it after creation.
-            // This could vary based on your database setup.
-            Map<String, Object> userInfo = null; // Example method to retrieve user by username
-            try {
-                userInfo = dbFacade.getUserByUsername(username);
-            } catch (SQLException e) {
-                ErrorHandler.handle(e, "An error occurred while fetching user information.");
-            }
-            if (userInfo != null) {
-                this.id = (int) userInfo.get("userId"); // Assuming the ID is stored as an integer
-                this.username = username.toLowerCase();
-                this.email = email.toLowerCase();
-                this.fullname = fullname;
-            }
+        int userId;
+        try {
+            userId = dbFacade.addUser(username, email, password, fullname);
+        } catch (DatabaseOperationException e) {
+            // Log the error or provide more details
+            return false;
         }
-        return created;
+
+        Map<String, Object> userInfo = null;
+        try {
+            userInfo = dbFacade.getUserByUsername(username);
+        } catch (SQLException e) {
+            // Handle or log the exception here
+            ErrorHandler.handle(e, "An error occurred while fetching user information.");
+            return false;
+        }
+
+        if (userInfo != null) {
+            this.id = (int) userInfo.get("userId");
+            this.username = username.toLowerCase();
+            this.email = email.toLowerCase();
+            this.fullname = fullname;
+        }
+        return true;
     }
 
     public int getId() {

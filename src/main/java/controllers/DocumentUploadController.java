@@ -13,16 +13,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Alert.AlertType;
 
 public class DocumentUploadController {
-    @FXML private TextField documentIdField;
-    @FXML private TextField titleField;
-    @FXML private TextArea descriptionArea;
-    @FXML private ComboBox<String> departmentCombo;
-    @FXML private ComboBox<String> classificationCombo;
-    @FXML private DatePicker deadlinePicker;
-    @FXML private VBox uploadZone;
+        @FXML private TextField documentIdField;
+        @FXML private TextField titleField;
+        @FXML private TextArea descriptionArea;
+        @FXML private ComboBox<String> departmentCombo;
+        @FXML private ComboBox<String> classificationCombo;
+        @FXML private DatePicker deadlinePicker;
+        @FXML private VBox uploadZone;
 
-    private File selectedFile;
-    private static final double MAX_FILE_SIZE_MB = 10.0;
+        private File selectedFile;
+        private static final double MAX_FILE_SIZE_MB = 10.0;
 
     @FXML
     public void initialize() {

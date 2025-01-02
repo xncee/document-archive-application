@@ -6,13 +6,6 @@
    -fx-alignment: center; /* Align content in the center */
 }
 
-/* Header styling */
-.header {
-    -fx-background-color: white; /* White background */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1); /* Subtle drop shadow effect */
-    -fx-padding: 0 70 0 70; /* Padding on left and right sides */
-}
-
 /* Brand name styling */
 .brand-name {
     -fx-font-family: "Inter"; /* Font family for the brand name */

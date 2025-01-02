@@ -2,6 +2,8 @@ package reports;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import utils.FilesServices;
+import utils.FilesSystem;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,7 +21,7 @@ public class ExcelReportGenerator extends ReportGenerator {
         }
 
         // Select a location to save the generated report
-        File file = askForFileLocation(List.of("xlsx"));
+        File file = FilesServices.askForFileLocation(List.of("xlsx"));
         if (file ==  null) {
             return false;
         }

@@ -17,7 +17,7 @@
 
 <!-- Main container for the page -->
 
-<VBox prefHeight="1051.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddDocumentController">
+<VBox prefHeight="1051.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddDocumentController">
     <!-- Including external stylesheet for the page -->
     <stylesheets>
         <URL value="@../styles/document-upload.css" />
@@ -113,7 +113,7 @@
                                 <!-- Instructions for file upload -->
                                 <VBox alignment="CENTER" spacing="6">
                                     <Label styleClass="upload-text" text="Drag and drop your PDF file here, or" />
-                                    <Hyperlink fx:id="browseFilesLink" styleClass="browse-link" text="browse files" />
+                                    <Hyperlink fx:id="browseFilesLink" onAction="#handleBrowseFiles" styleClass="browse-link" text="browse files" />
                                 </VBox>
 
                                 <!-- File size limit message -->

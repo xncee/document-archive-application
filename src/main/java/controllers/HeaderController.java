@@ -6,8 +6,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import models.login.Login;
+import utils.ContentSwitcher;
+import utils.LocalizationUtil;
 
-import java.awt.event.ActionEvent;
+import java.util.Locale;
 
 public class HeaderController {
     public VBox header;
@@ -35,6 +37,20 @@ public class HeaderController {
 
     @FXML
     public void handleLanguage() {
+        String selectedLanguage = languageComboBox.getValue();
+        switch (selectedLanguage) {
+            case "English":
+                LocalizationUtil.setLocale(new Locale("en", "EN"));
+                ContentSwitcher.setDirectionLTR();
+                break;
+            case "Arabic":
+                LocalizationUtil.setLocale(new Locale("ar", "SA"));
+                ContentSwitcher.setDirectionRTL();
+            default:
+                LocalizationUtil.setLocale(Locale.ENGLISH);
+                break;
+        }
+
         System.out.println("Language switched to "+languageComboBox.getValue());
     }
 
