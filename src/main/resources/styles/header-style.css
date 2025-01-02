@@ -2,6 +2,9 @@
     -fx-background-color: white;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
     -fx-padding: 0 70 0 70;
+    -fx-direction: ltr;
+    -fx-spacing: 20; /* Space between document header elements */
+    -fx-alignment: center; /* Center alignment */
 }
 
 .header-content {
@@ -10,6 +13,7 @@
     -fx-alignment: center;
     -fx-min-height: 64px;
 }
+
 .combo-box {
     -fx-background-color: white;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
