@@ -115,7 +115,7 @@ public class DashboardController {
         List<Map<String, Object>> docs = dbFacade.getLimitedRows(TABLES.DOCUMENTS.getTableName(), 100);
         // when reaching end of the list: SELECT * FROM table_name WHERE id > ? ORDER BY id ASC;
         for (Map<String, Object> x: docs) {
-            Document doc = new Document.Builder(
+            Document.Builder docBuilder = new Document.Builder(
                     (String) x.get("status"),
                     (Integer) x.get("uploaderId"),
                     (String) x.get("title"),
@@ -125,9 +125,15 @@ public class DashboardController {
                     .id((String) x.get("id"))
                     .deadline(convertToLocalDate(x.get("deadline")))
                     .createdDate(convertToLocalDate(x.get("createdDate")))
-                    .updatedDate(convertToLocalDate(x.get("updatedDate")))
-                    .filePath((String) x.get("filePath"))
-                    .build();
+                    .updatedDate(convertToLocalDate(x.get("updatedDate")));
+            //IllegalArgumentException
+//            try {
+//                docBuilder.filePath((String) x.get("filePath"));
+//            }
+//            catch (IllegalArgumentException e) {
+//                // pass
+//            }
+            Document doc = docBuilder.build();
             documents.add(doc);
         }
         // Set the items to the TableView

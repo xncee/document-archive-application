@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import models.login.Login;
 import utils.ContentSwitcher;
 import utils.LocalizationUtil;
+import utils.UserPreffrences;
 
 import java.util.Locale;
 
@@ -31,24 +32,25 @@ public class HeaderController {
     }
 
     private void prepareLanguages() {
-        languageComboBox.getItems().addAll("ِArabic", "English");
-        languageComboBox.setValue("English"); // replace with preferred language
+        languageComboBox.getItems().addAll("Arabic", "English");
+        languageComboBox.setValue(UserPreffrences.getLanguage()); // replace with preferred language
     }
 
     @FXML
     public void handleLanguage() {
-        String selectedLanguage = languageComboBox.getValue();
-        switch (selectedLanguage) {
-            case "English":
-                LocalizationUtil.setLocale(new Locale("en", "EN"));
-                ContentSwitcher.setDirectionLTR();
-                break;
-            case "Arabic":
-                LocalizationUtil.setLocale(new Locale("ar", "SA"));
-                ContentSwitcher.setDirectionRTL();
-            default:
-                LocalizationUtil.setLocale(Locale.ENGLISH);
-                break;
+        String selectedLanguage = languageComboBox.getValue().toLowerCase();
+        if ("english".equals(selectedLanguage)) {
+            LocalizationUtil.setLocale(new Locale("en"));
+            ContentSwitcher.setDirectionLTR();
+            UserPreffrences.setLanguage("en");
+        }
+        else if ("arabic".equals(selectedLanguage)) {
+            LocalizationUtil.setLocale(new Locale("ar"));
+            ContentSwitcher.setDirectionRTL();
+            UserPreffrences.setLanguage("ar");
+        }
+        else {
+            LocalizationUtil.setLocale(new Locale("en"));
         }
 
         System.out.println("Language switched to "+languageComboBox.getValue());

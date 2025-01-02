@@ -34,7 +34,7 @@
                         <Label styleClass="brand-name" text="DocuVault" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
-            <ComboBox fx:id="languageComboBox" onInputMethodTextChanged="#handleLanguage" prefWidth="150.0" promptText="Language" styleClass="combo-box" />
+            <ComboBox fx:id="languageComboBox" onAction="#handleLanguage" prefWidth="150.0" promptText="Language" styleClass="combo-box" />
                 <!-- Adding padding to the left side of the brand section -->
                 <padding>
                     <Insets left="24.0" />

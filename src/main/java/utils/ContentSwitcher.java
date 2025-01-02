@@ -16,16 +16,28 @@ import java.io.IOException;
 
 public class ContentSwitcher {
     private static BorderPane mainContainer = null;
+    private static String current_file;
 
     // Method to switch content dynamically
     @FXML
     public static void switchContent(ActionEvent event, String fxmlFile) throws IOException {
+        current_file = fxmlFile;
         // Load the new content from the FXML file
-        FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(fxmlFile));
+        FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(fxmlFile), LocalizationUtil.getResourceBundle());
         Parent newContent = loader.load();
 
         // Set the new content in the BorderPane (content area)
         mainContainer.setCenter(newContent);  // Use setCenter for BorderPane
+    }
+
+    @FXML
+    public static void reloadPage() throws IOException {
+        if (current_file == null) return;
+        FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(current_file), LocalizationUtil.getResourceBundle());
+        Parent newContent = loader.load();
+
+        // Set the new content in the BorderPane (content area)
+        mainContainer.setCenter(newContent);
     }
 
     @FXML
@@ -49,11 +61,21 @@ public class ContentSwitcher {
     @FXML
     public static void setDirectionLTR() {
         mainContainer.setStyle("-fx-direction: ltr;");
+        try {
+            reloadPage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
     public static void setDirectionRTL() {
         mainContainer.setStyle("-fx-direction: rtl;");
+        try {
+            reloadPage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
