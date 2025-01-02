@@ -32,6 +32,7 @@ public class ContentSwitcher {
 
     @FXML
     public static void reloadPage() throws IOException {
+        if (current_file == null) return;
         FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(current_file), LocalizationUtil.getResourceBundle());
         Parent newContent = loader.load();
 

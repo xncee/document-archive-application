@@ -36,7 +36,6 @@ public class Application  {
         Image icon = new Image(getClass().getResourceAsStream("/icons/logo.png"));
         primaryStage.getIcons().add(icon);
         // Set user preferred language
-        System.out.println(UserPreffrences.getLanguage());
         LocalizationUtil.setLocale(new Locale(UserPreffrences.getLanguage()));
         // Loading the main layout
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main-layout-view.fxml"));
@@ -48,6 +47,10 @@ public class Application  {
         // setting content at the center
         root.setCenter(loader1.load());
 
+        // If arabic, switch direction
+        if ("ar".equals(UserPreffrences.getLanguage())) {
+            ContentSwitcher.setDirectionRTL();
+        }
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
