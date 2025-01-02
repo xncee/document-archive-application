@@ -5,6 +5,8 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
+import utils.FilesServices;
+import utils.FilesSystem;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +22,7 @@ public class PDFReportGenerator extends ReportGenerator {
         }
 
         // Select a location to save the generated report
-        File file = askForFileLocation(List.of("pdf"));
+        File file = FilesServices.askForFileLocation(List.of("pdf"));
         if (file ==  null) {
             return false;
         }

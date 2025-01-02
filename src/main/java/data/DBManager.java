@@ -1,6 +1,7 @@
 package data;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class DBManager {
@@ -25,8 +26,72 @@ public class DBManager {
         }
         return row;
     }
+    public List<Map<String, Object>> getLimited(String table, int limit) throws SQLException {
+        String query = String.format("SELECT TOP %d * FROM %s", limit, table);
 
-    public List<Map<String, Object>> search(String table, Object value, boolean match, String... columns) throws SQLException {
+        List<Map<String, Object>> results = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            ResultSetMetaData metaData = rs.getMetaData();
+            while (rs.next()) {
+                results.add(mapData(rs, metaData)); // Assuming `mapData` converts the ResultSet row to a Map
+            }
+        }
+
+        return results;
+    }
+
+    public List<Map<String, Object>> getValuesAfterPK(String table, String pk, int value) throws SQLException {
+        List<Map<String, Object>> results = new ArrayList<>();
+        String query = String.format("SELECT * FROM %s WHERE ? > ? ORDER BY id ASC", table);
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, pk);
+            stmt.setInt(2, value);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                ResultSetMetaData metaData = rs.getMetaData();
+                while (rs.next()) {
+                    results.add(mapData(rs, metaData)); // Map the row data to a map
+                }
+            }
+        }
+
+        return results;
+    }
+
+    public int getCount(String table) throws SQLException {
+        String query = "SELECT COUNT(*) FROM " + table;
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet resultSet = stmt.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getInt(1); // Retrieve the count from the first column
+            }
+            throw new SQLException("Failed to retrieve count from table: " + table);
+        }
+    }
+
+    public List<Map<String, Object>> getDataByDateRange(String table, String dateColumn, LocalDate startDate, LocalDate endDate) throws SQLException {
+        List<Map<String, Object>> results = new ArrayList<>();
+
+        String query = "SELECT * FROM " + table + " WHERE " + dateColumn + " BETWEEN ? AND ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setDate(1, java.sql.Date.valueOf(startDate)); // Convert LocalDate to java.sql.Date
+            stmt.setDate(2, java.sql.Date.valueOf(endDate));
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                ResultSetMetaData metaData = rs.getMetaData();
+                while (rs.next()) {
+                    results.add(mapData(rs, metaData)); // Map each row to a Map object
+                }
+            }
+        }
+
+        return results;
+    }
+
+    public List<Map<String, Object>> search(String table, Object value, String orderBy, boolean match, String... columns) throws SQLException {
         // Ensure that at least one column is specified
         if (columns == null || columns.length == 0) {
             throw new IllegalArgumentException("At least one column must be specified.");
@@ -68,8 +133,8 @@ public class DBManager {
         return results;
     }
 
-    public List<Map<String, Object>> search(String table, Object value, String... columns) throws SQLException {
-        return search(table, value, false, columns); // Call the original search with 'false' for partial matching
+    public List<Map<String, Object>> search(String table, Object value, String orderBy, String... columns) throws SQLException {
+        return search(table, value, orderBy, false, columns); // Call the original search with 'false' for partial matching
     }
 
     public Map<String, Object> checkUser(String username, String password) throws SQLException {
@@ -90,34 +155,32 @@ public class DBManager {
         }
     }
 
-    public int insert(String table, Map<String, Object> colValMap) throws SQLException {
-        // Build the column names and placeholders for values
+    public Object insert(String table, Map<String, Object> colValMap) throws SQLException {
         StringBuilder columns = new StringBuilder();
         StringBuilder placeholders = new StringBuilder();
-
         for (Map.Entry<String, Object> entry : colValMap.entrySet()) {
             columns.append(entry.getKey()).append(",");
-            placeholders.append("?").append(",");  // Use placeholders for PreparedStatement
+            placeholders.append("?").append(",");
         }
-
-        // Remove trailing commas
         columns.setLength(columns.length() - 1);
         placeholders.setLength(placeholders.length() - 1);
 
-        // Prepare the SQL query with placeholders
         String query = "INSERT INTO " + table + " (" + columns + ") VALUES (" + placeholders + ")";
 
-        // Use PreparedStatement to prevent SQL injection
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+        try (PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             int index = 1;
-
-            // Bind the values to the placeholders in the prepared statement
             for (Map.Entry<String, Object> entry : colValMap.entrySet()) {
                 stmt.setObject(index++, entry.getValue());
             }
+            stmt.executeUpdate();
 
-            // Execute the insert statement
-            return stmt.executeUpdate();
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getObject(1);  // Return the generated key as an Object
+                } else {
+                    throw new SQLException("Insertion failed, no generated key obtained.");
+                }
+            }
         }
     }
 
@@ -149,12 +212,27 @@ public class DBManager {
     }
 
 
-    public boolean update(String table, String column, String value) {
-        return true;
+    public boolean update(String table, String column, String value, String pkColumn, String pkValue) throws SQLException {
+        // Build the update query dynamically
+        String query = "UPDATE " + table + " SET " + column + " = ? WHERE " + pkColumn + " = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            // Set the parameters for the update statement
+            stmt.setString(1, value);  // Set the new value for the column
+            stmt.setString(2, pkValue);
+
+            // Execute the update and check the number of affected rows
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        }
     }
 
-    public boolean delete(String table, String pk) {
-        return true;
+    public boolean delete(String table, String column, Object value) throws SQLException {
+        String sql = "DELETE FROM " + table + " WHERE " + column + " = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setObject(1, value);
+            return stmt.executeUpdate() > 0;  // Return true if the deletion was successful
+        }
     }
 
     public List<Map<String, Object>> getFromTable(String table, String... columns) throws SQLException {

@@ -6,21 +6,6 @@
     -fx-alignment: center; /* Center content horizontally and vertically */
 }
 
-/* Header Styling */
-.header {
-    -fx-background-color: white; /* White background */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1); /* Light shadow effect */
-    -fx-padding: 0 70 0 70; /* Padding on the left and right */
-}
-
-/* Header Content Styling */
-.header-content {
-    -fx-spacing: 100; /* Large spacing between elements */
-    -fx-padding: 16; /* Padding around content */
-    -fx-alignment: center; /* Center align elements */
-    -fx-min-height: 64px; /* Minimum height for the header */
-}
-
 /* Brand Section Styling */
 .brand {
     -fx-spacing: 16; /* Space between brand elements */
@@ -139,12 +124,6 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1); /* Light shadow effect */
 }
 
-/* Document Header Styling */
-.document-header {
-    -fx-spacing: 20; /* Space between document header elements */
-    -fx-alignment: center; /* Center alignment */
-}
-
 /* Section Title Styling */
 .section-title {
     -fx-font-family: "Inter"; /* Font family */
@@ -255,18 +234,19 @@ Button:hover {
 /* Table Styling */
 .document-table {
     -fx-background-color: transparent; /* Transparent background */
-    -fx-table-cell-border-color: transparent; /* No border for table cells */
+}
+
+.table-cell {
+    -fx-font-family: "Inter";
+    -fx-font-size: 14;
+    -fx-alignment: CENTER; /* Centers the cell within the column */
+    -fx-content-alignment: LEFT;
 }
 
 .table-row-cell {
     -fx-background-color: transparent; /* Transparent row background */
     -fx-border-color: transparent; /* No border for rows */
     -fx-table-cell-border-color: transparent; /* No border for table cells */
-}
-
-/* Odd Table Row Styling */
-.table-row-cell:odd {
-    -fx-background-color: #fafafa; /* Light background for odd rows */
 }
 
 /* Selected Table Row Styling */

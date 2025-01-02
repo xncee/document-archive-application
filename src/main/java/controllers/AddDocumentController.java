@@ -7,11 +7,14 @@ import models.Document;
 import models.login.Login;
 import services.DocumentServices;
 import services.FieldsServices;
+import utils.FilesServices;
+import utils.FilesSystem;
 import utils.ContentSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import utils.Messages;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -32,9 +35,13 @@ public class AddDocumentController {
     @FXML
     private DatePicker deadline;
     @FXML
+    private Hyperlink browseFilesLink;
+    @FXML
     private Button cancelButton;
     @FXML
     private Button saveButton;
+
+    private String filePath;
 
     @FXML
     private void initialize() {
@@ -57,10 +64,6 @@ public class AddDocumentController {
         }
     }
 
-    @FXML
-    public void handleCancel(ActionEvent event) throws IOException {
-        ContentSwitcher.switchContent(event, "/view/dashboard-view.fxml");
-    }
     public void setFieldValid(Node field) {
         FieldsServices.setFieldValid(field);
     }
@@ -68,42 +71,85 @@ public class AddDocumentController {
         FieldsServices.setRedBorder(field);
         FieldsServices.addErrorMessage(errorLabel, errorMessage);
     }
+
+    private boolean doesFileExist(String filePath) {
+        File file = new File(filePath);
+        return file.exists();
+    }
     private boolean validateForm() {
         errorLabel.setText("");
         boolean valid = true;
         // documentId is optional
+
+        // Title validation
         if (title.getText().isBlank()) {
             setFieldInvalid(title, "Title: "+Messages.THIS_FIELD_IS_REQUIRED.getMessage());
             valid = false;
         } else {
             setFieldValid(title);
         }
+        // Description validation
         if (description.getText().isBlank()) {
             setFieldInvalid(description, "Description: "+Messages.THIS_FIELD_IS_REQUIRED.getMessage());
             valid = false;
         } else {
             setFieldValid(description);
         }
+        // Department validation
         if (departmentComboBox.getValue() == null) {
             setFieldInvalid(departmentComboBox, "Department: "+Messages.THIS_FIELD_IS_REQUIRED.getMessage());
             valid = false;
         } else {
             setFieldValid(departmentComboBox);
         }
+        // Classification validation
         if (classificationComboBox.getValue() == null) {
             setFieldInvalid(classificationComboBox, "Classification: "+Messages.THIS_FIELD_IS_REQUIRED.getMessage());
             valid = false;
         } else {
             setFieldValid(classificationComboBox);
         }
-
+        // FilePath validation
+        if (filePath != null && !doesFileExist(filePath)) {
+            setFieldInvalid(browseFilesLink, "File: "+Messages.FILE_IS_INVALID);
+            valid = false;
+        } else {
+            setFieldValid(browseFilesLink);
+        }
         return valid;
     }
+
+    @FXML
+    public void handleBrowseFiles(ActionEvent event) {
+        File file = FilesServices.askForFileLocation();
+        if (file != null) {
+            filePath = file.getAbsolutePath();
+            browseFilesLink.setText(file.getName());
+        }
+    }
+
+    @FXML
+    public void handleCancel(ActionEvent event) throws IOException {
+        System.out.println("Operation canceled.");
+        System.out.println("Switching to dashboard...");
+        ContentSwitcher.switchContent(event, "/view/dashboard-view.fxml");
+    }
+
     @FXML
     public void handleSave(ActionEvent event) throws IOException {
         if (!validateForm()) {
             // display some error message.
             return;
+        }
+
+        // Copy the file to application directory.
+        // returns the copied file path or null if failed to copy
+        if (filePath != null) {
+            String copiedFile = FilesSystem.copyFile(filePath);
+            // if copied, update filePath
+            if (copiedFile != null) {
+                filePath = copiedFile;
+            }
         }
 
         int uploaderId = Login.getInstance().getId();
@@ -114,9 +160,8 @@ public class AddDocumentController {
                 departmentComboBox.getValue(),
                 classificationComboBox.getValue());
 
-        // created date is current date by default.
-        // updated date is initially null.
-        String filePath = "C:\\Users\\xncee\\OneDrive\\Desktop\\testReport.pdf";
+        // createdDate is current date by default.
+        // updatedDate is initially null.
         documentBuilder.id(documentId.getText()).deadline(deadline.getValue()).filePath(filePath);
 
         Document document = documentBuilder.build();
@@ -124,9 +169,8 @@ public class AddDocumentController {
             errorLabel.setText("Upload failed.");
             return;
         }
-        else {
-            System.out.println("Document added "+document.getId());
-            ContentSwitcher.switchContent(event, "/view/dashboard-view.fxml");
-        }
+        System.out.println("Document added "+document.getId());
+        System.out.println("Switching to dashboard...");
+        ContentSwitcher.switchContent(event, "/view/dashboard-view.fxml");
     }
 }

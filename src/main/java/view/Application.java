@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 import utils.ContentSwitcher;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Application  {
     private Stage primaryStage;
@@ -36,7 +38,8 @@ public class Application  {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main-layout-view.fxml"));
         BorderPane root = loader.load();
         // Loading the content
-        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("signin-view.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("messages", Locale.getDefault());
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("signin-view.fxml"), bundle);
         // setting content at the center
         root.setCenter(loader1.load());
         // setting mainContainer to ContentSwitcher

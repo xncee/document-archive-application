@@ -47,6 +47,16 @@ public class ContentSwitcher {
     }
 
     @FXML
+    public static void setDirectionLTR() {
+        mainContainer.setStyle("-fx-direction: ltr;");
+    }
+
+    @FXML
+    public static void setDirectionRTL() {
+        mainContainer.setStyle("-fx-direction: rtl;");
+    }
+
+    @FXML
     public static void closeWindow(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();

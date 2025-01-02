@@ -1,16 +1,12 @@
 package data;
 
-import models.Department;
+import exceptions.DatabaseOperationException;
 import models.Document;
-import utils.ErrorHandler;
 
-import javax.print.Doc;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DBFacade {
     private static DBFacade instance;
@@ -33,6 +29,9 @@ public class DBFacade {
 
     public static DBFacade getInstance(String dbUrl) {
         if (instance == null) {
+            if (dbUrl == null || dbUrl.isEmpty()) {
+                throw new IllegalArgumentException("Database URL cannot be null or empty.");
+            }
             instance = new DBFacade(dbUrl);
         }
 
@@ -46,13 +45,46 @@ public class DBFacade {
         return dbManager.isConnected();
     }
 
-    public List<Map<String, Object>> searchUsers(Object value, boolean match, String... columns) {
+    public List<Map<String, Object>> search(String table, Object value, boolean match, String... columns) {
         try {
-            return dbManager.search(USERS_TABLE, value, match, columns);
+            return dbManager.search(table, value, null, match, columns);
         } catch (SQLException e) {
-            ErrorHandler.handle(e, "An error occurred while adding data to the database.");
+            throw new DatabaseOperationException("An error occurred while searching users in database.", e);
         }
-        return null;
+    }
+
+    public int getCount(String table) throws DatabaseOperationException {
+        try {
+            return dbManager.getCount(table); // Delegate the call to DBManager
+        } catch (SQLException e) {
+            throw new DatabaseOperationException("An error occurred while retrieving the count from table: " + table, e);
+        }
+    }
+
+    public List<Map<String, Object>> getDataByDateRange(String table, String dateColumn, LocalDate startDate, LocalDate endDate) throws DatabaseOperationException {
+        try {
+            return dbManager.getDataByDateRange(table, dateColumn, startDate, endDate);
+        } catch (SQLException e) {
+            throw new DatabaseOperationException("An error occurred while fetching data from " + table + " within the date range.", e);
+        }
+    }
+
+    public List<Map<String, Object>> getLimitedRows(String table, int limit) {
+        try {
+            return dbManager.getLimited(table, limit);
+        } catch (SQLException e) {
+            System.out.println(e);
+            return Collections.emptyList(); // Return an empty list in case of failure
+        }
+    }
+
+    public List<Map<String, Object>> getValuesAfterPK(String table, String pk, int value) {
+        try {
+            return dbManager.getValuesAfterPK(table, pk, value);
+        } catch (SQLException e) {
+            //throw new DatabaseOperationException("An error occurred while fetching data from "+table+" in method getValuesAfterPK.", e);
+            return Collections.emptyList(); // Return an empty list in case of failure
+        }
     }
 
     public Map<String, Object> getUserByUsername(String username) throws SQLException {
@@ -63,12 +95,11 @@ public class DBFacade {
         try {
             return dbManager.checkUser(username, password);
         } catch (SQLException e) {
-            ErrorHandler.handle(e, "An error occurred while validating login details.");
+            throw new DatabaseOperationException("An error occurred while authenticating user in authUser method.", e);
         }
-        return null;
     }
 
-    public boolean addUser(String username, String email, String password, String name) {
+    public int addUser(String username, String email, String password, String name) throws DatabaseOperationException {
         Map<String, Object> map = Map.of(
                 "username", username,
                 "email", email,
@@ -77,18 +108,21 @@ public class DBFacade {
                 "isAdmin", 0
         );
         try {
-            return dbManager.insert("users", map) > 0;
+            return (int) dbManager.insert("users", map);  // returns auto-generated userId.
         } catch (SQLException e) {
-            ErrorHandler.handle(e, "An error occurred while adding data to the database.");
+            throw new DatabaseOperationException("An error occurred while adding user to database.", e);
         }
-        return false;
     }
 
-    public boolean removeUser(String id) {
-        return dbManager.delete(USERS_TABLE, id);
+    public boolean removeUser(String id) throws DatabaseOperationException {
+        try {
+            return dbManager.delete(USERS_TABLE, "id", id);
+        } catch (SQLException e) {
+            throw new DatabaseOperationException("An error occurred while removing user from database.", e);
+        }
     }
 
-    public boolean addDocument(Document document) {
+    public String addDocument(Document document) throws DatabaseOperationException {
         Map<String, Object> map = new HashMap<>();
         map.put("id", document.getId());
         map.put("uploaderId", document.getUploaderId());
@@ -102,14 +136,21 @@ public class DBFacade {
         map.put("updatedDate", document.getUpdatedDate());
         map.put("filePath", document.getFilePath());
         try {
-            return dbManager.insert("documents", map) > 0;
+            return (String) dbManager.insert("documents", map); // returns the generated id.
         } catch (SQLException e) {
-            ErrorHandler.handle(e, "An error occurred while adding document to the database.");
+            throw new DatabaseOperationException("An error occurred while adding document to database.", e);
         }
-        return false;
     }
 
-    public boolean addActivity(String documentId, int userId, String description, LocalDateTime datetime) {
+    public List<Map<String, Object>> getTopDocuments(int n) throws DatabaseOperationException {
+        try {
+            return dbManager.getLimited("documents", n);
+        } catch (SQLException e) {
+            throw new DatabaseOperationException("An error occurred while fetching "+n+" documents from database.", e);
+        }
+    }
+
+    public void addActivity(String documentId, int userId, String description, LocalDateTime datetime) throws DatabaseOperationException {
         Map<String, Object> map = Map.of(
                 "documentId", documentId,
                 "userId", userId,
@@ -117,31 +158,38 @@ public class DBFacade {
                 "datetime", datetime
         );
         try {
-            return dbManager.insert("ActivityLog", map) > 0;
+            dbManager.insert("ActivityLog", map);
         } catch (SQLException e) {
-            ErrorHandler.handle(e, "An error occurred while adding data to the database.");
+            throw new DatabaseOperationException("An error occurred while logging activity to database.", e);
         }
-        return false;
     }
-
+    private Object addEntity(String table, Map<String, Object> map) throws DatabaseOperationException {
+        try {
+            return dbManager.insert(table, map);
+        } catch (SQLException e) {
+            throw new DatabaseOperationException("An error occurred while adding entity to database.", e);
+        }
+    }
     public List<Map<String, Object>> getDepartments() {
         try {
             return dbManager.getFromTable("departments", "name");
         } catch (SQLException e) {
-            ErrorHandler.handle(e, "An error occurred while fetching data from database.");
+            throw new DatabaseOperationException("An error occurred while retrieving documents from database.", e);
         }
-        return null;
     }
 
-    public List<Map<String, Object>> getClassifications() {
+    public List<Map<String, Object>> getClassifications() throws DatabaseOperationException {
         try {
             return dbManager.getFromTable("classifications", "name");
         } catch (SQLException e) {
-            ErrorHandler.handle(e, "An error occurred while fetching data from database.");
+            throw new DatabaseOperationException("An error occurred while getting classifications from database.", e);
         }
-        return null;
     }
-    public int getStatusCount(String status) {
-        return 0;
+    public int getStatusCount(String status) throws DatabaseOperationException {
+        try {
+            return dbManager.search("documents", status, null, true, "status").size();
+        } catch (SQLException e) {
+            throw new DatabaseOperationException("An error occurred while getting "+status+" status count from database.", e);
+        }
     }
 }
