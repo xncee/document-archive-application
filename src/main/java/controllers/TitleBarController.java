@@ -10,8 +10,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import utils.ContentSwitcher;
 
 public class TitleBarController {
+    @FXML
+    private Button previousPageButton;
 
     @FXML
     private HBox titleBar;
@@ -23,7 +26,6 @@ public class TitleBarController {
     private Button closeButton;
 
     private static final int RESIZE_MARGIN = 5;
-
     // Resizing variables
     private boolean isResizing = false;
     private double initialWidth;
@@ -38,6 +40,10 @@ public class TitleBarController {
         return (Stage) (((Node) event.getSource()).getScene().getWindow());
     }
 
+    @FXML
+    private void handlePreviousPage(ActionEvent event) {
+        ContentSwitcher.switchToPreviousPage();
+    }
     @FXML
     private void handleMinimize(ActionEvent event) {
         Stage stage = getStage(event);
