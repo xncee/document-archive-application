@@ -43,13 +43,13 @@
 
                     <!-- Email -->
                     <VBox spacing="5" styleClass="form-group">
-                        <Label styleClass="form-label" text="%label.emailAddress" />
-                        <TextField fx:id="emailField" promptText="%placeholder.username" styleClass="form-input" />
+                        <Label styleClass="form-label" text="%label.email" />
+                        <TextField fx:id="emailField" styleClass="form-input" />
                     </VBox>
 
                     <!-- Fullname -->
                     <VBox spacing="5" styleClass="form-group">
-                        <Label styleClass="form-label" text="%label.fullName" />
+                        <Label styleClass="form-label" text="%label.fullname" />
                         <TextField fx:id="fullnameField" promptText="%placeholder.username" styleClass="form-input" />
                     </VBox>
 
@@ -61,7 +61,7 @@
 
                     <!-- Confirm Password -->
                     <VBox spacing="5" styleClass="form-group">
-                        <Label styleClass="form-label" text="%label.confirmPassword" />
+                        <Label styleClass="form-label" text="%label.confirm_password" />
                         <PasswordField fx:id="confirmPasswordField" promptText="%placeholder.password" styleClass="form-input" />
                     </VBox>
 
@@ -89,8 +89,8 @@
 
                 <!-- Login Section -->
                 <VBox alignment="CENTER" spacing="6" styleClass="login-section">
-                    <Label styleClass="login-text" text="%link.alreadyHaveAnAccount" />
-                    <Hyperlink fx:id="signinLink" onAction="#handleSignin" styleClass="login-link" text="%button.signIn" />
+                    <Label styleClass="login-text" text="%link.already_registered" />
+                    <Hyperlink fx:id="signinLink" onAction="#handleSignin" styleClass="login-link" text="%button.signin" />
                 </VBox>
             </VBox>
         </StackPane>

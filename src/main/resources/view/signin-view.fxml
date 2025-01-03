@@ -37,9 +37,9 @@
                     <Image url="@../icons/logo.png" />
                 </ImageView>
                 <!-- Application title -->
-                <Label styleClass="app-title" text="%label.secureDocumentManagement" />
+                <Label styleClass="app-title" text="%label.applicationDescription" />
                 <!-- Application description -->
-                <Label styleClass="app-description" text="%label.secureDocumentManagement" />
+                <Label styleClass="app-description" text="%label.applicationDescription" />
             </VBox>
 
             <!-- Login form section -->
@@ -78,7 +78,7 @@
 
             <!-- Footer section: Terms and Privacy Policy -->
             <VBox alignment="CENTER" styleClass="login-footer">
-                <Text styleClass="terms-text" text="%label.byContinuingYouAgreeToOur" />
+                <Text styleClass="terms-text" text="%label.termsAgreement" />
                 <HBox alignment="CENTER" spacing="4">
                     <!-- Terms of Service link -->
                     <Hyperlink fx:id="termsOfServiceLink" styleClass="legal-link" text="%link.termsOfService" />

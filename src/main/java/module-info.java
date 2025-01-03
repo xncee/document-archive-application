@@ -1,19 +1,18 @@
-module zarqa.governmentproject {
+module documentArchive {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
     requires io.github.cdimascio.dotenv.java;
     requires opencv;
     requires java.desktop;
-    requires com.google.protobuf;
     requires org.apache.poi.ooxml;
+    requires java.prefs;
     requires kernel;
     requires layout;
-    requires java.prefs;
 
 
-    opens view to javafx.fxml;
-    exports view;
+    opens application to javafx.fxml;
+    exports application;
     exports controllers;
     opens controllers to javafx.fxml;
     exports models;

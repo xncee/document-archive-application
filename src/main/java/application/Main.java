@@ -1,4 +1,4 @@
-package view;
+package application;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -10,6 +10,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        view.Application application = new view.Application(primaryStage);
+        application.Application application = new application.Application(primaryStage);
     }
 }

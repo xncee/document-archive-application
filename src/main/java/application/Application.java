@@ -1,4 +1,4 @@
-package view;
+package application;
 
 import data.DBFacade;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -38,18 +38,18 @@ public class Application  {
         // Set user preferred language
         LocalizationUtil.setLocale(new Locale(UserPreffrences.getLanguage()));
         // Loading the main layout
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main-layout-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main-layout-view.fxml"));
         BorderPane root = loader.load();
         // setting mainContainer to ContentSwitcher
         ContentSwitcher.setMainContainer(root);
         // Loading the content
-        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("signin-view.fxml"), LocalizationUtil.getResourceBundle());
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/view/signin-view.fxml"), LocalizationUtil.getResourceBundle());
         // setting content at the center
         root.setCenter(loader1.load());
 
         // If arabic, switch direction
         if ("ar".equals(UserPreffrences.getLanguage())) {
-            ContentSwitcher.setDirectionRTL();
+            ContentSwitcher.switchDirection("right-to-left", "right");
         }
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

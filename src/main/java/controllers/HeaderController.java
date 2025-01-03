@@ -10,6 +10,7 @@ import utils.ContentSwitcher;
 import utils.LocalizationUtil;
 import utils.UserPreffrences;
 
+import java.io.IOException;
 import java.util.Locale;
 
 public class HeaderController {
@@ -37,16 +38,16 @@ public class HeaderController {
     }
 
     @FXML
-    public void handleLanguage() {
+    public void handleLanguage() throws IOException {
         String selectedLanguage = languageComboBox.getValue().toLowerCase();
         if ("english".equals(selectedLanguage)) {
             LocalizationUtil.setLocale(new Locale("en"));
-            ContentSwitcher.setDirectionLTR();
+            ContentSwitcher.switchDirection("left-to-right", "right");
             UserPreffrences.setLanguage("en");
         }
         else if ("arabic".equals(selectedLanguage)) {
             LocalizationUtil.setLocale(new Locale("ar"));
-            ContentSwitcher.setDirectionRTL();
+            ContentSwitcher.switchDirection("right-to-left", "left");
             UserPreffrences.setLanguage("ar");
         }
         else {
