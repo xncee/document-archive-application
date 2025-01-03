@@ -13,19 +13,20 @@
 <?import javafx.scene.layout.VBox?>
 
 <!-- Main container for the filter section -->
-<VBox alignment="CENTER" maxHeight="540.0" maxWidth="480.0" minHeight="560.0" minWidth="480.0" prefHeight="560.0" prefWidth="480.0" spacing="20" styleClass="filter-container" HBox.hgrow="NEVER" VBox.vgrow="NEVER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FilterResultsController">
+
+<VBox alignment="CENTER" maxHeight="540.0" maxWidth="480.0" spacing="20" styleClass="filter-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FilterResultsController">
     <!-- External stylesheet for styling the filter results section -->
     <stylesheets>
         <URL value="@../styles/results-filter.css" />
     </stylesheets>
 
     <!-- Filter Header with title and close button -->
-    <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="432.0" styleClass="filter-header">
+    <HBox alignment="CENTER_LEFT" styleClass="filter-header">
         <Label styleClass="header-text" text="%label.filterResults" />
         <!-- Spacer to push the close button to the right -->
-        <Region prefHeight="38.0" prefWidth="256.0" HBox.hgrow="ALWAYS" />
+        <Region prefHeight="38.0" HBox.hgrow="ALWAYS" />
         <!-- Close button with an icon to close the filter panel -->
-        <Button focusTraversable="true" mnemonicParsing="false" onKeyPressed="#handleCloseKeyPress" onMouseClicked="#handleClose" styleClass="close-button">
+        <Button mnemonicParsing="false" onKeyPressed="#handleCloseKeyPress" onMouseClicked="#handleClose" styleClass="close-button">
             <graphic>
                 <ImageView fitHeight="20.0" fitWidth="15.0" styleClass="close-icon">
                     <Image url="@../icons/x-icon.png" />
@@ -44,22 +45,22 @@
         <VBox styleClass="filter-group">
             <Label styleClass="filter-label" text="%label.status" />
             <!-- Buttons for selecting the status (Completed, Pending, Late) -->
-            <HBox spacing="14" styleClass="status-buttons">
-                <Button mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="%label.completed">
+            <HBox alignment="CENTER" spacing="14" styleClass="status-buttons">
+                <Button mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="%label.completed" HBox.hgrow="ALWAYS">
                     <graphic>
                         <ImageView styleClass="status-icon">
                             <Image url="@../icons/completed-icon.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="%label.pending">
+                <Button mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="%label.pending" HBox.hgrow="ALWAYS">
                     <graphic>
                         <ImageView styleClass="status-icon">
                             <Image url="@../icons/pending-icon-black.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="%label.late">
+                <Button mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="%label.late" HBox.hgrow="ALWAYS">
                     <graphic>
                         <ImageView styleClass="status-icon">
                             <Image url="@../icons/warning-icon.png" />
@@ -73,14 +74,14 @@
         <VBox styleClass="filter-group">
             <Label styleClass="filter-label" text="%label.department" />
             <!-- ComboBox for selecting a department -->
-            <ComboBox fx:id="departmentComboBox" maxHeight="40.0" maxWidth="432.0" minHeight="40.0" minWidth="432.0" onAction="#handleDepartmentSelect" prefHeight="40.0" prefWidth="432.0" styleClass="dropdown-select" />
+            <ComboBox fx:id="departmentComboBox" maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#handleDepartmentSelect" styleClass="dropdown-select" />
         </VBox>
 
         <!-- Classification filter dropdown -->
         <VBox styleClass="filter-group">
             <Label styleClass="filter-label" text="%label.classification" />
             <!-- ComboBox for selecting a Classification -->
-            <ComboBox fx:id="classificationComboBox" maxHeight="40.0" maxWidth="432.0" minHeight="40.0" minWidth="432.0" onAction="#handleClassificationSelect" prefHeight="40.0" prefWidth="432.0" styleClass="dropdown-select" />
+            <ComboBox fx:id="classificationComboBox" maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#handleClassificationSelect" styleClass="dropdown-select" />
         </VBox>
 
         <!-- Date Range filter section -->
@@ -88,10 +89,10 @@
             <Label styleClass="filter-label" text="%label.dateRange" />
             <!-- Date pickers for selecting start and end date -->
             <HBox alignment="CENTER" spacing="16">
-                <DatePicker fx:id="startDatePicker" onAction="#handleStartDateSelect" prefHeight="37.0" prefWidth="218.0" promptText="%placeholder.startDate" styleClass="date-input" />
+                <DatePicker fx:id="startDatePicker" maxWidth="1.7976931348623157E308" minHeight="44.0" onAction="#handleStartDateSelect" promptText="%placeholder.startDate" styleClass="date-input" HBox.hgrow="ALWAYS" />
                 <!-- Spacer between the two date pickers -->
                 <Region prefHeight="37.0" prefWidth="0.0" />
-                <DatePicker fx:id="endDatePicker" onAction="#handleEndDateSelect" prefHeight="37.0" prefWidth="211.0" promptText="%placeholder.endDate" styleClass="date-input" />
+                <DatePicker fx:id="endDatePicker" maxWidth="1.7976931348623157E308" minHeight="44.0" onAction="#handleEndDateSelect" promptText="%placeholder.endDate" styleClass="date-input" HBox.hgrow="ALWAYS" />
             </HBox>
         </VBox>
     </VBox>
@@ -99,7 +100,7 @@
     <!-- Action buttons for resetting and applying filters -->
     <HBox alignment="CENTER_RIGHT" spacing="12" styleClass="filter-actions">
         <!-- Reset button to clear all selections -->
-        <Button mnemonicParsing="false" onAction="#handleReset" prefHeight="42.0" prefWidth="100.0" styleClass="reset-button">
+        <Button mnemonicParsing="false" onAction="#handleReset" styleClass="reset-button">
             <graphic>
                 <Label styleClass="button-text" text="%button.reset" />
             </graphic>

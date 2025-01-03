@@ -3,7 +3,10 @@
     -fx-background-color: #fafafa;
     -fx-padding: 100 20;
 }
-
+.scroll-pane > .scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-background-color: transparent;
+}
 /* Signup Card */
 .signup-card {
     -fx-background-color: #fff;

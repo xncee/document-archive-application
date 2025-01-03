@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -24,10 +25,10 @@ public class ContentSwitcher {
         current_file = fxmlFile;
         // Load the new content from the FXML file
         FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(fxmlFile), LocalizationUtil.getResourceBundle());
-        Parent newContent = loader.load();
+        Parent content = loader.load();
 
-        // Set the new content in the BorderPane (content area)
-        mainContainer.setCenter(newContent);  // Use setCenter for BorderPane
+        // setting the wrapped content in center of border panel (main container)
+        mainContainer.setCenter(content);
     }
 
     @FXML
