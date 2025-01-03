@@ -3,6 +3,7 @@ package data;
 import exceptions.DatabaseOperationException;
 import models.Document;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -108,7 +109,7 @@ public class DBFacade {
                 "isAdmin", 0
         );
         try {
-            return (int) dbManager.insert("users", map);  // returns auto-generated userId.
+            return ((BigDecimal) dbManager.insert("users", map)).intValue();  // returns auto-generated userId.
         } catch (SQLException e) {
             throw new DatabaseOperationException("An error occurred while adding user to database.", e);
         }
