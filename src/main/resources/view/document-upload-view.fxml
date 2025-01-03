@@ -7,6 +7,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -17,7 +18,7 @@
 
 <!-- Main container for the page -->
 
-<VBox prefHeight="1051.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddDocumentController">
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddDocumentController">
     <!-- Including external stylesheet for the page -->
     <stylesheets>
         <URL value="@../styles/document-upload.css" />
@@ -25,110 +26,114 @@
     <children>
         <!-- Including the header from an external FXML file -->
         <fx:include source="header.fxml" />
-
-        <!-- StackPane to contain the form content -->
-        <StackPane>
-            <!-- HBox for the main content container -->
-            <HBox alignment="CENTER" styleClass="main-container">
-                <children>
-                    <!-- VBox for the content wrapper with some padding and spacing -->
-                    <VBox alignment="CENTER" spacing="32" styleClass="content-wrapper">
-                        <padding>
-                            <Insets bottom="40" left="16" right="16" top="40" />
-                        </padding>
-
-                        <!-- Title and description of the page -->
-                        <VBox spacing="12">
-                            <Label styleClass="page-title" text="Add New Document" />
-                            <Label styleClass="page-description" text="Fill in the document details and upload your file" />
-                        </VBox>
-                        <!-- error label to display error messages -->
-                        <VBox VBox.vgrow="ALWAYS">
-                            <children>
-                                <!-- Make sure errorLabel is visible and can grow to fit its content -->
-                                <Label fx:id="errorLabel" styleClass="errorLabel" visible="false" wrapText="true" VBox.vgrow="ALWAYS" />
-                            </children>
-                        </VBox>
-
-                        <!-- Form container for input fields -->
-                        <VBox alignment="CENTER" prefHeight="765.0" spacing="24" styleClass="form-container">
-                            <padding>
-                                <Insets bottom="24" left="24" right="24" top="24" />
-                            </padding>
-
-                            <!-- Document ID and Title input fields -->
-                            <HBox spacing="24">
-                                <VBox spacing="8" HBox.hgrow="ALWAYS">
-                                    <Label styleClass="form-label" text="Document ID" />
-                                    <TextField fx:id="documentId" promptText="AUTO-GENERATED" />
-                                </VBox>
-
-                                <VBox spacing="8" HBox.hgrow="ALWAYS">
-                                    <Label styleClass="form-label" text="Title" />
-                                    <TextField fx:id="title" promptText="Enter document title" />
-                                </VBox>
-                            </HBox>
-
-                            <!-- Document description text area -->
-                            <VBox spacing="8">
-                                <Label styleClass="form-label" text="Description" />
-                                <TextArea fx:id="description" prefRowCount="4" promptText="Enter document description" style="-fx-background-color: transparent;-fx-border-color: E5E7EB;" wrapText="true" />
-                            </VBox>
-
-                            <!-- Department and Classification dropdowns -->
-                            <HBox prefHeight="65.0" prefWidth="834.0" spacing="24">
-                                <children>
-                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" HBox.hgrow="ALWAYS">
-                                        <children>
-                                            <Label styleClass="form-label" text="Department" />
-                                            <ComboBox fx:id="departmentComboBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="combo-box" />
-                                        </children>
-                                    </VBox>
-                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" HBox.hgrow="ALWAYS">
-                                        <children>
-                                            <Label styleClass="form-label" text="Classification" />
-                                            <ComboBox fx:id="classificationComboBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="combo-box" />
-                                        </children>
-                                    </VBox>
-                                </children>
-                            </HBox>
-
-                            <!-- Deadline date picker -->
-                            <VBox spacing="8">
-                                <Label styleClass="form-label" text="Deadline Date (Optional)" />
-                                <DatePicker fx:id="deadline" prefWidth="Infinity" promptText="mm/dd/yyyy" />
-                            </VBox>
-
-                            <!-- File upload zone -->
-                            <VBox alignment="CENTER" spacing="16" styleClass="upload-zone">
-                                <padding>
-                                    <Insets bottom="34" left="34" right="34" top="34" />
-                                </padding>
-
-                                <!-- Upload icon -->
-                                <ImageView fitHeight="36" fitWidth="45" preserveRatio="true">
-                                    <Image url="@../icons/upload-icon.png" />
-                                </ImageView>
-
-                                <!-- Instructions for file upload -->
-                                <VBox alignment="CENTER" spacing="6">
-                                    <Label styleClass="upload-text" text="Drag and drop your PDF file here, or" />
-                                    <Hyperlink fx:id="browseFilesLink" onAction="#handleBrowseFiles" styleClass="browse-link" text="browse files" />
-                                </VBox>
-
-                                <!-- File size limit message -->
-                                <Label styleClass="file-size-limit" text="Maximum file size: 10MB" />
-                            </VBox>
-
-                            <!-- Buttons for canceling or saving the document -->
-                            <HBox alignment="CENTER_RIGHT" spacing="16">
-                                <Button fx:id="cancelButton" onAction="#handleCancel" styleClass="btn-secondary" text="Cancel" />
-                                <Button fx:id="saveButton" defaultButton="true" onAction="#handleSave" styleClass="btn-primary" text="Save Document" />
-                            </HBox>
-                        </VBox>
-                    </VBox>
-                </children>
-            </HBox>
-        </StackPane>
+      <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true">
+         <content>
+      
+              <!-- StackPane to contain the form content -->
+              <StackPane>
+                  <!-- HBox for the main content container -->
+                  <HBox alignment="CENTER" styleClass="main-container">
+                      <children>
+                          <!-- VBox for the content wrapper with some padding and spacing -->
+                          <VBox alignment="CENTER" spacing="32" styleClass="content-wrapper">
+                              <padding>
+                                  <Insets bottom="40" left="16" right="16" top="40" />
+                              </padding>
+      
+                              <!-- Title and description of the page -->
+                              <VBox spacing="12">
+                                  <Label styleClass="page-title" text="%label.addNewDocument" />
+                                  <Label styleClass="page-description" text="%label.fillInDocumentDetails" />
+                              </VBox>
+                              <!-- error label to display error messages -->
+                              <VBox VBox.vgrow="ALWAYS">
+                                  <children>
+                                      <!-- Make sure errorLabel is visible and can grow to fit its content -->
+                                      <Label fx:id="errorLabel" styleClass="errorLabel" visible="false" wrapText="true" VBox.vgrow="ALWAYS" />
+                                  </children>
+                              </VBox>
+      
+                              <!-- Form container for input fields -->
+                              <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" spacing="24" styleClass="form-container">
+                                  <padding>
+                                      <Insets bottom="24" left="24" right="24" top="24" />
+                                  </padding>
+      
+                                  <!-- Document ID and Title input fields -->
+                                  <HBox spacing="24">
+                                      <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                          <Label styleClass="form-label" text="%label.documentId" />
+                                          <TextField fx:id="documentId" promptText="%placeholder.autoGenerated" />
+                                      </VBox>
+      
+                                      <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                          <Label styleClass="form-label" text="%label.title" />
+                                          <TextField fx:id="title" promptText="%placeholder.enterDocumentTitle" />
+                                      </VBox>
+                                  </HBox>
+      
+                                  <!-- Document description text area -->
+                                  <VBox spacing="8">
+                                      <Label styleClass="form-label" text="%label.description" />
+                                      <TextArea fx:id="description" maxWidth="1.7976931348623157E308" prefRowCount="4" promptText="%placeholder.enterDocumentDescription" style="-fx-background-color: transparent;-fx-border-color: E5E7EB;" wrapText="true" />
+                                  </VBox>
+      
+                                  <!-- Department and Classification dropdowns -->
+                                  <HBox prefHeight="65.0" prefWidth="834.0" spacing="24">
+                                      <children>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" HBox.hgrow="ALWAYS">
+                                              <children>
+                                                  <Label styleClass="form-label" text="%label.department" />
+                                                  <ComboBox fx:id="departmentComboBox" maxWidth="1.7976931348623157E308" styleClass="combo-box" />
+                                              </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" HBox.hgrow="ALWAYS">
+                                              <children>
+                                                  <Label styleClass="form-label" text="%label.classification" />
+                                                  <ComboBox fx:id="classificationComboBox" maxWidth="1.7976931348623157E308" styleClass="combo-box" VBox.vgrow="ALWAYS" />
+                                              </children>
+                                          </VBox>
+                                      </children>
+                                  </HBox>
+      
+                                  <!-- Deadline date picker -->
+                                  <VBox spacing="8">
+                                      <Label styleClass="form-label" text="%label.optionalDeadlineDate" />
+                                      <DatePicker fx:id="deadline" maxWidth="1.7976931348623157E308" promptText="%placeholder.dateFormat" />
+                                  </VBox>
+      
+                                  <!-- File upload zone -->
+                                  <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="16" styleClass="upload-zone">
+                                      <padding>
+                                          <Insets bottom="34" left="34" right="34" top="34" />
+                                      </padding>
+      
+                                      <!-- Upload icon -->
+                                      <ImageView fitHeight="36" fitWidth="45" preserveRatio="true">
+                                          <Image url="@../icons/upload-icon.png" />
+                                      </ImageView>
+      
+                                      <!-- Instructions for file upload -->
+                                      <VBox alignment="CENTER" spacing="6">
+                                          <Label styleClass="upload-text" text="%label.uploadFileDescription" />
+                                          <Hyperlink fx:id="browseFilesLink" onAction="#handleBrowseFiles" styleClass="browse-link" text="%link.browseFiles" />
+                                      </VBox>
+      
+                                      <!-- File size limit message -->
+                                      <Label styleClass="file-size-limit" text="%label.maxFileSize" />
+                                  </VBox>
+      
+                                  <!-- Buttons for canceling or saving the document -->
+                                  <HBox alignment="CENTER_RIGHT" spacing="16">
+                                      <Button fx:id="cancelButton" onAction="#handleCancel" styleClass="btn-secondary" text="%button.cancel" />
+                                      <Button fx:id="saveButton" defaultButton="true" onAction="#handleSave" styleClass="btn-primary" text="%button.saveDocument" />
+                                  </HBox>
+                              </VBox>
+                          </VBox>
+                      </children>
+                  </HBox>
+              </StackPane>
+         </content>
+      </ScrollPane>
     </children>
 </VBox>

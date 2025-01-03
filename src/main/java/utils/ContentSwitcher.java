@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -24,20 +25,10 @@ public class ContentSwitcher {
         current_file = fxmlFile;
         // Load the new content from the FXML file
         FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(fxmlFile), LocalizationUtil.getResourceBundle());
-        Parent newContent = loader.load();
+        Parent content = loader.load();
 
-        // Set the new content in the BorderPane (content area)
-        mainContainer.setCenter(newContent);  // Use setCenter for BorderPane
-    }
-
-    @FXML
-    public static void reloadPage() throws IOException {
-        if (current_file == null) return;
-        FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(current_file), LocalizationUtil.getResourceBundle());
-        Parent newContent = loader.load();
-
-        // Set the new content in the BorderPane (content area)
-        mainContainer.setCenter(newContent);
+        // setting the wrapped content in center of border panel (main container)
+        mainContainer.setCenter(content);
     }
 
     @FXML
@@ -46,11 +37,12 @@ public class ContentSwitcher {
     }
     @FXML
     public static void popUpWindow(ActionEvent event, String fxmlFile) throws IOException {
-        FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(fxmlFile));
+        FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(fxmlFile), LocalizationUtil.getResourceBundle());
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Stage modularStage = new Stage();
-        modularStage.initStyle(StageStyle.TRANSPARENT);
+        modularStage.initStyle(StageStyle.UNIFIED);
+        modularStage.setResizable(false);
         modularStage.initModality(Modality.WINDOW_MODAL);
         modularStage.initOwner(stage);
         Scene scene = new Scene(root);
@@ -59,23 +51,15 @@ public class ContentSwitcher {
     }
 
     @FXML
-    public static void setDirectionLTR() {
-        mainContainer.setStyle("-fx-direction: ltr;");
-        try {
-            reloadPage();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    public static void switchDirection(String direction, String alignment) throws IOException {
+        if (current_file == null) return;
+        FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(current_file), LocalizationUtil.getResourceBundle());
+        Parent newContent = loader.load();
+        newContent.setStyle(String.format("-fx-direction: %s;", direction));
+        newContent.setStyle(String.format("-fx-text-alignment: %s;", alignment));
 
-    @FXML
-    public static void setDirectionRTL() {
-        mainContainer.setStyle("-fx-direction: rtl;");
-        try {
-            reloadPage();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        // Set the new content in the BorderPane (content area)
+        mainContainer.setCenter(newContent);
     }
 
     @FXML

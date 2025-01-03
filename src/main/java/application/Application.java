@@ -1,4 +1,4 @@
-package view;
+package application;
 
 import data.DBFacade;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
@@ -13,7 +14,6 @@ import javafx.stage.Stage;
 import utils.UserPreffrences;
 import utils.ContentSwitcher;
 import utils.LocalizationUtil;
-
 import java.io.IOException;
 import java.util.Locale;
 
@@ -35,21 +35,23 @@ public class Application  {
         // setting application icon
         Image icon = new Image(getClass().getResourceAsStream("/icons/logo.png"));
         primaryStage.getIcons().add(icon);
+
         // Set user preferred language
         LocalizationUtil.setLocale(new Locale(UserPreffrences.getLanguage()));
+
         // Loading the main layout
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main-layout-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main-layout-view.fxml"));
         BorderPane root = loader.load();
         // setting mainContainer to ContentSwitcher
         ContentSwitcher.setMainContainer(root);
         // Loading the content
-        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("signin-view.fxml"), LocalizationUtil.getResourceBundle());
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/view/signin-view.fxml"), LocalizationUtil.getResourceBundle());
         // setting content at the center
         root.setCenter(loader1.load());
 
         // If arabic, switch direction
         if ("ar".equals(UserPreffrences.getLanguage())) {
-            ContentSwitcher.setDirectionRTL();
+            ContentSwitcher.switchDirection("right-to-left", "right");
         }
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
