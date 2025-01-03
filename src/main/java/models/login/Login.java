@@ -29,9 +29,10 @@ public class Login {
     public boolean signIn(String username, String password) {
         try {
             // Attempt to authenticate the user (null is returned if authentication failed)
-            Map<String, Object> userInfo = dbFacade.authUser(username, password);
+            boolean valid = dbFacade.authUser(username, password);
 
-            if (userInfo != null) {
+            if (valid) {
+                Map<String, Object> userInfo = dbFacade.fetchUser(username);
                 // Set user fields from the retrieved information
                 this.id = userInfo.get("userId") instanceof Integer
                         ? (Integer) userInfo.get("userId")
@@ -51,9 +52,10 @@ public class Login {
     }
 
     public boolean signUp(String username, String email, String fullname, String password) {
-        int userId;
         try {
-            userId = dbFacade.addUser(username, email, password, fullname);
+            if (!dbFacade.addUser(username, email, password, fullname)) {
+                return false;
+            }
         } catch (DatabaseOperationException e) {
             // Log the error or provide more details
             return false;
@@ -61,7 +63,7 @@ public class Login {
 
         Map<String, Object> userInfo = null;
         try {
-            userInfo = dbFacade.getUserByUsername(username);
+            userInfo = dbFacade.fetchUser(username);
         } catch (SQLException e) {
             // Handle or log the exception here
             ErrorHandler.handle(e, "An error occurred while fetching user information.");

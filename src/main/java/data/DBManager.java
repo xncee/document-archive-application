@@ -137,21 +137,25 @@ public class DBManager {
         return search(table, value, orderBy, false, columns); // Call the original search with 'false' for partial matching
     }
 
-    public Map<String, Object> checkUser(String username, String password) throws SQLException {
-        String sql = "SELECT * FROM users WHERE (username = ? OR email = ?) AND password = ?";
+    public boolean verifyUserPassword(String username, String password) throws SQLException {
+        String sql = "SELECT * FROM users WHERE username = ? OR email = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
             statement.setString(2, username);  // Using username or email for login
-            statement.setString(3, password);  // Hashed password comparison
 
             try (ResultSet res = statement.executeQuery()) {
                 if (res.next()) {
-                    ResultSetMetaData metaData = res.getMetaData();
-                    return mapData(res, metaData);  // If user exists, map data to Map
+                    String storedHash = res.getString("password");
+                    try {
+                        return Hashing.match(storedHash, password);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                return null;  // Return null if no user is found
             }
+            return false;
         }
     }
 
@@ -266,7 +270,7 @@ public class DBManager {
         return results;
     }
 
-    public Map<String, Object> getUserByUsername(String username) throws SQLException {
+    public Map<String, Object> fetchUser(String username) throws SQLException {
         String sql = "SELECT userId, username, email, fullname FROM users WHERE username = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, username);
