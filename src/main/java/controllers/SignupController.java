@@ -120,14 +120,16 @@ public class SignupController {
         }
 
         Login login = new Login();
-        if (!login.signUp(usernameField.getText().strip(), emailField.getText().strip(), fullnameField.getText().strip(), passwordField.getText())) {
-            errorLabel.setText("Login Failed.");
+        boolean signedUp = login.signUp(usernameField.getText().strip(), emailField.getText().strip(), fullnameField.getText().strip(), passwordField.getText());
+        if (!signedUp) {
+            errorLabel.setText("SignUp Failed.");
             return;
         }
         System.out.println("Signed up "+usernameField.getText());
         try {
             ContentSwitcher.switchContent(event, "/view/dashboard-view.fxml");
         } catch (IOException e) {
+            errorLabel.setText("Failed to switch page.");
             ErrorHandler.handle(e, "An error occurred while switching pages signup-page -> dashboard-page.");
         }
     }

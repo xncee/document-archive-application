@@ -72,7 +72,7 @@ public class SignInController {
             return;
         }
 
-        if (rememberMeCheckbox!= null && rememberMeCheckbox.isSelected())
+        if (rememberMeCheckbox != null && rememberMeCheckbox.isSelected())
             UserPreffrences.saveCredentials(usernameField.getText(),passwordField.getText());
         else
             UserPreffrences.clearCredentials();

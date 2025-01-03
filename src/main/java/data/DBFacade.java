@@ -3,7 +3,6 @@ package data;
 import exceptions.DatabaseOperationException;
 import models.Document;
 
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -88,31 +87,43 @@ public class DBFacade {
         }
     }
 
-    public Map<String, Object> getUserByUsername(String username) throws SQLException {
-        return dbManager.getUserByUsername(username);
+    public Map<String, Object> fetchUser(String username) throws SQLException {
+        return dbManager.fetchUser(username);
     }
 
-    public Map<String, Object> authUser(String username, String password) {
+    public boolean authUser(String username, String password) {
         try {
-            return dbManager.checkUser(username, password);
+            return dbManager.verifyUserPassword(username, password);
         } catch (SQLException e) {
-            throw new DatabaseOperationException("An error occurred while authenticating user in authUser method.", e);
+            e.printStackTrace();
+            return false;
         }
     }
 
-    public int addUser(String username, String email, String password, String name) throws DatabaseOperationException {
+    public boolean addUser(String username, String email, String password, String name) throws DatabaseOperationException {
+        // Hash the password before storing it in the database
+        String hashedPassword;
+        try {
+            hashedPassword = Hashing.hash(password);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         Map<String, Object> map = Map.of(
                 "username", username,
                 "email", email,
-                "password", password,
+                "password", hashedPassword,
                 "fullname", name,
                 "isAdmin", 0
         );
         try {
-            return ((BigDecimal) dbManager.insert("users", map)).intValue();  // returns auto-generated userId.
+            dbManager.insert("users", map);  // returns auto-generated userId.
+            return true;
         } catch (SQLException e) {
-            throw new DatabaseOperationException("An error occurred while adding user to database.", e);
+            e.printStackTrace();
+            //throw new DatabaseOperationException("An error occurred while adding user to database.", e);
         }
+        return false;
     }
 
     public boolean removeUser(String id) throws DatabaseOperationException {
