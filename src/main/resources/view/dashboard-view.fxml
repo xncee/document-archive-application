@@ -141,7 +141,7 @@
                                           </graphic>
                                       </Button>
                                   </HBox>
-                                  <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" VBox.vgrow="ALWAYS">
+                                  <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="400.0" pannable="true" VBox.vgrow="ALWAYS">
                                       <content>
                                           <!-- Table to display document information -->
                                           <TableView fx:id="documentTable" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="document-table">
