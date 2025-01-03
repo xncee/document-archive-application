@@ -11,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
 import models.Document;
 import utils.ContentSwitcher;
+import utils.FXMLCache;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -54,6 +55,13 @@ public class DashboardController {
 
     @FXML
     private void initialize() {
+        try {
+            FXMLCache.preloadFXML("/view/user-profile-view.fxml");
+        } catch (IOException e) {
+            System.out.println("Failed to load user profile.");
+            e.printStackTrace();
+        }
+
         setupStatsCards();
         setupTableColumns();
     }
@@ -70,7 +78,7 @@ public class DashboardController {
 
     @FXML
     private void handleAddDocument(ActionEvent event) throws IOException {
-        ContentSwitcher.switchContent(event, "/view/document-upload-view.fxml");
+        ContentSwitcher.switchContent("/view/document-upload-view.fxml");
     }
 
     @FXML

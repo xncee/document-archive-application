@@ -6,11 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import utils.FXMLCache;
 import utils.UserPreffrences;
 import utils.ContentSwitcher;
 import utils.LocalizationUtil;
@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class Application  {
+    private static final String[] PAGES = {"/view/signin-view.fxml", "/view/signup-view.fxml", "/view/document-upload-view.fxml", "/view/generate-report-view.fxml"};
     private Stage primaryStage;
 
     public Application(Stage primaryStage) {
@@ -30,12 +31,20 @@ public class Application  {
             throw new RuntimeException(e);
         }
     }
-
+    private void preloadPages() {
+        for (String page: PAGES) {
+            try {
+                FXMLCache.preloadFXML(page);
+            } catch (IOException e) {
+                System.out.println("Failed to load: "+page);
+                e.printStackTrace();
+            }
+        }
+    }
     private void start() throws IOException {
         // setting application icon
         Image icon = new Image(getClass().getResourceAsStream("/icons/logo.png"));
         primaryStage.getIcons().add(icon);
-
         // Set user preferred language
         LocalizationUtil.setLocale(new Locale(UserPreffrences.getLanguage()));
 
@@ -44,15 +53,17 @@ public class Application  {
         BorderPane root = loader.load();
         // setting mainContainer to ContentSwitcher
         ContentSwitcher.setMainContainer(root);
-        // Loading the content
-        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/view/signin-view.fxml"), LocalizationUtil.getResourceBundle());
-        // setting content at the center
-        root.setCenter(loader1.load());
-
         // If arabic, switch direction
         if ("ar".equals(UserPreffrences.getLanguage())) {
             ContentSwitcher.switchDirection("right-to-left", "right");
         }
+
+        // preloading static pages
+        new Thread(this::preloadPages).start();
+
+        // Loading the content
+        ContentSwitcher.switchContent("/view/signin-view.fxml"); // this page was already preloaded
+
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -132,7 +132,7 @@ public class AddDocumentController {
     public void handleCancel(ActionEvent event) throws IOException {
         System.out.println("Operation canceled.");
         System.out.println("Switching to dashboard...");
-        ContentSwitcher.switchContent(event, "/view/dashboard-view.fxml");
+        ContentSwitcher.switchContent("/view/dashboard-view.fxml");
     }
 
     @FXML
@@ -171,6 +171,6 @@ public class AddDocumentController {
         }
         System.out.println("Document added "+document.getId());
         System.out.println("Switching to dashboard...");
-        ContentSwitcher.switchContent(event, "/view/dashboard-view.fxml");
+        ContentSwitcher.switchContent("/view/dashboard-view.fxml");
     }
 }

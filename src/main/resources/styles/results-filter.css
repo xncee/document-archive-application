@@ -97,6 +97,8 @@
 
 /* Date input field styling */
 .date-input {
+    -fx-border-color: #e5e7eb; /* Light gray border color */
+    -fx-background-radius: 6; /* Rounded background */
     -fx-background-color: white; /* White background */
     -fx-border-color: #D4D4D4; /* Light border color */
     -fx-border-radius: 6px; /* Rounded corners */
@@ -104,7 +106,9 @@
     -fx-font-size: 16px; /* Font size */
     -fx-pref-width: 200px; /* Preferred width for the date input */
 }
-
+.date-picker .arrow-button {
+    -fx-background-color: transparent; /* Make arrow button background transparent */
+}
 /* Container for filter action buttons */
 .filter-actions {
     -fx-padding: 32px 0 0 80px; /* Padding with left offset for action buttons */

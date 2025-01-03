@@ -127,7 +127,7 @@ public class SignupController {
         }
         System.out.println("Signed up "+usernameField.getText());
         try {
-            ContentSwitcher.switchContent(event, "/view/dashboard-view.fxml");
+            ContentSwitcher.switchContent("/view/dashboard-view.fxml");
         } catch (IOException e) {
             errorLabel.setText("Failed to switch page.");
             ErrorHandler.handle(e, "An error occurred while switching pages signup-page -> dashboard-page.");
@@ -136,6 +136,6 @@ public class SignupController {
 
     @FXML
     public void handleSignin(ActionEvent event) throws IOException {
-        ContentSwitcher.switchContent(event, "/view/signin-view.fxml");
+        ContentSwitcher.switchContent("/view/signin-view.fxml");
     }
 }

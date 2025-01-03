@@ -17,6 +17,7 @@
     </stylesheets>
 
     <children>
+      <Button fx:id="previousPageButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handlePreviousPage" style="-fx-padding: 5;" text="&lt;--" />
         <!-- Region for Dragging the window (topRegion) -->
         <Region fx:id="topRegion" maxWidth="Infinity" onMouseDragged="#handleMouseDragged" onMouseMoved="#handleMouseMoved" onMousePressed="#handleMousePressed" prefHeight="40.0" HBox.hgrow="ALWAYS" />
         <!-- This region allows the user to drag the window by clicking and moving on the top bar -->
