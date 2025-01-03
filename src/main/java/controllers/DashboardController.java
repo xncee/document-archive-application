@@ -1,9 +1,8 @@
 package controllers;
 
 import data.DBFacade;
-import data.TABLES;
+import data.Tables;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,11 +10,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
 import models.Document;
-import org.openxmlformats.schemas.officeDocument.x2006.sharedTypes.STTrueFalse;
 import utils.ContentSwitcher;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -84,7 +81,7 @@ public class DashboardController {
     private void setupStatsCards() {
         int total = dbFacade.getCount("documents");
         int recent = dbFacade.getDataByDateRange("documents", "createdDate", LocalDate.now().minusDays(1), LocalDate.now()).size();
-        int pending = dbFacade.search(TABLES.DOCUMENTS.getTableName(), "pending", true, "status").size();
+        int pending = dbFacade.search(Tables.DOCUMENTS.getTableName(), "pending", true, "status").size();
         totalDocuments.setText(String.valueOf(total));
         recentUploads.setText(String.valueOf(recent));
         pendingReview.setText(String.valueOf(pending));
@@ -112,7 +109,7 @@ public class DashboardController {
     }
     private void loadDocuments() {
         documents = FXCollections.observableArrayList();
-        List<Map<String, Object>> docs = dbFacade.getLimitedRows(TABLES.DOCUMENTS.getTableName(), 100);
+        List<Map<String, Object>> docs = dbFacade.getLimitedRows(Tables.DOCUMENTS.getTableName(), 100);
         // when reaching end of the list: SELECT * FROM table_name WHERE id > ? ORDER BY id ASC;
         for (Map<String, Object> x: docs) {
             Document.Builder docBuilder = new Document.Builder(

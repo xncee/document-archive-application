@@ -46,7 +46,7 @@
                               <HBox alignment="CENTER_LEFT" spacing="24.0">
                                   <children>
                                       <!-- Stat card for Total Documents -->
-                                      <VBox alignment="CENTER_LEFT" prefHeight="126.0" prefWidth="0.0" styleClass="stat-card" HBox.hgrow="ALWAYS">
+                                      <VBox alignment="CENTER_LEFT" styleClass="stat-card" HBox.hgrow="ALWAYS">
                                           <HBox alignment="CENTER" styleClass="stat-header">
                                               <HBox HBox.hgrow="ALWAYS">
                                                   <children>
@@ -111,9 +111,9 @@
                                       <!-- Button to generate a report -->
                                       <HBox spacing="10.0">
                                           <children>
-                                              <Button fx:id="generateReportButton" onAction="#handleGenerateReport" prefHeight="40.0" prefWidth="170.0" styleClass="btn-secondary" text="%button.generateReport" HBox.hgrow="ALWAYS" />
+                                              <Button fx:id="generateReportButton" contentDisplay="CENTER" maxHeight="40.0" maxWidth="170.0" onAction="#handleGenerateReport" prefWidth="170.0" styleClass="btn-secondary" text="%button.generateReport" HBox.hgrow="ALWAYS" />
                                               <!-- Button to add a document -->
-                                              <Button fx:id="addDocumentButton" minHeight="-Infinity" onAction="#handleAddDocument" prefHeight="40.0" prefWidth="165.0" styleClass="btn-primary" text="%button.addDocument" HBox.hgrow="ALWAYS">
+                                              <Button fx:id="addDocumentButton" maxHeight="40.0" onAction="#handleAddDocument" prefWidth="165.0" styleClass="btn-primary" text="%button.addDocument" HBox.hgrow="ALWAYS">
                                                   <graphic>
                                                       <ImageView>
                                                           <Image url="@../icons/add-icon.png" />
@@ -126,14 +126,14 @@
                                   </HBox>
       
                                         <!-- Search bar for searching documents -->
-                                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1200.0" styleClass="search-bar" VBox.vgrow="ALWAYS">
+                                  <HBox styleClass="search-bar" VBox.vgrow="ALWAYS">
                                       <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
                                           <children>
-                                              <TextField onKeyPressed="#handleSearch" prefHeight="49.0" prefWidth="1191.0" promptText="%placeholder.searchDocument" styleClass="search-input" HBox.hgrow="ALWAYS" />
+                                              <TextField maxHeight="42.0" maxWidth="1.7976931348623157E308" onKeyPressed="#handleSearch" promptText="%placeholder.searchDocument" styleClass="search-input" HBox.hgrow="ALWAYS" />
                                           </children>
                                       </HBox>
                                       <!-- Filter button with icon -->
-                                      <Button fx:id="filterButton" maxHeight="34.0" maxWidth="34.0" minHeight="34.0" minWidth="34.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="34.0" prefWidth="34.0">
+                                      <Button fx:id="filterButton" maxHeight="34.0" maxWidth="34.0" mnemonicParsing="false" onAction="#handleFilter">
                                           <graphic>
                                               <ImageView preserveRatio="true" styleClass="filter-icon">
                                                   <Image url="@../icons/filter-icon.png" />
@@ -144,7 +144,7 @@
                                   <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" VBox.vgrow="ALWAYS">
                                       <content>
                                           <!-- Table to display document information -->
-                                          <TableView fx:id="documentTable" editable="true" styleClass="document-table">
+                                          <TableView fx:id="documentTable" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="document-table">
                                               <columns>
                                                   <TableColumn fx:id="documentIdColumn" maxWidth="1.7976931348623157E308" sortType="DESCENDING" text="%label.documentId">
                                                       <contextMenu>
@@ -173,7 +173,7 @@
                                           </TableView>
                                       </content>
                                   </ScrollPane>
-                                  <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="1232.0">
+                                  <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="27.0">
                                       <children>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                               <children>

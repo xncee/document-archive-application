@@ -1,13 +1,13 @@
 package data;
 
-public enum TABLES {
+public enum Tables {
     USERS("users"),
     DOCUMENTS("documents"),
     DEPARTMENTS("departments");
 
     private final String tableName;
 
-    TABLES(String tableName) {
+    Tables(String tableName) {
         this.tableName = tableName;
     }
 
