@@ -6,13 +6,6 @@
    -fx-alignment: center; /* Align content in the center */
 }
 
-/* Brand name styling */
-.brand-name {
-    -fx-font-family: "Inter"; /* Font family for the brand name */
-    -fx-font-size: 20; /* Font size */
-    -fx-font-weight: bold; /* Make the text bold */
-}
-
 /* Main content settings */
 .main-content {
     -fx-background-color: #fafafa; /* Light gray background */
