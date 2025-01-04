@@ -22,9 +22,6 @@ public class TitleBarController {
     private Button previousPageButton;
 
     @FXML
-    private ComboBox<String> languageComboBox;
-
-    @FXML
     private HBox titleBar;
 
     @FXML
@@ -44,7 +41,7 @@ public class TitleBarController {
 
     @FXML
     public void initialize() {
-        prepareLanguages();
+        //
     }
 
     private Stage getStage(Event event) {
@@ -54,32 +51,6 @@ public class TitleBarController {
     @FXML
     private void handlePreviousPage(ActionEvent event) {
         ContentSwitcher.switchToPreviousPage();
-    }
-
-    private void prepareLanguages() {
-        languageComboBox.getItems().addAll("Arabic", "English");
-        languageComboBox.setValue(UserPreffrences.getLanguage()); // replace with preferred language
-    }
-
-    @FXML
-    public void handleLanguage() throws IOException {
-        String selectedLanguage = languageComboBox.getValue().toLowerCase();
-        if ("english".equals(selectedLanguage)) {
-            LocalizationUtil.setLocale(new Locale("en"));
-            ContentSwitcher.switchDirection("left-to-right", "right");
-            UserPreffrences.setLanguage("en");
-        }
-        else if ("arabic".equals(selectedLanguage)) {
-            LocalizationUtil.setLocale(new Locale("ar"));
-            ContentSwitcher.switchDirection("right-to-left", "left");
-            UserPreffrences.setLanguage("ar");
-        }
-        else {
-            LocalizationUtil.setLocale(new Locale("en"));
-        }
-        ContentSwitcher.reloadPage();
-
-        System.out.println("Language switched to "+languageComboBox.getValue());
     }
 
     @FXML

@@ -52,16 +52,12 @@ public class Application  {
         BorderPane root = loader.load();
         // setting mainContainer to ContentSwitcher
         ContentSwitcher.setMainContainer(root);
-        // If arabic, switch direction
-        if ("ar".equals(UserPreffrences.getLanguage())) {
-            ContentSwitcher.switchDirection("right-to-left", "right");
-        }
 
         // preloading static pages
         new Thread(this::preloadPages).start();
 
         // Loading the content
-        ContentSwitcher.switchContent("/view/signin-view.fxml", true); // this page was already preloaded
+        ContentSwitcher.switchContent("/view/signin-view.fxml"); // this page was already preloaded
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

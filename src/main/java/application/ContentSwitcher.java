@@ -26,20 +26,16 @@ public class ContentSwitcher {
     @FXML
     public static void switchContent(String fxmlFile, boolean forceReload) throws IOException {
         currentFile = fxmlFile;
-        if (forceReload) {
-            FXMLCache.preloadFXML(fxmlFile);
-        }
         // Check if the FXML file is already preloaded
         Parent content = FXMLCache.getFXML(fxmlFile);
-        if (content == null) {
+        if (content == null || forceReload) {
             // If not preloaded, load it and add it to the cache
             FXMLCache.preloadFXML(fxmlFile);
             content = FXMLCache.getFXML(fxmlFile);
         }
 
         // Set the content in the center of the BorderPane (main container)
-        if (!pages.contains(content))
-            pages.push(content);
+        pages.push(content);
         mainContainer.setCenter(content);
     }
 
@@ -55,9 +51,8 @@ public class ContentSwitcher {
 
     @FXML
     public static void reloadPage() throws IOException {
-        FXMLCache.preloadFXML(currentFile);
-        pages.pop();
-        switchContent(currentFile);
+        Parent content = FXMLCache.preloadFXML(currentFile);
+        mainContainer.setCenter(content);
     }
 
     @FXML
@@ -104,24 +99,6 @@ public class ContentSwitcher {
             System.out.println("Error loading FXML file: " + fxmlFile);
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    public static void switchDirection(String direction, String alignment) throws IOException {
-        if (currentFile == null) return;
-        Parent content = FXMLCache.getFXML(currentFile);
-
-        if (content == null) {
-            FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(currentFile), LocalizationUtil.getResourceBundle());
-            content = loader.load();
-            FXMLCache.preloadFXML(currentFile);
-        }
-
-        content.setStyle(String.format("-fx-direction: %s;", direction));
-        content.setStyle(String.format("-fx-text-alignment: %s;", alignment));
-
-        // Set the new content in the BorderPane (content area)
-        mainContainer.setCenter(content);
     }
 
     @FXML

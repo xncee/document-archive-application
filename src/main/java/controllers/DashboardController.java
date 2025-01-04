@@ -118,7 +118,6 @@ public class DashboardController {
         documentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         loadDocuments();
-        System.out.println(documents);
     }
 
     private LocalDate convertToLocalDate(Object date) {
@@ -143,15 +142,17 @@ public class DashboardController {
                     .deadline(convertToLocalDate(x.get("deadline")))
                     .createdDate(convertToLocalDate(x.get("createdDate")))
                     .updatedDate(convertToLocalDate(x.get("updatedDate")));
-            //IllegalArgumentException
-//            try {
-//                docBuilder.filePath((String) x.get("filePath"));
-//            }
-//            catch (IllegalArgumentException e) {
-//                // pass
-//            }
-            Document doc = docBuilder.build();
-            documents.add(doc);
+
+            docBuilder.filePath((String) x.get("filePath"));
+            Document doc = null;
+            try {
+                doc = docBuilder.build();
+                documents.add(doc);
+            }
+            catch (Exception e) {
+                System.out.println("Failed to load a document: "+doc);
+                e.printStackTrace();
+            }
         }
         // Set the items to the TableView
         documentTable.setItems(documents);

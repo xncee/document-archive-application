@@ -75,7 +75,7 @@ public class SignInController {
         if (rememberMeCheckbox != null && rememberMeCheckbox.isSelected())
             UserPreffrences.saveCredentials(usernameField.getText(),passwordField.getText());
         else
-            UserPreffrences.clearCredentials();
+            UserPreffrences.clear();
 
         Login login = new Login();
         boolean loggedIn = login.signIn(usernameField.getText(), passwordField.getText());
@@ -86,7 +86,7 @@ public class SignInController {
         }
         System.out.println("Logged In as "+usernameField.getText());
         System.out.println("Switching to dashboard...");
-        ContentSwitcher.switchContent("/view/new-dashboard.fxml");
+        ContentSwitcher.switchContent("/view/dashboard-view.fxml");
     }
     @FXML
     public void handleSignup(ActionEvent event) throws IOException {

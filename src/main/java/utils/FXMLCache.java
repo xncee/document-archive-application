@@ -11,11 +11,12 @@ import java.util.Map;
 public class FXMLCache {
     private static final Map<String, Parent> fxmlCache = new HashMap<>();
 
-    public static void preloadFXML(String fxmlFile) throws IOException {
+    public static Parent preloadFXML(String fxmlFile) throws IOException {
         FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(fxmlFile), LocalizationUtil.getResourceBundle());
         Parent content = loader.load();
         fxmlCache.put(fxmlFile, content);
         System.out.println("Page loaded: "+fxmlFile);
+        return content;
     }
 
     public static Parent getFXML(String fxmlFile) {

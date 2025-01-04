@@ -60,6 +60,19 @@
                             <MenuItem onAction="#handleLogout" text="Logout" />
                         </items>
                     </MenuButton>
+               <MenuButton fx:id="userDropDownButton1" alignment="CENTER" contentDisplay="CENTER" styleClass="dropdown-btn">
+                  <graphic>
+                     <ImageView fitHeight="14" fitWidth="14">
+                        <image>
+                           <Image url="@../icons/settings-icon.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+                  <items>
+                     <MenuItem onAction="#switchToArabic" text="Arabic" />
+                     <MenuItem onAction="#switchToEnglish" text="English" />
+                  </items>
+               </MenuButton>
                 </HBox>
             </HBox>
         </HBox>
