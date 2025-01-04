@@ -11,6 +11,7 @@ module documentArchive {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.base;
+    requires com.zaxxer.hikari;
 
 
     opens application to javafx.fxml;

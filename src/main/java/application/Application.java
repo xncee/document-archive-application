@@ -1,6 +1,7 @@
 package application;
 
 import data.DBFacade;
+import data.DBManager;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;

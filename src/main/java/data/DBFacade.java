@@ -1,8 +1,8 @@
 package data;
 
 import exceptions.DatabaseOperationException;
-import models.Document;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,21 +10,14 @@ import java.util.*;
 
 public class DBFacade {
     private static DBFacade instance;
+    private static DBManager dbManager;
 
-    private final String USERS_TABLE = "users";
-    private static DBManager dbManager = null;
-
-    private DBFacade(String dbUrl) {
-        // if (dbManager != null) return;
-
-        try {
-            dbManager = new DBManager(dbUrl);
-            instance = this;
+    public DBFacade(String dbUrl) {
+        if (dbManager == null) {
+            dbManager = DBManager.getInstance(dbUrl);
             System.out.println("Connected to database.");
         }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        instance = this;
     }
 
     public static DBFacade getInstance(String dbUrl) {
@@ -34,15 +27,22 @@ public class DBFacade {
             }
             instance = new DBFacade(dbUrl);
         }
-
         return instance;
     }
+
     public static DBFacade getInstance() {
         return getInstance(null);
     }
 
     public boolean isConnected() throws SQLException {
-        return dbManager.isConnected();
+        return dbManager != null && dbManager.isConnected();
+    }
+
+    public Connection getConnection() throws SQLException {
+        return dbManager.getConnection();
+    }
+    public static DBManager getDbManager() {
+        return dbManager;
     }
 
     public List<Map<String, Object>> search(String table, Object value, boolean match, int offset, String... columns) {
@@ -87,81 +87,6 @@ public class DBFacade {
         }
     }
 
-    public Map<String, Object> fetchUser(String username) throws SQLException {
-        return dbManager.fetchUser(username);
-    }
-
-    public boolean authUser(String username, String password) {
-        try {
-            return dbManager.verifyUserPassword(username, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean addUser(String username, String email, String password, String name) throws DatabaseOperationException {
-        // Hash the password before storing it in the database
-        String hashedPassword;
-        try {
-            hashedPassword = Hashing.hash(password);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        Map<String, Object> map = Map.of(
-                "username", username,
-                "email", email,
-                "password", hashedPassword,
-                "fullname", name,
-                "isAdmin", 0
-        );
-        try {
-            dbManager.insert("users", map);  // returns auto-generated userId.
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            //throw new DatabaseOperationException("An error occurred while adding user to database.", e);
-        }
-        return false;
-    }
-
-    public boolean removeUser(String id) throws DatabaseOperationException {
-        try {
-            return dbManager.delete(USERS_TABLE, "id", id);
-        } catch (SQLException e) {
-            throw new DatabaseOperationException("An error occurred while removing user from database.", e);
-        }
-    }
-
-    public String addDocument(Document document) throws DatabaseOperationException {
-        Map<String, Object> map = new HashMap<>();
-        map.put("id", document.getId());
-        map.put("uploaderId", document.getUploaderId());
-        map.put("title", document.getTitle());
-        map.put("description", document.getDescription());
-        map.put("department", document.getDepartment());
-        map.put("classification", document.getClassification());
-        map.put("status", document.getStatus());
-        map.put("deadline", document.getDeadline());
-        map.put("createdDate", document.getCreatedDate());
-        map.put("updatedDate", document.getUpdatedDate());
-        map.put("filePath", document.getFilePath());
-        try {
-            return (String) dbManager.insert("documents", map); // returns the generated id.
-        } catch (SQLException e) {
-            throw new DatabaseOperationException("An error occurred while adding document to database.", e);
-        }
-    }
-
-    public List<Map<String, Object>> getTopDocuments(int n) throws DatabaseOperationException {
-        try {
-            return dbManager.getLimited("documents", n);
-        } catch (SQLException e) {
-            throw new DatabaseOperationException("An error occurred while fetching "+n+" documents from database.", e);
-        }
-    }
-
     public void addActivity(String documentId, int userId, String description, LocalDateTime datetime) throws DatabaseOperationException {
         Map<String, Object> map = Map.of(
                 "documentId", documentId,
@@ -175,13 +100,7 @@ public class DBFacade {
             throw new DatabaseOperationException("An error occurred while logging activity to database.", e);
         }
     }
-    private Object addEntity(String table, Map<String, Object> map) throws DatabaseOperationException {
-        try {
-            return dbManager.insert(table, map);
-        } catch (SQLException e) {
-            throw new DatabaseOperationException("An error occurred while adding entity to database.", e);
-        }
-    }
+
     public List<Map<String, Object>> getDepartments() {
         try {
             return dbManager.getFromTable("departments", "name");
