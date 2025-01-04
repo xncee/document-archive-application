@@ -21,7 +21,7 @@
 <!-- Root VBox container for the entire login page -->
 
 
-<ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignInController">
+<ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignInController">
    <content>
       <VBox alignment="CENTER" styleClass="login-container">
           <!-- Link to external CSS file -->

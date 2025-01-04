@@ -14,7 +14,7 @@
 
 <!-- Main container for the filter section -->
 
-<VBox alignment="CENTER" maxHeight="540.0" maxWidth="480.0" spacing="20" styleClass="filter-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FilterResultsController">
+<VBox alignment="CENTER" maxHeight="540.0" maxWidth="480.0" spacing="20" style="-fx-effect: none;" styleClass="filter-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FilterResultsController">
     <!-- External stylesheet for styling the filter results section -->
     <stylesheets>
         <URL value="@../styles/results-filter.css" />

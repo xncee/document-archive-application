@@ -1,6 +1,6 @@
 package controllers;
 
-import utils.ContentSwitcher;
+import application.ContentSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;

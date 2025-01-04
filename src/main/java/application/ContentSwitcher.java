@@ -1,4 +1,4 @@
-package utils;
+package application;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -11,6 +11,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import utils.FXMLCache;
+import utils.LocalizationUtil;
 
 import java.io.IOException;
 import java.util.Stack;
@@ -22,12 +24,11 @@ public class ContentSwitcher {
 
     // Method to switch content dynamically using preloaded pages
     @FXML
-    public static void switchContent(String fxmlFile) throws IOException {
+    public static void switchContent(String fxmlFile, boolean forceReload) throws IOException {
         currentFile = fxmlFile;
-
         // Check if the FXML file is already preloaded
         Parent content = FXMLCache.getFXML(fxmlFile);
-        if (content == null) {
+        if (content == null || forceReload) {
             // If not preloaded, load it and add it to the cache
             FXMLCache.preloadFXML(fxmlFile);
             content = FXMLCache.getFXML(fxmlFile);
@@ -35,6 +36,22 @@ public class ContentSwitcher {
 
         // Set the content in the center of the BorderPane (main container)
         pages.push(content);
+        mainContainer.setCenter(content);
+    }
+
+    @FXML
+    public static void switchContent(String fxmlFile) throws IOException {
+        switchContent(fxmlFile, false);
+    }
+
+    @FXML
+    public static void offload() {
+        pages.pop();
+    }
+
+    @FXML
+    public static void reloadPage() throws IOException {
+        Parent content = FXMLCache.preloadFXML(currentFile);
         mainContainer.setCenter(content);
     }
 
@@ -82,24 +99,6 @@ public class ContentSwitcher {
             System.out.println("Error loading FXML file: " + fxmlFile);
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    public static void switchDirection(String direction, String alignment) throws IOException {
-        if (currentFile == null) return;
-        Parent content = FXMLCache.getFXML(currentFile);
-
-        if (content == null) {
-            FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(currentFile), LocalizationUtil.getResourceBundle());
-            content = loader.load();
-            FXMLCache.preloadFXML(currentFile);
-        }
-
-        content.setStyle(String.format("-fx-direction: %s;", direction));
-        content.setStyle(String.format("-fx-text-alignment: %s;", alignment));
-
-        // Set the new content in the BorderPane (content area)
-        mainContainer.setCenter(content);
     }
 
     @FXML

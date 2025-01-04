@@ -6,11 +6,16 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import utils.ContentSwitcher;
+import application.ContentSwitcher;
+import utils.LocalizationUtil;
+import utils.UserPreffrences;
+
+import java.io.IOException;
+import java.util.Locale;
 
 public class TitleBarController {
     @FXML
@@ -18,9 +23,6 @@ public class TitleBarController {
 
     @FXML
     private HBox titleBar;
-
-    @FXML
-    private Region topRegion;
 
     @FXML
     private Button closeButton;
@@ -36,6 +38,12 @@ public class TitleBarController {
     private double xOffset = 0;
     private double yOffset = 0;
 
+
+    @FXML
+    public void initialize() {
+        //
+    }
+
     private Stage getStage(Event event) {
         return (Stage) (((Node) event.getSource()).getScene().getWindow());
     }
@@ -44,6 +52,7 @@ public class TitleBarController {
     private void handlePreviousPage(ActionEvent event) {
         ContentSwitcher.switchToPreviousPage();
     }
+
     @FXML
     private void handleMinimize(ActionEvent event) {
         Stage stage = getStage(event);

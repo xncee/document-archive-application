@@ -42,7 +42,7 @@ public class Document {
         this.filePath = builder.filePath; // filePath can be null if the user didn't upload a file
 
         // Validate file path (optional)
-        if (filePath != null && !new File(filePath).exists()) {
+        if (filePath != null && !filePath.isBlank() && !new File(filePath).exists()) {
             throw new IllegalArgumentException("File does not exist at the given file path");
         }
     }

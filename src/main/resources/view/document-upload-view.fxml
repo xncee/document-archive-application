@@ -18,14 +18,14 @@
 
 <!-- Main container for the page -->
 
-<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddDocumentController">
+<VBox xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddDocumentController">
     <!-- Including external stylesheet for the page -->
     <stylesheets>
         <URL value="@../styles/document-upload.css" />
     </stylesheets>
     <children>
         <!-- Including the header from an external FXML file -->
-        <fx:include source="header.fxml" />
+        <!-- <fx:include source="header.fxml" /> -->
       <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true">
          <content>
       

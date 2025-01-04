@@ -3,13 +3,14 @@ package controllers;
 import data.DBFacade;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.Region;
 import models.Document;
 import models.login.Login;
 import services.DocumentServices;
 import services.FieldsServices;
 import utils.FilesServices;
 import utils.FilesSystem;
-import utils.ContentSwitcher;
+import application.ContentSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import utils.Messages;
@@ -133,6 +134,7 @@ public class AddDocumentController {
         System.out.println("Operation canceled.");
         System.out.println("Switching to dashboard...");
         ContentSwitcher.switchContent("/view/dashboard-view.fxml");
+        clearForm();
     }
 
     @FXML
@@ -169,8 +171,41 @@ public class AddDocumentController {
             errorLabel.setText("Upload failed.");
             return;
         }
+        showSuccessAlert();
         System.out.println("Document added "+document.getId());
         System.out.println("Switching to dashboard...");
         ContentSwitcher.switchContent("/view/dashboard-view.fxml");
+        ContentSwitcher.reloadPage();
+        clearForm();
     }
+
+    private void showSuccessAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(null);
+        alert.setContentText("Document saved successfully!");
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.showAndWait();
+    }
+
+    private void showErrorAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.showAndWait();
+    }
+
+    private void clearForm() {
+        errorLabel.setText("");
+        title.clear();
+        description.clear();
+        departmentComboBox.setValue(null);
+        classificationComboBox.setValue(null);
+        deadline.setValue(null);
+        browseFilesLink.setVisited(false);
+        filePath = null;
+    }
+
 }

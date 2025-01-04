@@ -35,9 +35,10 @@ public class UserPreffrences {
     }
 
     // when the user logs out
-    public static void clearCredentials() {
+    public static void clear() {
         Preferences pref = Preferences.userRoot().node(UserPreffrences.class.getName());
         pref.remove(USERNAME_KEY);
         pref.remove(PASSWORD_KEY);
+        pref.remove(LANGUAGE_KEY);
     }
 }

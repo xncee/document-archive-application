@@ -2,13 +2,15 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <!-- Header section of the page -->
@@ -20,69 +22,59 @@
     </stylesheets>
 
     <!-- Outer HBox container for the entire header section -->
-    <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="1280.0">
-        <children>
-            <!-- HBox for the brand section with logo and brand name -->
-            <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="1099.0" styleClass="brand" HBox.hgrow="ALWAYS">
-                <HBox alignment="CENTER" prefHeight="23.0" prefWidth="143.0" spacing="16.0">
-                    <children>
-                        <!-- Logo image displayed in the brand section -->
-                        <ImageView fitHeight="24" fitWidth="27" preserveRatio="true" styleClass="logo" HBox.hgrow="ALWAYS">
-                            <Image url="@../icons/logo.png" />
-                        </ImageView>
-                        <!-- Brand name text -->
-                        <Label styleClass="brand-name" text="DocuVault" HBox.hgrow="ALWAYS" />
-                    </children>
-                </HBox>
-            <ComboBox fx:id="languageComboBox" onAction="#handleLanguage" prefWidth="150.0" promptText="Language" styleClass="combo-box" />
-                <!-- Adding padding to the left side of the brand section -->
-                <padding>
-                    <Insets left="24.0" />
-                </padding>
+    <HBox styleClass="header" VBox.vgrow="NEVER">
+        <padding>
+            <Insets bottom="16" left="24" right="24" top="16" />
+        </padding>
+        <HBox styleClass="header-content" HBox.hgrow="ALWAYS">
+            <HBox styleClass="brand">
+                <StackPane styleClass="logo-wrapper">
+                    <ImageView fitHeight="24" fitWidth="18" preserveRatio="true">
+                        <Image url="@../icons/logo.png" />
+                    </ImageView>
+                </StackPane>
+                <Label styleClass="brand-name" text="DocuVault" />
             </HBox>
-         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-            <children>
-      
-                  <!-- HBox for user notification button section -->
-                  <HBox alignment="CENTER" fillHeight="false" maxHeight="40.0" prefHeight="40.0" prefWidth="114.0" styleClass="user-section">
-                      <HBox HBox.hgrow="NEVER">
-                          <children>
-                              <!-- Button for notifications with associated icon -->
-                              <Button fx:id="notificationsButton" accessibleText="Notifications" alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#handleNotifications" styleClass="notification-button" textAlignment="CENTER" HBox.hgrow="NEVER">
-                                  <graphic>
-                                      <!-- Notification icon displayed on the button -->
-                                      <ImageView accessibleRole="BUTTON" focusTraversable="true" preserveRatio="true" styleClass="notification-icon">
-                                          <Image url="@../icons/notification-icon.png" />
-                                          <!-- Defining the viewport for the notification icon -->
-                                          <viewport>
-                                              <Rectangle2D />
-                                          </viewport>
-                                      </ImageView>
-                                  </graphic>
-                              </Button>
-                          </children>
-                      </HBox>
-                  </HBox>
-      
-                  <!-- HBox for user information section -->
-                  <HBox alignment="CENTER_LEFT" styleClass="user-info">
-                      <!-- Button for user info with avatar and name -->
-                      <Button fx:id="userInfoButton" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#handleUserInfo" styleClass="user-info-button" HBox.hgrow="NEVER">
-                          <graphic>
-                              <!-- HBox containing user avatar and name -->
-                              <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0">
-                                  <!-- User avatar image -->
-                                  <ImageView preserveRatio="true" styleClass="user-avatar">
-                                      <Image url="@../icons/user-avatar-icon.png" />
-                                  </ImageView>
-                                  <!-- User name text -->
-                                  <Label fx:id="loggedInUserLabel" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" styleClass="user-name" text="\@username" HBox.hgrow="ALWAYS" />
-                              </HBox>
-                          </graphic>
-                      </Button>
-                  </HBox>
-            </children>
-         </HBox>
-        </children>
+            <Region HBox.hgrow="ALWAYS" />
+            <HBox fillHeight="false" styleClass="user-section">
+                <Button fx:id="nofificationsButton" focusTraversable="true" styleClass="notification-btn">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="17.5" preserveRatio="true">
+                            <Image url="@../icons/notification-icon.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <HBox styleClass="user-profile">
+                    <ImageView fitHeight="32" fitWidth="32" styleClass="avatar">
+                        <Image url="@../icons/user-avatar-icon.png" />
+                    </ImageView>
+                    <Label fx:id="loggedInUserLabel" styleClass="username" text="Username" />
+                    <MenuButton fx:id="userDropDownButton" alignment="CENTER" contentDisplay="CENTER" styleClass="dropdown-btn">
+                        <graphic>
+                            <ImageView fitHeight="14" fitWidth="14">
+                                <Image url="@../icons/drop-down-icon.png" />
+                            </ImageView>
+                        </graphic>
+                        <items>
+                            <MenuItem onAction="#handleProfile" text="Profile" />
+                            <MenuItem onAction="#handleLogout" text="Logout" />
+                        </items>
+                    </MenuButton>
+               <MenuButton fx:id="userDropDownButton1" alignment="CENTER" contentDisplay="CENTER" styleClass="dropdown-btn">
+                  <graphic>
+                     <ImageView fitHeight="14" fitWidth="14">
+                        <image>
+                           <Image url="@../icons/settings-icon.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+                  <items>
+                     <MenuItem onAction="#switchToArabic" text="Arabic" />
+                     <MenuItem onAction="#switchToEnglish" text="English" />
+                  </items>
+               </MenuButton>
+                </HBox>
+            </HBox>
+        </HBox>
     </HBox>
 </VBox>

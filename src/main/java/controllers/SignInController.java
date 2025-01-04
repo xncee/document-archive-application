@@ -2,7 +2,7 @@ package controllers;
 
 import utils.UserPreffrences;
 import services.FieldsServices;
-import utils.ContentSwitcher;
+import application.ContentSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -75,7 +75,7 @@ public class SignInController {
         if (rememberMeCheckbox != null && rememberMeCheckbox.isSelected())
             UserPreffrences.saveCredentials(usernameField.getText(),passwordField.getText());
         else
-            UserPreffrences.clearCredentials();
+            UserPreffrences.clear();
 
         Login login = new Login();
         boolean loggedIn = login.signIn(usernameField.getText(), passwordField.getText());

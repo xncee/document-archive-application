@@ -12,7 +12,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import utils.FXMLCache;
 import utils.UserPreffrences;
-import utils.ContentSwitcher;
 import utils.LocalizationUtil;
 import java.io.IOException;
 import java.util.Locale;
@@ -53,10 +52,6 @@ public class Application  {
         BorderPane root = loader.load();
         // setting mainContainer to ContentSwitcher
         ContentSwitcher.setMainContainer(root);
-        // If arabic, switch direction
-        if ("ar".equals(UserPreffrences.getLanguage())) {
-            ContentSwitcher.switchDirection("right-to-left", "right");
-        }
 
         // preloading static pages
         new Thread(this::preloadPages).start();
@@ -78,9 +73,10 @@ public class Application  {
             }
         }
         catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Database connection string wasn't found!");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Database connection failed! \n"+e.getMessage());
             alert.showAndWait();
-            throw new RuntimeException("database connection string wasn't found.");
+            System.out.println(e.getMessage());
+            throw new RuntimeException("Database connection failed!");
         }
     }
     private void setup_screen() {
