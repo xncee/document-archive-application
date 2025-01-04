@@ -11,7 +11,7 @@
 
 <!-- Title Bar for the window with buttons for minimize, maximize, and close -->
 
-<HBox fx:id="titleBar" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="33.0" spacing="5.0" styleClass="title-bar" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TitleBarController">
+<HBox fx:id="titleBar" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="33.0" spacing="5.0" styleClass="title-bar" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TitleBarController">
     <!-- Including an external stylesheet for title bar styling -->
     <stylesheets>
         <URL value="@../styles/titlebar-style.css" />

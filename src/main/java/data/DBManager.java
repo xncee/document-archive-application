@@ -91,7 +91,7 @@ public class DBManager {
         return results;
     }
 
-    public List<Map<String, Object>> search(String table, Object value, String orderBy, boolean match, String... columns) throws SQLException {
+    public List<Map<String, Object>> search(String table, Object value, String orderBy, boolean match, int offset, String... columns) throws SQLException {
         // Ensure that at least one column is specified
         if (columns == null || columns.length == 0) {
             throw new IllegalArgumentException("At least one column must be specified.");
@@ -133,8 +133,8 @@ public class DBManager {
         return results;
     }
 
-    public List<Map<String, Object>> search(String table, Object value, String orderBy, String... columns) throws SQLException {
-        return search(table, value, orderBy, false, columns); // Call the original search with 'false' for partial matching
+    public List<Map<String, Object>> search(String table, Object value, String orderBy, int offset, String... columns) throws SQLException {
+        return search(table, value, orderBy, false, offset, columns); // Call the original search with 'false' for partial matching
     }
 
     public boolean verifyUserPassword(String username, String password) throws SQLException {
@@ -157,6 +157,20 @@ public class DBManager {
             }
             return false;
         }
+    }
+
+    public Map<String, Object> fetchUser(String username) throws SQLException {
+        String sql = "SELECT userId, username, email, fullname FROM users WHERE username = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    ResultSetMetaData metaData = rs.getMetaData();
+                    return mapData(rs, metaData);
+                }
+            }
+        }
+        return null;
     }
 
     public Object insert(String table, Map<String, Object> colValMap) throws SQLException {
@@ -268,19 +282,5 @@ public class DBManager {
         }
 
         return results;
-    }
-
-    public Map<String, Object> fetchUser(String username) throws SQLException {
-        String sql = "SELECT userId, username, email, fullname FROM users WHERE username = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, username);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    ResultSetMetaData metaData = rs.getMetaData();
-                    return mapData(rs, metaData);
-                }
-            }
-        }
-        return null;
     }
 }

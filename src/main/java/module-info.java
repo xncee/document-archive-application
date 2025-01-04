@@ -1,6 +1,4 @@
 module documentArchive {
-    requires javafx.controls;
-    requires javafx.fxml;
     requires java.sql;
     requires io.github.cdimascio.dotenv.java;
     requires opencv;
@@ -9,6 +7,10 @@ module documentArchive {
     requires java.prefs;
     requires kernel;
     requires layout;
+    requires javafx.graphics;
+    requires javafx.controls;
+    requires javafx.fxml;
+    requires javafx.base;
 
 
     opens application to javafx.fxml;

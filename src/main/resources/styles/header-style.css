@@ -1,69 +1,65 @@
 .header {
+    -fx-font-family: "Inter";
     -fx-background-color: white;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
-    -fx-padding: 0 70 0 70;
-    -fx-direction: ltr;
-    -fx-spacing: 20; /* Space between document header elements */
-    -fx-alignment: center; /* Center alignment */
+    -fx-border-color: #e5e5e5;
+    -fx-border-width: 0 0 1 0;
 }
+
 .header-content {
-    -fx-spacing: 100;
-    -fx-padding: 16;
-    -fx-alignment: center;
-    -fx-min-height: 64px;
+    -fx-spacing: 20;
+    -fx-alignment: center-left;
 }
-/* Brand Section Styling */
+
 .brand {
-    -fx-spacing: 16; /* Space between brand elements */
-    -fx-alignment: center-left; /* Align brand content to the left */
+    -fx-spacing: 16;
+    -fx-alignment: center-left;
 }
 
-/* Brand Name Styling */
 .brand-name {
-    -fx-font-family: "Inter"; /* Font family */
-    -fx-font-size: 20; /* Font size */
-    -fx-font-weight: bold; /* Bold font */
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
 }
 
-/* User Section Styling */
 .user-section {
-    -fx-spacing: 16; /* Space between user section elements */
-    -fx-alignment: center; /* Center alignment */
+    -fx-spacing: 24;
+    -fx-alignment: center;
 }
 
-/* Notification and User Info Button Styling */
-.notification-button,
-.user-info-button .logout-button {
-    -fx-background-color: transparent; /* Transparent background */
-    -fx-cursor: hand; /* Hand cursor on hover */
+.notification-btn,
+.dropdown-btn,
+.action-btn {
+    -fx-background-color: transparent;
+    -fx-padding: 8;
+    -fx-cursor: hand;
+}
+.dropdown-btn {
+    -fx-arrow-shape-color: transparent;
+    -fx-border-color: transparent; /* No border */
+    -fx-effect: null; /* Remove any shadow or effects */
+    -fx-text-fill: transparent;
+}
+.menu-button .arrow {
+    -fx-shape: "";
+    -fx-background-color: transparent; /*hides the default arrow*/
+}
+.notification-btn:hover,
+.dropdown-btn:hover,
+.action-btn:hover {
+    -fx-background-color: #fafafa;
 }
 
-.notification-button:hover,
-.user-info-button:hover {
-    -fx-background-color: rgba(0,0,0,0.05); /* Light background on hover */
+.user-profile {
+    -fx-spacing: 8;
+    -fx-alignment: center;
 }
 
-.notification-button:focused,
-.user-info-button:focused {
-    -fx-background-color: rgba(0,0,0,0.1); /* Darker background when focused */
+.avatar {
+    -fx-arc-width: 100;
+    -fx-arc-height: 100;
 }
-
-/* Icon Styling */
-.notification-icon,
-.user-avatar {
-    -fx-fit-width: 32; /* Icon width */
-    -fx-fit-height: 32; /* Icon height */
+.avatar-button {
+    fx-background-color: transparent;
 }
-
-/* User Info Styling */
-.user-info {
-    -fx-spacing: 8; /* Spacing between user info elements */
-    -fx-alignment: center; /* Center alignment */
-}
-
-/* User Name Styling */
-.user-name {
-    -fx-font-family: "Inter"; /* Font family */
-    -fx-font-size: 14; /* Font size */
-    -fx-text-fill: #404040; /* Dark grey text */
+.username {
+    -fx-font-weight: 500;
 }

@@ -86,7 +86,7 @@ public class SignInController {
         }
         System.out.println("Logged In as "+usernameField.getText());
         System.out.println("Switching to dashboard...");
-        ContentSwitcher.switchContent("/view/dashboard-view.fxml");
+        ContentSwitcher.switchContent("/view/new-dashboard.fxml");
     }
     @FXML
     public void handleSignup(ActionEvent event) throws IOException {

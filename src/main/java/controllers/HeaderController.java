@@ -3,6 +3,7 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.layout.VBox;
 import models.login.Login;
 import application.ContentSwitcher;
@@ -14,9 +15,11 @@ public class HeaderController {
     @FXML
     private Button notificationsButton;
     @FXML
-    private Button userInfoButton;
+    private MenuButton userDropDownButton;
     @FXML
     private Label loggedInUserLabel;
+    @FXML
+    private Button profileButton;
     @FXML
     private Button logoutButton;
 
@@ -33,7 +36,7 @@ public class HeaderController {
     }
 
     @FXML
-    public void handleUserInfo() {
+    public void handleProfile() {
 
     }
 

@@ -45,9 +45,9 @@ public class DBFacade {
         return dbManager.isConnected();
     }
 
-    public List<Map<String, Object>> search(String table, Object value, boolean match, String... columns) {
+    public List<Map<String, Object>> search(String table, Object value, boolean match, int offset, String... columns) {
         try {
-            return dbManager.search(table, value, null, match, columns);
+            return dbManager.search(table, value, null, match, offset, columns);
         } catch (SQLException e) {
             throw new DatabaseOperationException("An error occurred while searching users in database.", e);
         }
@@ -199,7 +199,7 @@ public class DBFacade {
     }
     public int getStatusCount(String status) throws DatabaseOperationException {
         try {
-            return dbManager.search("documents", status, null, true, "status").size();
+            return dbManager.search("documents", status, null, true, 0, "status").size();
         } catch (SQLException e) {
             throw new DatabaseOperationException("An error occurred while getting "+status+" status count from database.", e);
         }

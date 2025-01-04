@@ -15,18 +15,22 @@ import utils.FXMLCache;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 public class DashboardController {
     private DBFacade dbFacade = DBFacade.getInstance();
-
+    @FXML
+    private Button userDropButton;
     @FXML
     private Label totalDocuments;
     @FXML
     private Label recentUploads;
     @FXML
     private Label pendingReview;
+    @FXML
+    private TextField searchField;
     @FXML
     private Button addDocumentButton;
     @FXML
@@ -67,6 +71,10 @@ public class DashboardController {
     }
 
     @FXML
+    public void handleDropDown(ActionEvent event) {
+        // do something
+    }
+    @FXML
     private void handleFilter(ActionEvent event) throws IOException {
         ContentSwitcher.popUpWindow(event, "/view/results-filter-view.fxml");
     }
@@ -83,13 +91,16 @@ public class DashboardController {
 
     @FXML
     private void handleSearch(KeyEvent event) {
+        System.out.println("searching for "+searchField.getText());
+        documents.remove(Integer.parseInt(searchField.getText()));
+        documentTable.setItems(documents);
         // Implementation for search functionality
     }
 
     private void setupStatsCards() {
         int total = dbFacade.getCount("documents");
         int recent = dbFacade.getDataByDateRange("documents", "createdDate", LocalDate.now().minusDays(1), LocalDate.now()).size();
-        int pending = dbFacade.search(Tables.DOCUMENTS.getTableName(), "pending", true, "status").size();
+        int pending = dbFacade.search(Tables.DOCUMENTS.getTableName(), "pending", true, 0, "status").size();
         totalDocuments.setText(String.valueOf(total));
         recentUploads.setText(String.valueOf(recent));
         pendingReview.setText(String.valueOf(pending));
@@ -100,13 +111,14 @@ public class DashboardController {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         departmentColumn.setCellValueFactory(new PropertyValueFactory<>("department"));
         classificationColumn.setCellValueFactory(new PropertyValueFactory<>("classification"));
-        deadlineColumn.setCellValueFactory(new PropertyValueFactory<>("deadline"));
-        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         createdDateColumn.setCellValueFactory(new PropertyValueFactory<>("createdDate"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+
         // Apply auto resize for columns
         documentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         loadDocuments();
+        System.out.println(documents);
     }
 
     private LocalDate convertToLocalDate(Object date) {
