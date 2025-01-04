@@ -1,9 +1,11 @@
 package controllers;
 
 import data.DBFacade;
+import data.DocumentFacade;
 import data.Tables;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,15 +16,13 @@ import application.ContentSwitcher;
 import utils.FXMLCache;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 public class DashboardController {
-    private DBFacade dbFacade = DBFacade.getInstance();
-    @FXML
-    private Button userDropButton;
+    private final DBFacade dbFacade = DBFacade.getInstance();
+    private final DocumentFacade documentFacade = DocumentFacade.getInstance();
     @FXML
     private Label totalDocuments;
     @FXML
@@ -51,11 +51,15 @@ public class DashboardController {
     private TableColumn<Document, LocalDate> deadlineColumn;
     @FXML
     private TableColumn<Document, String> statusColumn;
-
     @FXML
     private TableColumn<Document, LocalDate> createdDateColumn;
 
-    private ObservableList<Document> documents;
+
+    private final int ROWS_PER_PAGE = 10;
+    private ObservableList<Document> documents = FXCollections.emptyObservableList();
+    private SearchService searchService = SearchService.getInstance();
+    private int offset;
+    private boolean more = true;
 
     @FXML
     private void initialize() {
@@ -68,33 +72,17 @@ public class DashboardController {
 
         setupStatsCards();
         setupTableColumns();
+        documentTable.setItems(loadDocuments("" ,offset, ROWS_PER_PAGE)); // All documents
     }
 
     @FXML
     public void handleDropDown(ActionEvent event) {
         // do something
     }
-    @FXML
-    private void handleFilter(ActionEvent event) throws IOException {
-        ContentSwitcher.popUpWindow(event, "/view/results-filter-view.fxml");
-    }
-
-    @FXML
-    private void handleGenerateReport(ActionEvent event) throws IOException {
-        ContentSwitcher.popUpWindow(event, "/view/generate-report-view.fxml");
-    }
 
     @FXML
     private void handleAddDocument(ActionEvent event) throws IOException {
         ContentSwitcher.switchContent("/view/document-upload-view.fxml");
-    }
-
-    @FXML
-    private void handleSearch(KeyEvent event) {
-        System.out.println("searching for "+searchField.getText());
-        documents.remove(Integer.parseInt(searchField.getText()));
-        documentTable.setItems(documents);
-        // Implementation for search functionality
     }
 
     private void setupStatsCards() {
@@ -105,6 +93,56 @@ public class DashboardController {
         recentUploads.setText(String.valueOf(recent));
         pendingReview.setText(String.valueOf(pending));
     }
+
+    // Table view (view, search, filter, generate report)
+    @FXML
+    private void handleGenerateReport(ActionEvent event) throws IOException {
+        ContentSwitcher.popUpWindow(event, "/view/generate-report-view.fxml");
+    }
+
+    @FXML
+    private void handleFilter(ActionEvent event) throws IOException {
+        ContentSwitcher.popUpWindow(event, "/view/results-filter-view.fxml");
+    }
+
+    @FXML
+    private void handleSearch(KeyEvent event) {
+        offset = 0;
+        documents.clear();
+        // Ensure TableView items are not null (as this can cause exceptions)
+        if (documentTable.getItems() != null) {
+            documentTable.setItems(FXCollections.observableArrayList());
+        }
+
+        String query = searchField.getText().strip();
+
+        // Create a Task for the search operation (background task, this will prevent the UI from freezing during search operations)
+        Task<ObservableList<Document>> searchTask = new Task<>() {
+            @Override
+            protected ObservableList<Document> call() {
+                return loadDocuments(query, offset, ROWS_PER_PAGE);
+            }
+        };
+
+        // Update the table once the task completes
+        searchTask.setOnSucceeded(e -> {
+            ObservableList<Document> results = searchTask.getValue();
+            if (results != null) {
+                documentTable.setItems(results);  // Set results to the table
+            } else {
+                documentTable.setItems(FXCollections.observableArrayList());  // Set empty list if no results
+            }
+        });
+
+        // Start the task in the background
+        new Thread(searchTask).start();
+    }
+
+    @FXML
+    private void handleScroll() {
+        documentTable.getItems().addAll();
+    }
+
     private void setupTableColumns() {
         // Link columns to Document properties using PropertyValueFactory
         documentIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -116,47 +154,25 @@ public class DashboardController {
 
         // Apply auto resize for columns
         documentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
-        loadDocuments();
     }
 
-    private LocalDate convertToLocalDate(Object date) {
-        if (date instanceof java.sql.Date) {
-            return ((java.sql.Date) date).toLocalDate();
+    private ObservableList<Document> loadDocuments(String query, int offset, int count) {
+        List<Document> results = null;
+        try {
+            results = documentFacade.searchDocuments(query, offset, count);
+
+        } catch (SQLException e) {
+            System.out.println("An error occurred while searching for " + query);
+            e.printStackTrace();
         }
-        return null; // Return null if date is null or not an instance of java.sql.Date
-    }
-    private void loadDocuments() {
-        documents = FXCollections.observableArrayList();
-        List<Map<String, Object>> docs = dbFacade.getLimitedRows(Tables.DOCUMENTS.getTableName(), 100);
-        // when reaching end of the list: SELECT * FROM table_name WHERE id > ? ORDER BY id ASC;
-        for (Map<String, Object> x: docs) {
-            Document.Builder docBuilder = new Document.Builder(
-                    (String) x.get("status"),
-                    (Integer) x.get("uploaderId"),
-                    (String) x.get("title"),
-                    (String) x.get("description"),
-                    (String) x.get("department"),
-                    (String) x.get("classification"))
-                    .id((String) x.get("id"))
-                    .deadline(convertToLocalDate(x.get("deadline")))
-                    .createdDate(convertToLocalDate(x.get("createdDate")))
-                    .updatedDate(convertToLocalDate(x.get("updatedDate")));
 
-            docBuilder.filePath((String) x.get("filePath"));
-            Document doc = null;
-            try {
-                doc = docBuilder.build();
-                documents.add(doc);
-            }
-            catch (Exception e) {
-                System.out.println("Failed to load a document: "+doc);
-                e.printStackTrace();
-            }
-        }
-        // Set the items to the TableView
-        documentTable.setItems(documents);
+        offset += results.size();
+        // if results number is equal to the requested amount, then it is possible that there are more unloaded results
+        more = results.size() == count;
+
+        return FXCollections.observableArrayList(results);
     }
+
 
     @FXML
     private void handleHelpLink(ActionEvent event) {
