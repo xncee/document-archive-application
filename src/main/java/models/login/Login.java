@@ -79,6 +79,13 @@ public class Login {
         return true;
     }
 
+    public void logout() {
+        this.id = 0;
+        this.username = null;
+        this.email = null;
+        this.fullname = null;
+    }
+
     public int getId() {
         return id;
     }

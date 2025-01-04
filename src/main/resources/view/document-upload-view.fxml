@@ -25,7 +25,7 @@
     </stylesheets>
     <children>
         <!-- Including the header from an external FXML file -->
-        <fx:include source="header.fxml" />
+        <!-- <fx:include source="header.fxml" /> -->
       <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true">
          <content>
       

@@ -8,7 +8,7 @@ import javafx.scene.control.ToggleButton;
 import reports.ExcelReportGenerator;
 import reports.PDFReportGenerator;
 import reports.ReportGenerator;
-import utils.ContentSwitcher;
+import application.ContentSwitcher;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

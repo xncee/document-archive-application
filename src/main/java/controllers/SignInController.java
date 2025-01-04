@@ -2,7 +2,7 @@ package controllers;
 
 import utils.UserPreffrences;
 import services.FieldsServices;
-import utils.ContentSwitcher;
+import application.ContentSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

@@ -6,21 +6,26 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import utils.ContentSwitcher;
+import application.ContentSwitcher;
+import utils.LocalizationUtil;
+import utils.UserPreffrences;
+
+import java.io.IOException;
+import java.util.Locale;
 
 public class TitleBarController {
     @FXML
     private Button previousPageButton;
 
     @FXML
-    private HBox titleBar;
+    private ComboBox<String> languageComboBox;
 
     @FXML
-    private Region topRegion;
+    private HBox titleBar;
 
     @FXML
     private Button closeButton;
@@ -36,6 +41,12 @@ public class TitleBarController {
     private double xOffset = 0;
     private double yOffset = 0;
 
+
+    @FXML
+    public void initialize() {
+        prepareLanguages();
+    }
+
     private Stage getStage(Event event) {
         return (Stage) (((Node) event.getSource()).getScene().getWindow());
     }
@@ -44,6 +55,33 @@ public class TitleBarController {
     private void handlePreviousPage(ActionEvent event) {
         ContentSwitcher.switchToPreviousPage();
     }
+
+    private void prepareLanguages() {
+        languageComboBox.getItems().addAll("Arabic", "English");
+        languageComboBox.setValue(UserPreffrences.getLanguage()); // replace with preferred language
+    }
+
+    @FXML
+    public void handleLanguage() throws IOException {
+        String selectedLanguage = languageComboBox.getValue().toLowerCase();
+        if ("english".equals(selectedLanguage)) {
+            LocalizationUtil.setLocale(new Locale("en"));
+            ContentSwitcher.switchDirection("left-to-right", "right");
+            UserPreffrences.setLanguage("en");
+        }
+        else if ("arabic".equals(selectedLanguage)) {
+            LocalizationUtil.setLocale(new Locale("ar"));
+            ContentSwitcher.switchDirection("right-to-left", "left");
+            UserPreffrences.setLanguage("ar");
+        }
+        else {
+            LocalizationUtil.setLocale(new Locale("en"));
+        }
+        ContentSwitcher.reloadPage();
+
+        System.out.println("Language switched to "+languageComboBox.getValue());
+    }
+
     @FXML
     private void handleMinimize(ActionEvent event) {
         Stage stage = getStage(event);

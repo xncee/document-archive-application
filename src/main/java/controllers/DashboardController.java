@@ -10,7 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
 import models.Document;
-import utils.ContentSwitcher;
+import application.ContentSwitcher;
 import utils.FXMLCache;
 
 import java.io.IOException;

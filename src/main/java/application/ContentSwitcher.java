@@ -1,4 +1,4 @@
-package utils;
+package application;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -11,6 +11,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import utils.FXMLCache;
+import utils.LocalizationUtil;
 
 import java.io.IOException;
 import java.util.Stack;
@@ -22,9 +24,11 @@ public class ContentSwitcher {
 
     // Method to switch content dynamically using preloaded pages
     @FXML
-    public static void switchContent(String fxmlFile) throws IOException {
+    public static void switchContent(String fxmlFile, boolean forceReload) throws IOException {
         currentFile = fxmlFile;
-
+        if (forceReload) {
+            FXMLCache.preloadFXML(fxmlFile);
+        }
         // Check if the FXML file is already preloaded
         Parent content = FXMLCache.getFXML(fxmlFile);
         if (content == null) {
@@ -34,8 +38,26 @@ public class ContentSwitcher {
         }
 
         // Set the content in the center of the BorderPane (main container)
-        pages.push(content);
+        if (!pages.contains(content))
+            pages.push(content);
         mainContainer.setCenter(content);
+    }
+
+    @FXML
+    public static void switchContent(String fxmlFile) throws IOException {
+        switchContent(fxmlFile, false);
+    }
+
+    @FXML
+    public static void offload() {
+        pages.pop();
+    }
+
+    @FXML
+    public static void reloadPage() throws IOException {
+        FXMLCache.preloadFXML(currentFile);
+        pages.pop();
+        switchContent(currentFile);
     }
 
     @FXML

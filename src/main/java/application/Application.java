@@ -12,7 +12,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import utils.FXMLCache;
 import utils.UserPreffrences;
-import utils.ContentSwitcher;
 import utils.LocalizationUtil;
 import java.io.IOException;
 import java.util.Locale;
@@ -62,7 +61,7 @@ public class Application  {
         new Thread(this::preloadPages).start();
 
         // Loading the content
-        ContentSwitcher.switchContent("/view/signin-view.fxml"); // this page was already preloaded
+        ContentSwitcher.switchContent("/view/signin-view.fxml", true); // this page was already preloaded
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -78,9 +77,10 @@ public class Application  {
             }
         }
         catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Database connection string wasn't found!");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Database connection failed! \n"+e.getMessage());
             alert.showAndWait();
-            throw new RuntimeException("database connection string wasn't found.");
+            System.out.println(e.getMessage());
+            throw new RuntimeException("Database connection failed!");
         }
     }
     private void setup_screen() {
