@@ -64,7 +64,7 @@ public class ContentSwitcher {
             mainContainer.setCenter(pages.peek());
         }
         catch (Exception e) {
-            pages.push(current);
+            pages.push(current); // if switching failed, push the page back into the stack.
             System.out.println("Failed to switch to previous page because this page has no previous pages.");
             //e.printStackTrace();
         }
