@@ -113,13 +113,12 @@ public class UserFacade {
 
     // Add New User
     public boolean addUser(User user) throws SQLException {
-        String query = "INSERT INTO users (userId, username, fullname, email, password) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO users (username, fullname, email, password) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = dbFacade.getConnection().prepareStatement(query)) {
-            stmt.setString(1, user.getUserId());
-            stmt.setString(2, user.getUsername());
-            stmt.setString(3, user.getFullname());
-            stmt.setString(4, user.getEmail());
-            stmt.setString(5, user.getPassword());
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getFullname());
+            stmt.setString(3, user.getEmail());
+            stmt.setString(4, user.getPassword());
             return stmt.executeUpdate() > 0; // Returns true if a new user is added
         } catch (SQLException e) {
             e.printStackTrace(); // Log the error properly

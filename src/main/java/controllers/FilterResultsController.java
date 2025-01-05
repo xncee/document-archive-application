@@ -1,76 +1,41 @@
 package controllers;
 
-import models.FilterState;
+import data.DBFacade;
+import services.FilterService;
 import javafx.fxml.FXML;
-import javafx.scene.AccessibleRole;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import services.FilterService;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 public class FilterResultsController {
+    private DBFacade dbFacade =  DBFacade.getInstance();
+    private FilterService filterService = FilterService.getInstance();
     @FXML private ComboBox<String> departmentComboBox;
     @FXML private ComboBox<String> classificationComboBox;
     @FXML private DatePicker startDatePicker;
     @FXML private DatePicker endDatePicker;
 
-    private FilterService filterService;
-    private FilterState filterState;
-
     public void initialize() {
-        setupAccessibility();
         initializeControls();
         bindEventHandlers();
     }
 
-    private void setupAccessibility() {
-        departmentComboBox.setFocusTraversable(true);
-        departmentComboBox.getStyleClass().add("accessible-combo-box");
-        departmentComboBox.setAccessibleRole(AccessibleRole.COMBO_BOX);
-        departmentComboBox.setAccessibleText("Select department filter");
-
-        classificationComboBox.setFocusTraversable(true);
-        classificationComboBox.getStyleClass().add("accessible-combo-box");
-        classificationComboBox.setAccessibleRole(AccessibleRole.COMBO_BOX);
-        classificationComboBox.setAccessibleText("Select Classification filter");
-
-        startDatePicker.setFocusTraversable(true);
-        startDatePicker.setAccessibleRole(AccessibleRole.DATE_PICKER);
-        startDatePicker.setAccessibleText("Select start date");
-
-        endDatePicker.setFocusTraversable(true);
-        endDatePicker.setAccessibleRole(AccessibleRole.DATE_PICKER);
-        endDatePicker.setAccessibleText("Select end date");
-    }
-
     private void initializeControls() {
-        setFilterService(new FilterService());
-        setFilterState(new FilterState());
-        departmentComboBox.getItems().addAll(filterService.getDepartments());
-        classificationComboBox.getItems().addAll(filterService.getClassifications());
+        for (Map<String, Object> department: dbFacade.getDepartments()) {
+            departmentComboBox.getItems().add((String) department.get("name"));
+        }
+        for (Map<String, Object> classification: dbFacade.getClassifications()) {
+            classificationComboBox.getItems().add((String) classification.get("name"));
+        }
 
         startDatePicker.setValue(LocalDate.now().minusMonths(1));
         endDatePicker.setValue(LocalDate.now());
 
-        startDatePicker.setDayCellFactory(picker -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                setDisable(empty || date.isAfter(endDatePicker.getValue()));
-            }
-        });
-
-        endDatePicker.setDayCellFactory(picker -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                setDisable(empty || date.isBefore(startDatePicker.getValue()));
-            }
-        });
     }
 
     private void bindEventHandlers() {
@@ -95,33 +60,35 @@ public class FilterResultsController {
     @FXML
     void handleStatusSelect(ActionEvent event) {
         Button sourceButton = (Button) event.getSource();
-        filterState.setStatus(sourceButton.getText());
+        filterService.setStatus(sourceButton.getText());
         updateStatusButtonStyles(sourceButton);
     }
 
     @FXML
     void handleDepartmentSelect(ActionEvent event) {
         String selectedDepartment = departmentComboBox.getValue();
-        filterState.setDepartment(selectedDepartment);
+        filterService.setDepartment(selectedDepartment);
+        departmentComboBox.setValue(selectedDepartment);
     }
 
     @FXML
     void handleClassificationSelect(ActionEvent event) {
         String selectedClassification = classificationComboBox.getValue();
-        filterState.setClassification(selectedClassification);
+        filterService.setClassification(selectedClassification);
+        classificationComboBox.setPromptText(selectedClassification);
     }
 
     @FXML
     void handleStartDateSelect(ActionEvent event) {
         LocalDate selectedDate = startDatePicker.getValue();
-        filterState.setStartDate(selectedDate);
+        filterService.setStartDate(selectedDate);
         validateDateRange();
     }
 
     @FXML
     void handleEndDateSelect(ActionEvent event) {
         LocalDate selectedDate = endDatePicker.getValue();
-        filterState.setEndDate(selectedDate);
+        filterService.setEndDate(selectedDate);
         validateDateRange();
     }
 
@@ -131,14 +98,14 @@ public class FilterResultsController {
         classificationComboBox.setValue(null);
         startDatePicker.setValue(LocalDate.now().minusMonths(1));
         endDatePicker.setValue(LocalDate.now());
-        filterState.reset();
+        filterService.reset();
         resetStatusButtonStyles();
     }
 
     @FXML
     void handleApply(ActionEvent event) {
         if (validateFilters()) {
-            filterService.applyFilters(filterState);
+            //
             closeFilterPanel();
         }
     }
@@ -203,13 +170,5 @@ public class FilterResultsController {
 
     private void closeFilterPanel() {
         startDatePicker.getScene().getWindow().hide();
-    }
-
-    public void setFilterService(FilterService filterService) {
-        this.filterService = filterService;
-    }
-
-    public void setFilterState(FilterState filterState) {
-        this.filterState = filterState;
     }
 }

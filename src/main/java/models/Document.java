@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class Document {
     private final String id;
-    private final Integer uploaderId;
+    private final String uploaderId;
     private final String title;
     private final String description;
     private final String department;
@@ -52,7 +52,7 @@ public class Document {
         return id;
     }
 
-    public Integer getUploaderId() {
+    public String getUploaderId() {
         return uploaderId;
     }
 
@@ -117,7 +117,7 @@ public class Document {
     // Builder Class
     public static class Builder {
         private String id;
-        private Integer uploaderId;
+        private String uploaderId;
         private String title;
         private String description;
         private String department;
@@ -129,7 +129,7 @@ public class Document {
         private String filePath;
 
         // Required fields constructor
-        public Builder(String status, Integer uploaderId, String title, String description, String department, String classification) {
+        public Builder(String status, String uploaderId, String title, String description, String department, String classification) {
             this.status = status;
             this.uploaderId = uploaderId;
             this.title = title;

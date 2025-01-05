@@ -6,7 +6,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -14,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox accessibleText="Generate Report Dialog" alignment="CENTER" focusTraversable="true" prefHeight="616.0" prefWidth="480.0" spacing="0" styleClass="main-container" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.generateReportController">
+<VBox accessibleText="Generate Report Dialog" alignment="CENTER" focusTraversable="true" prefHeight="616.0" prefWidth="480.0" spacing="0" styleClass="main-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.generateReportController">
 
     <!-- Link to the stylesheet -->
     <stylesheets>
@@ -68,7 +67,7 @@
                                 <Image url="@../icons/calendar-icon.png" />
                             </ImageView>
                             <Label styleClass="filter-text" text="%label.dateRange" />
-                            <Label fx:id="dateRangeLabel" styleClass="filter-text" text="Jan 1, 2025 - Mar 31, 2025" />
+                            <Label fx:id="dateRangeLabel" styleClass="filter-text" />
                         </HBox>
 
                         <HBox alignment="CENTER_LEFT" spacing="8">
@@ -76,14 +75,14 @@
                                 <Image url="@../icons/category-icon.png" />
                             </ImageView>
                             <Label styleClass="filter-text" text="%label.department" />
-                            <Label fx:id="departmentsLabel" styleClass="filter-text" text="Sales, Marketing" />
+                            <Label fx:id="departmentsLabel" styleClass="filter-text" />
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="8">
                             <ImageView accessibleText="Category icon" fitWidth="12" preserveRatio="true">
                                 <Image url="@../icons/category-icon.png" />
                             </ImageView>
                             <Label styleClass="filter-text" text="%label.classification" />
-                            <Label fx:id="classificationsLabel" styleClass="filter-text" text="Sales, Marketing" />
+                            <Label fx:id="classificationsLabel" styleClass="filter-text" />
                         </HBox>
 
                         <HBox alignment="CENTER_LEFT" spacing="8">
@@ -91,7 +90,7 @@
                                 <Image url="@../icons/status-icon.png" />
                             </ImageView>
                             <Label styleClass="filter-text" text="%label.status" />
-                            <Label fx:id="statusLabel" styleClass="filter-text" text="Pending" />
+                            <Label fx:id="statusLabel" styleClass="filter-text" />
                         </HBox>
                     </VBox>
                 </VBox>

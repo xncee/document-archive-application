@@ -24,7 +24,7 @@
     </stylesheets>
 
     <fx:include source="header.fxml" />
-   <ScrollPane fitToWidth="true" pannable="true">
+   <ScrollPane fx:id="scrollPane" fitToWidth="true" onScroll="#handleScroll" pannable="true" vvalue="1.0">
       <content>
             <VBox alignment="CENTER" spacing="44.0">
                 <GridPane alignment="CENTER" hgap="24" styleClass="stats-grid" vgap="24">
@@ -164,9 +164,18 @@
                     </TableView>
       
                     <HBox styleClass="pagination">
-                        <Label styleClass="pagination-info" text="Showing 1 to 10 of 234 entries" />
+                  <HBox alignment="CENTER" spacing="5.0">
+                     <children>
+                        <Label text="Showing " />
+                        <Label fx:id="currentResultsLabel" text="0" />
+                              <Label styleClass="pagination-info" text="of" />
+                        <Label fx:id="totalResultsLabel" text="0" />
+                        <Label text="Results" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="resultsMessageLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="results-msg" />
                         <Region HBox.hgrow="ALWAYS" />
-                        <HBox spacing="8" styleClass="pagination-controls">
+                        <HBox disable="true" spacing="8" styleClass="pagination-controls" visible="false">
                             <Button disable="true" styleClass="pagination-btn" text="%button.previous" />
                             <Button styleClass="pagination-btn,active" text="1" />
                             <Button styleClass="pagination-btn" text="2" />

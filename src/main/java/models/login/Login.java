@@ -1,21 +1,15 @@
 package models.login;
 
-import exceptions.DatabaseOperationException;
-import io.github.cdimascio.dotenv.Dotenv;
-import data.DBFacade;
+import data.UserFacade;
+import models.User;
 import utils.ErrorHandler;
-
 import java.sql.SQLException;
-import java.util.Map;
 
 public class Login {
+    private static final UserFacade userFacade = UserFacade.getInstance();
     public static Login instance = null;
-    private int id;
-    private String username;
-    private String email;
-    private String fullname;
+    public User user;
 
-    private final static DBFacade dbFacade = DBFacade.getInstance(Dotenv.load().get("DATABASE_URL"));
     public Login() {
         instance = this;
     }
@@ -28,20 +22,10 @@ public class Login {
     }
     public boolean signIn(String username, String password) {
         try {
-            // Attempt to authenticate the user (null is returned if authentication failed)
-            boolean valid = dbFacade.authUser(username, password);
+            boolean valid = userFacade.authUser(username, password);
 
             if (valid) {
-                Map<String, Object> userInfo = dbFacade.fetchUser(username);
-                // Set user fields from the retrieved information
-                this.id = userInfo.get("userId") instanceof Integer
-                        ? (Integer) userInfo.get("userId")
-                        : Integer.parseInt(String.valueOf(userInfo.get("userId")));
-
-                this.username = username.toLowerCase(); // Standardize username
-                this.email = String.valueOf(userInfo.get("email"));
-                this.fullname = String.valueOf(userInfo.get("fullname"));
-
+                this.user = userFacade.fetchUser(username);
                 return true; // Successfully signed in
             }
         } catch (Exception e) {
@@ -52,52 +36,25 @@ public class Login {
     }
 
     public boolean signUp(String username, String email, String fullname, String password) {
+        User user = new User(username, fullname, email,password);
         try {
-            if (!dbFacade.addUser(username, email, password, fullname)) {
+            if (!userFacade.addUser(user))
                 return false;
-            }
-        } catch (DatabaseOperationException e) {
-            // Log the error or provide more details
-            return false;
-        }
-
-        Map<String, Object> userInfo = null;
-        try {
-            userInfo = dbFacade.fetchUser(username);
+            this.user = userFacade.fetchUser(username);
         } catch (SQLException e) {
             // Handle or log the exception here
             ErrorHandler.handle(e, "An error occurred while fetching user information.");
             return false;
         }
 
-        if (userInfo != null) {
-            this.id = (int) userInfo.get("userId");
-            this.username = username.toLowerCase();
-            this.email = email.toLowerCase();
-            this.fullname = fullname;
-        }
         return true;
     }
 
     public void logout() {
-        this.id = 0;
-        this.username = null;
-        this.email = null;
-        this.fullname = null;
+        this.user = null;
     }
 
-    public int getId() {
-        return id;
-    }
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getFullname() {
-        return fullname;
+    public User getUser() {
+        return user;
     }
 }
