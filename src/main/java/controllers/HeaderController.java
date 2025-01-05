@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import models.login.Login;
 import application.ContentSwitcher;
 import utils.LocalizationUtil;
-import utils.UserPreffrences;
+import services.UserPreffrences;
 
 import java.io.IOException;
 import java.util.Locale;

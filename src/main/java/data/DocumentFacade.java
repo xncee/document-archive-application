@@ -97,7 +97,7 @@ public class DocumentFacade {
 
         try (Connection connection = dbFacade.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, keyword + "%");
+            statement.setString(1, keyword);
             statement.setString(2, "%" + keyword + "%");
             statement.setString(3, "%" + keyword + "%");
             statement.setInt(4, offset);

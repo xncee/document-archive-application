@@ -1,6 +1,6 @@
 package controllers;
 
-import utils.UserPreffrences;
+import services.UserPreffrences;
 import services.FieldsServices;
 import application.ContentSwitcher;
 import javafx.event.ActionEvent;

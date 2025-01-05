@@ -16,7 +16,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.ScrollEvent;
 import models.Document;
 import application.ContentSwitcher;
+import services.ExpandViewService;
 import services.SearchService;
+import utils.ErrorHandler;
 import utils.FXMLCache;
 
 import java.io.IOException;
@@ -28,6 +30,7 @@ public class DashboardController {
     private final DBFacade dbFacade = DBFacade.getInstance();
     private final DocumentFacade documentFacade = DocumentFacade.getInstance();
     private final SearchService searchService = SearchService.getInstance();
+    private final ExpandViewService expandViewService = ExpandViewService.getInstance();
 
     @FXML
     private Label totalDocuments;
@@ -121,6 +124,7 @@ public class DashboardController {
 
     @FXML
     private void handleSearch(KeyEvent event) {
+        resultsMessageLabel.setText("");
         totalResultsLabel.setText("unknown");
         offset = 0;
         documents.clear();
@@ -180,18 +184,21 @@ public class DashboardController {
         createdDateColumn.setCellValueFactory(new PropertyValueFactory<>("createdDate"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
+
+        // Make rows clickable:
         documentTable.setRowFactory(doc -> {
             TableRow<Document> row = new TableRow<>();
             row.setFocusTraversable(false);
             row.setCursor(Cursor.HAND);
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty()) {
-                    Document rowData = row.getItem();  // Get the item (Document) of the clicked row
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Row Clicked");
-                    alert.setHeaderText(null);
-                    alert.setContentText("You clicked on: " + rowData.getId());  // Use rowData.getId() instead of doc.getId()
-                    alert.showAndWait();
+                    Document document = row.getItem();  // Get the item (Document) of the clicked row
+                    expandViewService.setDocument(document);
+                    try {
+                        ContentSwitcher.switchContent("/view/document-details-view.fxml");
+                    } catch (Exception e) {
+                        ErrorHandler.handle(e, "Failed to open document: "+document.getId());
+                    }
                 }
             });
             return row;  // Return the row to the row factory

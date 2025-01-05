@@ -6,16 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import application.ContentSwitcher;
-import utils.LocalizationUtil;
-import utils.UserPreffrences;
-
-import java.io.IOException;
-import java.util.Locale;
 
 public class TitleBarController {
     @FXML
