@@ -1,7 +1,6 @@
 package application;
 
 import data.DBFacade;
-import data.DBManager;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -12,7 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import utils.FXMLCache;
-import utils.UserPreffrences;
+import services.UserPreffrences;
 import utils.LocalizationUtil;
 import java.io.IOException;
 import java.util.Locale;

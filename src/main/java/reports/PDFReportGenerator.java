@@ -5,8 +5,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
-import utils.FilesServices;
-import utils.FilesSystem;
+import services.FilesServices;
 
 import java.io.File;
 import java.io.FileNotFoundException;
