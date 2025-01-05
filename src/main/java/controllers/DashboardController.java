@@ -121,6 +121,10 @@ public class DashboardController {
 
     @FXML
     private void handleGenerateReport(ActionEvent event) throws IOException {
+        // load all results and prepare for report generation
+        String keyword = searchField.getText() != null ? searchField.getText() : "";
+        ObservableList<Document> results = loadDocuments(keyword, offset, -1);
+        documents.addAll(results);
         ContentSwitcher.popUpWindow(event, "/view/generate-report-view.fxml");
     }
 
