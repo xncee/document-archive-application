@@ -92,15 +92,16 @@ public class DocumentFacade {
 
     // Method to search documents with lazy loading (pagination)
     public List<Document> searchDocuments(String keyword, int offset, int limit) {//, String department, String classification, String status, LocalDate startDate, LocalDate endDate) throws SQLException {
-        String query = "SELECT * FROM documents WHERE title LIKE ? OR description LIKE ? ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        String query = "SELECT * FROM documents WHERE id LIKE ? OR title LIKE ? OR description LIKE ? ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         List<Document> documents = new ArrayList<>();
 
         try (Connection connection = dbFacade.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, "%" + keyword + "%");
+            statement.setString(1, keyword + "%");
             statement.setString(2, "%" + keyword + "%");
-            statement.setInt(3, offset);
-            statement.setInt(4, limit);
+            statement.setString(3, "%" + keyword + "%");
+            statement.setInt(4, offset);
+            statement.setInt(5, limit);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 documents.add(mapResultSetToDocument(resultSet));

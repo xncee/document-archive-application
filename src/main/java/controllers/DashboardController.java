@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
@@ -179,6 +180,22 @@ public class DashboardController {
         createdDateColumn.setCellValueFactory(new PropertyValueFactory<>("createdDate"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
+        documentTable.setRowFactory(doc -> {
+            TableRow<Document> row = new TableRow<>();
+            row.setFocusTraversable(false);
+            row.setCursor(Cursor.HAND);
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty()) {
+                    Document rowData = row.getItem();  // Get the item (Document) of the clicked row
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Row Clicked");
+                    alert.setHeaderText(null);
+                    alert.setContentText("You clicked on: " + rowData.getId());  // Use rowData.getId() instead of doc.getId()
+                    alert.showAndWait();
+                }
+            });
+            return row;  // Return the row to the row factory
+        });
         // Apply auto resize for columns
         documentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
