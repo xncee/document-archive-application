@@ -9,8 +9,10 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
 import javafx.scene.input.ScrollEvent;
@@ -25,6 +27,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 public class DashboardController {
     private final DBFacade dbFacade = DBFacade.getInstance();
@@ -71,7 +74,16 @@ public class DashboardController {
     @FXML
     private Label resultsMessageLabel;
 
-
+    private static final Set<KeyCode> IGNORED_KEYS = Set.of(
+            //KeyCode.BACK_SPACE,
+            KeyCode.ESCAPE,
+            KeyCode.TAB,
+            KeyCode.DELETE,
+            KeyCode.HOME,
+            KeyCode.END,
+            KeyCode.PAGE_UP,
+            KeyCode.PAGE_DOWN
+    );
     private final int ROWS_PER_PAGE = 20;
     private ObservableList<Document> documents;
     private int offset = 0;
@@ -80,12 +92,7 @@ public class DashboardController {
 
     @FXML
     private void initialize() {
-        try {
-            FXMLCache.preloadFXML("/view/user-profile-view.fxml");
-        } catch (IOException e) {
-            System.out.println("Failed to load user profile.");
-            e.printStackTrace();
-        }
+        FXMLCache.preloadFXML("/view/user-profile-view.fxml");
 
         setupStatsCards();
         setupTableColumns();
@@ -119,13 +126,41 @@ public class DashboardController {
 
     @FXML
     private void handleFilter(ActionEvent event) throws IOException {
+        // Preload and inject dashboard controller object into filterResultsController.
+        FXMLCache.preloadFXML("/view/results-filter-view.fxml");
+
+        // Get the controller instance from the cache
+        FilterResultsController filterResultsController = (FilterResultsController) FXMLCache.getController("/view/results-filter-view.fxml");
+
+        if (filterResultsController != null) {
+            // Inject the DashboardController into FilterResultsController
+            filterResultsController.setDashboardController(this);
+        } else {
+            // Handle the case where the controller is not found in the cache (although it should be)
+            System.err.println("Error: Controller for FilterResultsView not found in cache.");
+        }
+
+        // Show the popup window
         ContentSwitcher.popUpWindow(event, "/view/results-filter-view.fxml");
     }
 
     @FXML
-    private void handleSearch(KeyEvent event) {
+    void handleSearch(KeyEvent event) {
+        // Ignore all other keys
+        if (event != null && (event.getCode().isArrowKey()
+                || event.getCode().isFunctionKey()
+                || event.isAltDown()
+                || event.isControlDown()
+                || event.isShiftDown()
+                || event.isShortcutDown()
+                || event.isMetaDown()
+                || IGNORED_KEYS.contains(event.getCode()))) {
+            event.consume();  // Prevent further processing of the key event
+            return;
+        }
+
         resultsMessageLabel.setText("");
-        totalResultsLabel.setText("unknown");
+        totalResultsLabel.setText("unknown"); // replace with total results for applied search filters
         offset = 0;
         documents.clear();
         // Ensure TableView items are not null (as this can cause exceptions)

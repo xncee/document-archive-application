@@ -4,173 +4,167 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 
-<?import java.net.URL?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="document-container" fx:controller="controllers.DocumentDetailsController">
-    <stylesheets>
-        <URL value="@../styles/document-details-view-style.css"/>
-    </stylesheets>
+<VBox styleClass="frame" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
 
-    <VBox styleClass="document-body">
-        <VBox styleClass="document-wrapper">
-            <VBox styleClass="header">
-                <HBox styleClass="header-content">
-                    <HBox styleClass="navigation-wrapper">
-                        <Button styleClass="back-button" onAction="#handleBackAction">
-                            <graphic>
-                                <ImageView>
-                                    <Image url="@../icons/back-icon.png"/>
+    <VBox styleClass="body">
+        <VBox styleClass="div">
+            <HBox styleClass="header">
+                <HBox styleClass="div-2">
+                    <HBox styleClass="div-3">
+                        <Button styleClass="button">
+                            <HBox styleClass="frame-2">
+                                <ImageView styleClass="img" fitWidth="14" preserveRatio="true">
+                                    <Image url="https://cdn.builder.io/api/v1/image/assets/TEMP/31b591b1446ab4999ee9b023e99b3b2e8b4322e6c19544637ccbc5bbb3a58554?placeholderIfAbsent=true&amp;apiKey=9a766a4cd698444e975ff2608bde167e"/>
                                 </ImageView>
-                            </graphic>
-                            <Label text="Back to Documents"/>
+                            </HBox>
+                            <Label styleClass="back-to-documents" text="Back to Documents"/>
                         </Button>
-
-                        <HBox styleClass="breadcrumb">
-                            <Label text="Documents" styleClass="breadcrumb-item"/>
-                            <ImageView styleClass="separator-icon">
-                                <Image url="@../icons/separator-icon.png"/>
-                            </ImageView>
-                            <Label text="Marketing" styleClass="breadcrumb-item"/>
-                            <ImageView styleClass="separator-icon">
-                                <Image url="@../icons/separator-icon.png"/>
-                            </ImageView>
-                            <Label text="Q1 Report 2025" styleClass="breadcrumb-item"/>
+                        <HBox styleClass="div-4">
+                            <Label styleClass="documents" text="Documents"/>
+                            <HBox styleClass="frame-3">
+                                <ImageView styleClass="img-2" fitWidth="9" preserveRatio="true">
+                                    <Image url="https://cdn.builder.io/api/v1/image/assets/TEMP/4802901db967ce849293dca3cf1757fd1b9b1050aa31e4225918ca919873087d?placeholderIfAbsent=true&amp;amp;apiKey=9a766a4cd698444e975ff2608bde167e"/>
+                                </ImageView>
+                            </HBox>
+                            <Label styleClass="marketing" text="Marketing"/>
+                            <HBox styleClass="frame-4">
+                                <ImageView styleClass="img-3" fitWidth="8" preserveRatio="true">
+                                    <Image url="https://cdn.builder.io/api/v1/image/assets/TEMP/cb5cad801171fbeb5c5747af022180860b3183e9ecbd491cb91d564a827d6a14?placeholderIfAbsent=true&amp;apiKey=9a766a4cd698444e975ff2608bde167e"/>
+                                </ImageView>
+                            </HBox>
+                            <Label styleClass="q-1-report-2025" text="Q1 Report 2025"/>
                         </HBox>
                     </HBox>
-
-                    <HBox styleClass="user-actions">
-                        <Button styleClass="share-button" text="Share" onAction="#handleShareAction"/>
-                        <ImageView styleClass="user-avatar">
-                            <Image url="@../icons/user-avatar-icon.png"/>
+                    <HBox styleClass="div-5">
+                        <Button styleClass="button-2" text="Share"/>
+                        <ImageView styleClass="img-4" fitWidth="40" preserveRatio="true">
+                            <Image url="https://cdn.builder.io/api/v1/image/assets/TEMP/8ac6b9b5889ce3c0bf7af040298515cbd2cd318707cd4a8b75971e52f647e21d?placeholderIfAbsent=true&amp;apiKey=9a766a4cd698444e975ff2608bde167e"/>
                         </ImageView>
                     </HBox>
                 </HBox>
-            </VBox>
+            </HBox>
 
-            <VBox styleClass="main-content">
-                <HBox styleClass="content-wrapper">
-                    <VBox styleClass="document-info">
-                        <VBox styleClass="info-container">
-                            <VBox styleClass="document-section">
-                                <HBox styleClass="document-header">
-                                    <VBox styleClass="document-details">
-                                        <Label text="DOC-2025-001" styleClass="document-id"/>
-                                        <Label text="Q1 Marketing Report 2025" styleClass="document-title"/>
-                                        <Label text="Comprehensive analysis of Q1 2025 marketing campaigns and their performance metrics."
-                                               styleClass="document-description"/>
+            <HBox styleClass="main">
+                <HBox styleClass="div-6">
+                    <VBox styleClass="column">
+                        <VBox styleClass="div-7">
+                            <VBox styleClass="section">
+                                <HBox styleClass="div-8">
+                                    <VBox styleClass="div-9">
+                                        <Label styleClass="div-10" text="DOC-2025-001"/>
+                                        <Label styleClass="q-1-marketing-report-2025" text="Q1 Marketing Report 2025"/>
+                                        <Label styleClass="comprehensive-analysis" text="Comprehensive analysis of Q1 2025 marketing campaigns and their performance metrics."/>
                                     </VBox>
-                                    <HBox styleClass="status-wrapper">
-                                        <Label text="In Progress" styleClass="status-badge"/>
-                                        <ImageView styleClass="status-icon">
-                                            <Image url="@../icons/three-horizontal-dots.png"/>
-                                        </ImageView>
-                                    </HBox>
+                                    <ImageView styleClass="img-5" fitWidth="137" preserveRatio="true">
+                                        <Image url="https://cdn.builder.io/api/v1/image/assets/TEMP/c136e0760e123185c3111fb31874ffa5c74f74d5205ca58aa0f7cbf0fc1a9478?placeholderIfAbsent=true&amp;apiKey=9a766a4cd698444e975ff2608bde167e"/>
+                                    </ImageView>
                                 </HBox>
 
-                                <GridPane styleClass="metadata-grid">
-                                    <VBox styleClass="metadata-item" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                                        <Label text="Department" styleClass="metadata-label"/>
-                                        <Label text="Marketing" styleClass="metadata-value"/>
+                                <HBox styleClass="div-11">
+                                    <VBox styleClass="div-12">
+                                        <Label styleClass="div-13" text="Department"/>
+                                        <Label styleClass="div-14" text="Marketing"/>
                                     </VBox>
-                                    <VBox styleClass="metadata-item" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                                        <Label text="Classification" styleClass="metadata-label"/>
-                                        <Label text="Report" styleClass="metadata-value"/>
+                                    <VBox styleClass="div-15">
+                                        <Label styleClass="div-16" text="Classification"/>
+                                        <Label styleClass="div-17" text="Report"/>
                                     </VBox>
-                                    <VBox styleClass="metadata-item" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                                        <Label text="Deadline" styleClass="metadata-label"/>
-                                        <Label text="March 31, 2025" styleClass="metadata-value"/>
+                                    <VBox styleClass="div-18">
+                                        <Label styleClass="div-19" text="Deadline"/>
+                                        <Label styleClass="div-20" text="March 31, 2025"/>
                                     </VBox>
-                                </GridPane>
+                                </HBox>
                             </VBox>
 
-                            <VBox styleClass="files-section">
-                                <HBox styleClass="files-header">
-                                    <Label text="Associated Files" styleClass="files-title"/>
-                                    <Button styleClass="add-file-button" onAction="#handleAddFileAction">
-                                        <graphic>
-                                            <ImageView>
-                                                <Image url="@../icons/file-upload-icon.png"/>
+                            <VBox styleClass="section-2">
+                                <HBox styleClass="div-21">
+                                    <Label styleClass="associated-files" text="Associated Files"/>
+                                    <Button styleClass="button-3">
+                                        <HBox>
+                                            <ImageView styleClass="img-6" fitWidth="16" preserveRatio="true">
+                                                <Image url="https://cdn.builder.io/api/v1/image/assets/TEMP/13b748a03be58d8a810086bd22c7b374ca29279a5ad9b194d7c464fa55198ee0?placeholderIfAbsent=true&amp;apiKey=9a766a4cd698444e975ff2608bde167e"/>
                                             </ImageView>
-                                        </graphic>
-                                        <Label text="Add File"/>
+                                            <Label text="Add File"/>
+                                        </HBox>
                                     </Button>
                                 </HBox>
 
-                                <VBox styleClass="file-item">
-                                    <HBox styleClass="file-info">
-                                        <ImageView styleClass="file-icon">
-                                            <Image url="@../icons/pdf-document-icon.png"/>
-                                        </ImageView>
-                                        <VBox styleClass="file-details">
-                                            <Label text="Q1_Marketing_Report_2025.pdf" styleClass="file-name"/>
-                                            <Label text="2.4 MB · Updated 2 hours ago" styleClass="file-meta"/>
+                                <HBox styleClass="div-22">
+                                    <HBox styleClass="div-23">
+                                        <HBox styleClass="frame-5">
+                                            <ImageView styleClass="img-7" fitWidth="24" preserveRatio="true">
+                                                <Image url="https://cdn.builder.io/api/v1/image/assets/TEMP/3c9ca446eddfc0229f2971dc06026f9355f503bbb68440a9c4efa67379c015ab?placeholderIfAbsent=true&amp;apiKey=9a766a4cd698444e975ff2608bde167e"/>
+                                            </ImageView>
+                                        </HBox>
+                                        <VBox styleClass="div-24">
+                                            <Label styleClass="div-25" text="Q1_Marketing_Report_2025.pdf"/>
+                                            <Label styleClass="div-26" text="2.4 MB · Updated 2 hours ago"/>
                                         </VBox>
                                     </HBox>
-                                    <ImageView styleClass="file-actions">
-                                        <Image url="@../icons/three-vertical-dots.png"/>
+                                    <ImageView styleClass="img-8" fitWidth="74" preserveRatio="true">
+                                        <Image url="https://cdn.builder.io/api/v1/image/assets/TEMP/e8ee5a06a2e531a1f72b261ab8f6d0b009efdbc354684f06bd37d35f3d2e38c7?placeholderIfAbsent=true&amp;apiKey=9a766a4cd698444e975ff2608bde167e"/>
                                     </ImageView>
-                                </VBox>
+                                </HBox>
                             </VBox>
                         </VBox>
                     </VBox>
 
-                    <VBox styleClass="activity-column">
-                        <VBox styleClass="activity-wrapper">
-                            <VBox styleClass="timeline-section">
-                                <Label text="Activity Timeline" styleClass="timeline-title"/>
-                                <VBox styleClass="timeline-content">
-                                    <HBox styleClass="timeline-item">
-                                        <ImageView styleClass="timeline-icon">
-                                            <Image url="@../icons/edit-icon.png"/>
+                    <VBox styleClass="column-2">
+                        <VBox styleClass="div-27">
+                            <VBox styleClass="section-3">
+                                <Label styleClass="h-2" text="Activity Timeline"/>
+                                <VBox styleClass="div-28">
+                                    <HBox styleClass="div-29">
+                                        <ImageView styleClass="img-9" fitWidth="32" preserveRatio="true">
+                                            <Image url="https://cdn.builder.io/api/v1/image/assets/TEMP/7811f6e100ab08e92ce4f1e94175ac5ef4068405e65f525acb24067d741ba7aa?placeholderIfAbsent=true&amp;apiKey=9a766a4cd698444e975ff2608bde167e"/>
                                         </ImageView>
-                                        <VBox styleClass="timeline-details">
-                                            <Label text="Document edited" styleClass="timeline-event"/>
-                                            <Label text="Today at 2:30 PM" styleClass="timeline-time"/>
-                                            <Label text="John Doe updated the document description"
-                                                   styleClass="timeline-description"/>
+                                        <VBox styleClass="div-30">
+                                            <Label styleClass="div-31" text="Document edited"/>
+                                            <Label styleClass="div-32" text="Today at 2:30 PM"/>
+                                            <Label styleClass="div-33" text="John Doe updated the document description"/>
                                         </VBox>
                                     </HBox>
-
-                                    <HBox styleClass="timeline-item">
-                                        <ImageView styleClass="timeline-icon">
-                                            <Image url="@../icons/deadline-icon.png"/>
+                                    <HBox styleClass="div-34">
+                                        <ImageView styleClass="img-10" fitWidth="32" preserveRatio="true">
+                                            <Image url="https://cdn.builder.io/api/v1/image/assets/TEMP/3b8038f243e992d7a0a65de3ff3a275b94b7c2e422277750dce3db1dfde96745?placeholderIfAbsent=true&amp;apiKey=9a766a4cd698444e975ff2608bde167e"/>
                                         </ImageView>
-                                        <VBox styleClass="timeline-details">
-                                            <Label text="Deadline updated" styleClass="timeline-event"/>
-                                            <Label text="Yesterday at 4:15 PM" styleClass="timeline-time"/>
-                                            <Label text="Deadline extended to March 31, 2025"
-                                                   styleClass="timeline-description"/>
+                                        <VBox styleClass="div-35">
+                                            <Label styleClass="div-36" text="Deadline updated"/>
+                                            <Label styleClass="div-37" text="Yesterday at 4:15 PM"/>
+                                            <Label styleClass="div-38" text="Deadline extended to March 31, 2025"/>
                                         </VBox>
                                     </HBox>
                                 </VBox>
                             </VBox>
 
-                            <VBox styleClass="comments-section">
-                                <Label text="Comments" styleClass="comments-title"/>
-                                <VBox styleClass="comments-list">
-                                    <HBox styleClass="comment-item">
-                                        <ImageView styleClass="comment-avatar">
-                                            <Image url="@../icons/sarah-avatar-icon.png"/>
-                                        </ImageView>
-                                        <VBox styleClass="comment-content">
-                                            <HBox styleClass="comment-header">
-                                                <Label text="Sarah Johnson" styleClass="comment-author"/>
-                                                <Label text="2 hours ago" styleClass="comment-time"/>
+                            <VBox styleClass="section-4">
+                                <Label styleClass="h-2-2" text="Comments"/>
+                                <VBox styleClass="div-39">
+                                    <HBox styleClass="div-40">
+                                        <HBox styleClass="img-11">
+                                            <ImageView styleClass="img-12" fitWidth="32" preserveRatio="true">
+                                                <Image url="https://cdn.builder.io/api/v1/image/assets/TEMP/5add3ea34d53f16e9d51fdaf719ad9c391292d88b3d1f7b0086e10eb1c4a50e7?placeholderIfAbsent=true&amp;apiKey=9a766a4cd698444e975ff2608bde167e"/>
+                                            </ImageView>
+                                        </HBox>
+                                        <VBox styleClass="div-41">
+                                            <HBox styleClass="div-42">
+                                                <Label styleClass="sarah-johnson" text="Sarah Johnson"/>
+                                                <Label styleClass="hours-ago" text="2 hours ago"/>
                                             </HBox>
-                                            <Label text="Please review the latest changes in Section 3."
-                                                   styleClass="comment-text"/>
+                                            <Label styleClass="please-review" text="Please review the latest changes in Section 3."/>
                                         </VBox>
                                     </HBox>
                                 </VBox>
-
-                                <HBox styleClass="comment-form">
-                                    <ImageView styleClass="comment-avatar">
-                                        <Image url="@../icons/user-avatar-icon.png"/>
-                                    </ImageView>
-                                    <VBox styleClass="comment-input-wrapper">
-                                        <TextArea promptText="Write a comment..." styleClass="comment-input"/>
-                                        <HBox styleClass="comment-actions">
-                                            <Button text="Comment" styleClass="submit-button"
-                                                    onAction="#handleCommentSubmit"/>
+                                <HBox styleClass="div-43">
+                                    <HBox styleClass="img-13">
+                                        <ImageView styleClass="img-14" fitWidth="32" preserveRatio="true">
+                                            <Image url="https://cdn.builder.io/api/v1/image/assets/TEMP/92ace4dd5ae94b83dcc032b287076d3f5c4f7c9edfd8cdad4f2504ddecba1f8a?placeholderIfAbsent=true&amp;apiKey=9a766a4cd698444e975ff2608bde167e"/>
+                                        </ImageView>
+                                    </HBox>
+                                    <VBox styleClass="div-44">
+                                        <TextArea styleClass="textarea" promptText="Write a comment..."/>
+                                        <HBox styleClass="div-45">
+                                            <Button styleClass="button-4" text="Comment"/>
                                         </HBox>
                                     </VBox>
                                 </HBox>
@@ -178,7 +172,7 @@
                         </VBox>
                     </VBox>
                 </HBox>
-            </VBox>
+            </HBox>
         </VBox>
     </VBox>
 </VBox>

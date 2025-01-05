@@ -163,7 +163,12 @@
 }
 
 .table-row-cell:hover {
-    -fx-background-color: #fafafa;
+    -fx-background-color: #E5E7EB;
+}
+
+.table-row-cell:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
 .pagination {

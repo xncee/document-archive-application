@@ -9,20 +9,44 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FXMLCache {
-    private static final Map<String, Parent> fxmlCache = new HashMap<>();
+    private static class Cache {
+        Parent content;
+        Object controller;
 
-    public static Parent preloadFXML(String fxmlFile) throws IOException {
-        FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(fxmlFile), LocalizationUtil.getResourceBundle());
-        Parent content = loader.load();
-        fxmlCache.put(fxmlFile, content);
-        System.out.println("Page loaded: "+fxmlFile);
-        return content;
+        public Cache(Parent content, Object controller) {
+            this.content = content;
+            this.controller = controller;
+        }
     }
 
+    private static final Map<String, Cache> fxmlCache = new HashMap<>();
+
+    public static Parent preloadFXML(String fxmlFile) {
+        try {
+            FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(fxmlFile), LocalizationUtil.getResourceBundle());
+            Parent content = loader.load();
+            fxmlCache.put(fxmlFile, new Cache(content, loader.getController()));
+            System.out.println("Page loaded: " + fxmlFile);
+            return content;
+        } catch (IOException e) {
+            ErrorHandler.handle(e, "Error loading FXML file: " + fxmlFile);
+            return null;
+        }
+    }
+
+    // Retrieve cached FXML content
     public static Parent getFXML(String fxmlFile) {
-        return fxmlCache.getOrDefault(fxmlFile, null);
+        Cache cache = fxmlCache.getOrDefault(fxmlFile, null);
+        return (cache != null) ? cache.content : null;
     }
 
+    // Retrieve cached controller for a specific FXML
+    public static Object getController(String fxmlFile) {
+        Cache cache = fxmlCache.getOrDefault(fxmlFile, null);
+        return (cache != null) ? cache.controller : null;
+    }
+
+    // Clear cache when necessary
     public static void clearCache() {
         fxmlCache.clear();
     }

@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import utils.ErrorHandler;
 import utils.FXMLCache;
 import utils.LocalizationUtil;
 
@@ -77,28 +78,32 @@ public class ContentSwitcher {
 
     @FXML
     public static void popUpWindow(ActionEvent event, String fxmlFile) {
-        try {
-            //FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(fxmlFile), LocalizationUtil.getResourceBundle());
-            Parent root = FXMLCache.preloadFXML(fxmlFile);
+        // Try to get the cached FXML content
+        Parent root = FXMLCache.getFXML(fxmlFile);
 
+        if (root == null) {
+            // If not found in the cache, load the FXML and cache it
+            root = FXMLCache.preloadFXML(fxmlFile);
             if (root == null) {
-                System.out.println("FXML root is null. Check the file path or FXML file.");
+                ErrorHandler.handle(new RuntimeException(), "FXML root is null. Check the file path or FXML file.");
                 return;
             }
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Stage modularStage = new Stage();
-            modularStage.initStyle(StageStyle.UNIFIED);
-            modularStage.setResizable(false);
-            modularStage.initModality(Modality.WINDOW_MODAL);
-            modularStage.initOwner(stage);
-            Scene scene = new Scene(root);
-            modularStage.setScene(scene);
-            modularStage.showAndWait();
-        } catch (IOException e) {
-            System.out.println("Error loading FXML file: " + fxmlFile);
-            e.printStackTrace();
         }
+
+        // Create a new stage for the popup window
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage modularStage = new Stage();
+        modularStage.initStyle(StageStyle.UNIFIED);
+        modularStage.setResizable(false);
+        modularStage.initModality(Modality.WINDOW_MODAL);
+        modularStage.initOwner(stage);
+
+        // Create a new scene with the FXML root
+        Scene scene = new Scene(root);
+        modularStage.setScene(scene);
+
+        // Show and wait for the modal to close
+        modularStage.showAndWait();
     }
 
     @FXML
