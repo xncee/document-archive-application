@@ -40,11 +40,6 @@ public class Document {
         this.createdDate = (builder.createdDate != null) ? builder.createdDate : LocalDate.now(); // Default created date
         this.updatedDate = builder.updatedDate; // updatedDate can be null initially
         this.filePath = builder.filePath; // filePath can be null if the user didn't upload a file
-
-        // Validate file path (optional)
-        if (filePath != null && !filePath.isBlank() && !new File(filePath).exists()) {
-            throw new IllegalArgumentException("File does not exist at the given file path");
-        }
     }
 
     // Getters for fields

@@ -1,6 +1,8 @@
 package data;
 
 import models.Document;
+import services.FieldsServices;
+import services.FilterService;
 import utils.ErrorHandler;
 
 import java.sql.*;
@@ -13,6 +15,7 @@ public class DocumentFacade {
 
     private static DocumentFacade instance;
     private DBFacade dbFacade;
+    private FilterService filterService = FilterService.getInstance();
 
     // Private constructor to prevent instantiation
     private DocumentFacade() {
@@ -91,17 +94,54 @@ public class DocumentFacade {
     }
 
     // Method to search documents with lazy loading (pagination)
-    public List<Document> searchDocuments(String keyword, int offset, int limit) {//, String department, String classification, String status, LocalDate startDate, LocalDate endDate) throws SQLException {
-        String query = "SELECT * FROM documents WHERE id LIKE ? OR title LIKE ? OR description LIKE ? ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+    public List<Document> searchDocuments(String keyword, int offset, int limit) {
+        StringBuilder query = new StringBuilder(
+                "SELECT * FROM documents WHERE (id LIKE ? OR title LIKE ? OR description LIKE ?)"
+        );
+
+        List<Object> parameters = new ArrayList<>();
+        parameters.add(keyword);
+        parameters.add("%" + keyword + "%");
+        parameters.add("%" + keyword + "%");
+
+        // Dynamically append filters based on non-null values
+        if (filterService.getDepartment() != null) {
+            query.append(" AND department = ?");
+            parameters.add(filterService.getDepartment());
+        }
+        if (filterService.getClassification() != null) {
+            query.append(" AND classification = ?");
+            parameters.add(filterService.getClassification());
+        }
+        if (filterService.getStartDate() != null) {
+            query.append(" AND createdDate >= ?");
+            parameters.add(filterService.getStartDate());
+        }
+        if (filterService.getEndDate() != null) {
+            query.append(" AND createdDate <= ?");
+            parameters.add(filterService.getEndDate());
+        }
+        if (filterService.getStatus() != null) {
+            query.append(" AND status = ?");
+            parameters.add(filterService.getStatus());
+        }
+
+        // Add pagination
+        query.append(" ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+        parameters.add(offset);
+        parameters.add(limit);
+
         List<Document> documents = new ArrayList<>();
 
         try (Connection connection = dbFacade.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, keyword);
-            statement.setString(2, "%" + keyword + "%");
-            statement.setString(3, "%" + keyword + "%");
-            statement.setInt(4, offset);
-            statement.setInt(5, limit);
+             PreparedStatement statement = connection.prepareStatement(query.toString())) {
+
+            // Set parameters dynamically
+            for (int i = 0; i < parameters.size(); i++) {
+                statement.setObject(i + 1, parameters.get(i));
+            }
+
+            //System.out.println(statement); // For debugging purposes
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 documents.add(mapResultSetToDocument(resultSet));

@@ -1,6 +1,7 @@
 package controllers;
 
 import data.DBFacade;
+import models.Document;
 import services.FilterService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -8,41 +9,63 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import utils.LocalizationUtil;
 
 import java.time.LocalDate;
 import java.util.Map;
 
 public class FilterResultsController {
-    private DBFacade dbFacade =  DBFacade.getInstance();
-    private FilterService filterService = FilterService.getInstance();
+    private final DBFacade dbFacade = DBFacade.getInstance();
+    private final FilterService filterService = FilterService.getInstance();
+    private DashboardController dashboardController; // DI (Dependency Injection)
+    String status;
+
+    @FXML private Button completedButton;
+    @FXML private Button pendingButton;
+    @FXML private Button lateButton;
     @FXML private ComboBox<String> departmentComboBox;
     @FXML private ComboBox<String> classificationComboBox;
+    @FXML private CheckBox currentDateCheckbox;
     @FXML private DatePicker startDatePicker;
     @FXML private DatePicker endDatePicker;
 
+    public void setDashboardController(DashboardController dashboardController) {
+        this.dashboardController = dashboardController;
+    }
+
     public void initialize() {
+        initializeFields();
         initializeControls();
         bindEventHandlers();
     }
 
+    private void initializeFields() {
+        this.status = filterService.getStatus();
+        switch (status) {
+            case "completed" -> updateStatusButtonStyles(completedButton);
+            case "pending" -> updateStatusButtonStyles(pendingButton);
+            case "late" -> updateStatusButtonStyles(lateButton);
+            case null, default -> this.status = null;
+        }
+
+        departmentComboBox.setValue(filterService.getDepartment());
+        classificationComboBox.setValue(filterService.getClassification());
+        startDatePicker.setValue(filterService.getStartDate());
+        endDatePicker.setValue(filterService.getEndDate());
+    }
+
     private void initializeControls() {
-        for (Map<String, Object> department: dbFacade.getDepartments()) {
+        for (Map<String, Object> department : dbFacade.getDepartments()) {
             departmentComboBox.getItems().add((String) department.get("name"));
         }
-        for (Map<String, Object> classification: dbFacade.getClassifications()) {
+        for (Map<String, Object> classification : dbFacade.getClassifications()) {
             classificationComboBox.getItems().add((String) classification.get("name"));
         }
-
-        startDatePicker.setValue(LocalDate.now().minusMonths(1));
-        endDatePicker.setValue(LocalDate.now());
-
     }
 
     private void bindEventHandlers() {
-        startDatePicker.valueProperty().addListener((obs, oldVal, newVal) ->
-                validateDateRange());
-        endDatePicker.valueProperty().addListener((obs, oldVal, newVal) ->
-                validateDateRange());
+        startDatePicker.valueProperty().addListener((obs, oldVal, newVal) -> validateDateRange());
+        endDatePicker.valueProperty().addListener((obs, oldVal, newVal) -> validateDateRange());
     }
 
     @FXML
@@ -60,54 +83,84 @@ public class FilterResultsController {
     @FXML
     void handleStatusSelect(ActionEvent event) {
         Button sourceButton = (Button) event.getSource();
-        filterService.setStatus(sourceButton.getText());
-        updateStatusButtonStyles(sourceButton);
+
+        // Check if the button is already selected
+        if (sourceButton.getStyleClass().contains("selected")) {
+            resetStatusButtonStyles();  // Reset styles if it's already selected
+            status = null;  // Deselect status
+        } else {
+            updateStatusButtonStyles(sourceButton);  // Update styles to mark as selected
+            status = sourceButton.getAccessibleText() != null ? sourceButton.getAccessibleText().toLowerCase() : null;
+        }
     }
 
     @FXML
     void handleDepartmentSelect(ActionEvent event) {
-        String selectedDepartment = departmentComboBox.getValue();
-        filterService.setDepartment(selectedDepartment);
-        departmentComboBox.setValue(selectedDepartment);
+        departmentComboBox.setValue(departmentComboBox.getValue());
     }
 
     @FXML
     void handleClassificationSelect(ActionEvent event) {
-        String selectedClassification = classificationComboBox.getValue();
-        filterService.setClassification(selectedClassification);
-        classificationComboBox.setPromptText(selectedClassification);
+        // Don't update FilterState immediately, wait for Apply button
     }
 
     @FXML
     void handleStartDateSelect(ActionEvent event) {
-        LocalDate selectedDate = startDatePicker.getValue();
-        filterService.setStartDate(selectedDate);
-        validateDateRange();
+        // Don't update FilterState immediately, wait for Apply button
     }
 
     @FXML
     void handleEndDateSelect(ActionEvent event) {
-        LocalDate selectedDate = endDatePicker.getValue();
-        filterService.setEndDate(selectedDate);
-        validateDateRange();
+        // Don't update FilterState immediately, wait for Apply button
+    }
+
+    @FXML
+    void handleCurrentDate(ActionEvent event) {
+        if (currentDateCheckbox.isSelected()) {
+            startDatePicker.setValue(LocalDate.now());
+            startDatePicker.setDisable(true);
+        }
+        else {
+            startDatePicker.setDisable(false);
+        }
     }
 
     @FXML
     void handleReset(ActionEvent event) {
         departmentComboBox.setValue(null);
         classificationComboBox.setValue(null);
-        startDatePicker.setValue(LocalDate.now().minusMonths(1));
-        endDatePicker.setValue(LocalDate.now());
+        startDatePicker.setValue(null);
+        endDatePicker.setValue(null);
         filterService.reset();
         resetStatusButtonStyles();
     }
 
+    private void updateFilterState() {
+        String selectedDepartment = departmentComboBox.getValue();
+        String selectedClassification = classificationComboBox.getValue();
+        LocalDate startDate = startDatePicker.getValue();
+        LocalDate endDate = endDatePicker.getValue();
+
+        filterService.setStatus(status);
+        filterService.setDepartment(selectedDepartment);
+        filterService.setClassification(selectedClassification);
+        filterService.setStartDate(startDate);
+        filterService.setEndDate(endDate);
+    }
+
     @FXML
     void handleApply(ActionEvent event) {
-        if (validateFilters()) {
-            //
-            closeFilterPanel();
+        //if (validateFilters()) {}
+
+        // Update the filter state only when Apply is pressed
+        updateFilterState();
+
+        if (dashboardController != null) {
+            dashboardController.handleSearch(null); // Pass filters to dashboard controller
+        } else {
+            System.err.println("DashboardController is not set in FilterResultsController.");
         }
+        closeFilterPanel();
     }
 
     private void validateDateRange() {
@@ -121,23 +174,6 @@ public class FilterResultsController {
             startDatePicker.setStyle("");
             endDatePicker.setStyle("");
         }
-    }
-
-    private boolean validateFilters() {
-        LocalDate startDate = startDatePicker.getValue();
-        LocalDate endDate = endDatePicker.getValue();
-
-        if (startDate == null || endDate == null) {
-            showError("Please select both start and end dates");
-            return false;
-        }
-
-        if (startDate.isAfter(endDate)) {
-            showError("Start date must be before end date");
-            return false;
-        }
-
-        return true;
     }
 
     private void showError(String message) {
@@ -160,7 +196,7 @@ public class FilterResultsController {
     }
 
     private void resetStatusButtonStyles() {
-        startDatePicker.getParent().getChildrenUnmodifiable().forEach(node -> {
+        completedButton.getParent().getChildrenUnmodifiable().forEach(node -> {
             if (node instanceof Button) {
                 Button button = (Button) node;
                 button.getStyleClass().remove("selected");

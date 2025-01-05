@@ -3,6 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -46,21 +47,21 @@
             <Label styleClass="filter-label" text="%label.status" />
             <!-- Buttons for selecting the status (Completed, Pending, Late) -->
             <HBox alignment="CENTER" spacing="14" styleClass="status-buttons">
-                <Button mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="%label.completed" HBox.hgrow="ALWAYS">
+                <Button fx:id="completedButton" accessibleText="completed" mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="%label.completed" HBox.hgrow="ALWAYS">
                     <graphic>
                         <ImageView styleClass="status-icon">
                             <Image url="@../icons/completed-icon.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="%label.pending" HBox.hgrow="ALWAYS">
+                <Button fx:id="pendingButton" accessibleText="pending" mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="%label.pending" HBox.hgrow="ALWAYS">
                     <graphic>
                         <ImageView styleClass="status-icon">
                             <Image url="@../icons/pending-icon-black.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="%label.late" HBox.hgrow="ALWAYS">
+                <Button fx:id="lateButton" accessibleText="late" mnemonicParsing="false" onAction="#handleStatusSelect" styleClass="status-button" text="%label.late" HBox.hgrow="ALWAYS">
                     <graphic>
                         <ImageView styleClass="status-icon">
                             <Image url="@../icons/warning-icon.png" />
@@ -73,8 +74,7 @@
         <!-- Department filter dropdown -->
         <VBox styleClass="filter-group">
             <Label styleClass="filter-label" text="%label.department" />
-            <!-- ComboBox for selecting a department -->
-            <ComboBox fx:id="departmentComboBox" maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#handleDepartmentSelect" styleClass="dropdown-select" />
+         <ComboBox fx:id="departmentComboBox" maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#handleDepartmentSelect" styleClass="dropdown-select" />
         </VBox>
 
         <!-- Classification filter dropdown -->
@@ -85,8 +85,13 @@
         </VBox>
 
         <!-- Date Range filter section -->
-        <VBox styleClass="filter-group">
+        <VBox spacing="5.0" styleClass="filter-group">
             <Label styleClass="filter-label" text="%label.dateRange" />
+         <HBox>
+            <children>
+               <CheckBox fx:id="currentDateCheckbox" mnemonicParsing="false" onAction="#handleCurrentDate" text="Current Date" />
+            </children>
+         </HBox>
             <!-- Date pickers for selecting start and end date -->
             <HBox alignment="CENTER" spacing="16">
                 <DatePicker fx:id="startDatePicker" maxWidth="1.7976931348623157E308" minHeight="44.0" onAction="#handleStartDateSelect" promptText="%placeholder.startDate" styleClass="date-input" HBox.hgrow="ALWAYS" />

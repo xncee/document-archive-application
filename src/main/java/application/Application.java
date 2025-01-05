@@ -32,12 +32,7 @@ public class Application  {
     }
     private void preloadPages() {
         for (String page: PAGES) {
-            try {
-                FXMLCache.preloadFXML(page);
-            } catch (IOException e) {
-                System.out.println("Failed to load: "+page);
-                e.printStackTrace();
-            }
+            FXMLCache.preloadFXML(page);
         }
     }
     private void start() throws IOException {
