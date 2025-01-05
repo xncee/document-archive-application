@@ -1,10 +1,13 @@
 package data;
 
 import models.Document;
+import utils.ErrorHandler;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class DocumentFacade {
 
@@ -36,11 +39,11 @@ public class DocumentFacade {
             statement.setString(4, document.getDepartment());
             statement.setString(5, document.getClassification());
             statement.setString(6, document.getStatus());
-            statement.setInt(7, document.getUploaderId());
+            statement.setString(7, document.getUploaderId());
             statement.setDate(8, Date.valueOf(document.getCreatedDate()));
-            statement.setDate(9, Date.valueOf(document.getUpdatedDate()));
+            statement.setDate(9, document.getUpdatedDate() != null ? Date.valueOf(document.getUpdatedDate()) : null);
             statement.setDate(10, document.getDeadline() != null ? Date.valueOf(document.getDeadline()) : null);
-            statement.setString(11, document.getFilePath());
+            statement.setString(11, document.getFilePath() != null ? document.getFilePath() : null);
             return statement.executeUpdate() > 0;
         }
     }
@@ -69,9 +72,9 @@ public class DocumentFacade {
             statement.setString(3, document.getDepartment());
             statement.setString(4, document.getClassification());
             statement.setString(5, document.getStatus());
-            statement.setDate(6, Date.valueOf(document.getUpdatedDate()));
+            statement.setDate(6, document.getUpdatedDate() != null ? Date.valueOf(document.getUpdatedDate()) : null);
             statement.setDate(7, document.getDeadline() != null ? Date.valueOf(document.getDeadline()) : null);
-            statement.setString(8, document.getFilePath());
+            statement.setString(8, document.getFilePath() != null ? document.getFilePath() : null);
             statement.setString(9, document.getId());
             return statement.executeUpdate() > 0;
         }
@@ -88,7 +91,7 @@ public class DocumentFacade {
     }
 
     // Method to search documents with lazy loading (pagination)
-    public List<Document> searchDocuments(String keyword, int offset, int limit) throws SQLException {
+    public List<Document> searchDocuments(String keyword, int offset, int limit) {//, String department, String classification, String status, LocalDate startDate, LocalDate endDate) throws SQLException {
         String query = "SELECT * FROM documents WHERE title LIKE ? OR description LIKE ? ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         List<Document> documents = new ArrayList<>();
 
@@ -102,6 +105,8 @@ public class DocumentFacade {
             while (resultSet.next()) {
                 documents.add(mapResultSetToDocument(resultSet));
             }
+        } catch (SQLException e) {
+            ErrorHandler.handle(e, "An error occurred while searching documents.");
         }
         return documents;
     }
@@ -110,7 +115,7 @@ public class DocumentFacade {
     private Document mapResultSetToDocument(ResultSet resultSet) throws SQLException {
         return new Document.Builder(
                 resultSet.getString("status"),
-                resultSet.getInt("uploaderId"),
+                resultSet.getString("uploaderId"),
                 resultSet.getString("title"),
                 resultSet.getString("description"),
                 resultSet.getString("department"),
@@ -118,8 +123,8 @@ public class DocumentFacade {
                 .id(resultSet.getString("id"))
                 .deadline(resultSet.getDate("deadline") != null ? resultSet.getDate("deadline").toLocalDate() : null)
                 .createdDate(resultSet.getDate("createdDate").toLocalDate())
-                .updatedDate(resultSet.getDate("updatedDate").toLocalDate())
-                .filePath(resultSet.getString("filePath"))
+                .updatedDate(resultSet.getDate("updatedDate") != null ? resultSet.getDate("updatedDate").toLocalDate() : null)
+                .filePath(resultSet.getString("filePath") != null ? resultSet.getString("filePath") : null)
                 .build();
     }
 }

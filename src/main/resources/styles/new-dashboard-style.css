@@ -201,3 +201,9 @@
     -fx-text-fill: white;
     -fx-border-color: #262626;
 }
+
+.results-msg {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}

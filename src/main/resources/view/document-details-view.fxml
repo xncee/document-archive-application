@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+
+<?import java.net.URL?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="document-container" fx:controller="controllers.DocumentDetailsController">
+    <stylesheets>
+        <URL value="@../styles/document-details-view-style.css"/>
+    </stylesheets>
+
+    <VBox styleClass="document-body">
+        <VBox styleClass="document-wrapper">
+            <VBox styleClass="header">
+                <HBox styleClass="header-content">
+                    <HBox styleClass="navigation-wrapper">
+                        <Button styleClass="back-button" onAction="#handleBackAction">
+                            <graphic>
+                                <ImageView>
+                                    <Image url="@../icons/back-icon.png"/>
+                                </ImageView>
+                            </graphic>
+                            <Label text="Back to Documents"/>
+                        </Button>
+
+                        <HBox styleClass="breadcrumb">
+                            <Label text="Documents" styleClass="breadcrumb-item"/>
+                            <ImageView styleClass="separator-icon">
+                                <Image url="@../icons/separator-icon.png"/>
+                            </ImageView>
+                            <Label text="Marketing" styleClass="breadcrumb-item"/>
+                            <ImageView styleClass="separator-icon">
+                                <Image url="@../icons/separator-icon.png"/>
+                            </ImageView>
+                            <Label text="Q1 Report 2025" styleClass="breadcrumb-item"/>
+                        </HBox>
+                    </HBox>
+
+                    <HBox styleClass="user-actions">
+                        <Button styleClass="share-button" text="Share" onAction="#handleShareAction"/>
+                        <ImageView styleClass="user-avatar">
+                            <Image url="@../icons/user-avatar-icon.png"/>
+                        </ImageView>
+                    </HBox>
+                </HBox>
+            </VBox>
+
+            <VBox styleClass="main-content">
+                <HBox styleClass="content-wrapper">
+                    <VBox styleClass="document-info">
+                        <VBox styleClass="info-container">
+                            <VBox styleClass="document-section">
+                                <HBox styleClass="document-header">
+                                    <VBox styleClass="document-details">
+                                        <Label text="DOC-2025-001" styleClass="document-id"/>
+                                        <Label text="Q1 Marketing Report 2025" styleClass="document-title"/>
+                                        <Label text="Comprehensive analysis of Q1 2025 marketing campaigns and their performance metrics."
+                                               styleClass="document-description"/>
+                                    </VBox>
+                                    <HBox styleClass="status-wrapper">
+                                        <Label text="In Progress" styleClass="status-badge"/>
+                                        <ImageView styleClass="status-icon">
+                                            <Image url="@../icons/three-horizontal-dots.png"/>
+                                        </ImageView>
+                                    </HBox>
+                                </HBox>
+
+                                <GridPane styleClass="metadata-grid">
+                                    <VBox styleClass="metadata-item" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                        <Label text="Department" styleClass="metadata-label"/>
+                                        <Label text="Marketing" styleClass="metadata-value"/>
+                                    </VBox>
+                                    <VBox styleClass="metadata-item" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                        <Label text="Classification" styleClass="metadata-label"/>
+                                        <Label text="Report" styleClass="metadata-value"/>
+                                    </VBox>
+                                    <VBox styleClass="metadata-item" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                        <Label text="Deadline" styleClass="metadata-label"/>
+                                        <Label text="March 31, 2025" styleClass="metadata-value"/>
+                                    </VBox>
+                                </GridPane>
+                            </VBox>
+
+                            <VBox styleClass="files-section">
+                                <HBox styleClass="files-header">
+                                    <Label text="Associated Files" styleClass="files-title"/>
+                                    <Button styleClass="add-file-button" onAction="#handleAddFileAction">
+                                        <graphic>
+                                            <ImageView>
+                                                <Image url="@../icons/file-upload-icon.png"/>
+                                            </ImageView>
+                                        </graphic>
+                                        <Label text="Add File"/>
+                                    </Button>
+                                </HBox>
+
+                                <VBox styleClass="file-item">
+                                    <HBox styleClass="file-info">
+                                        <ImageView styleClass="file-icon">
+                                            <Image url="@../icons/pdf-document-icon.png"/>
+                                        </ImageView>
+                                        <VBox styleClass="file-details">
+                                            <Label text="Q1_Marketing_Report_2025.pdf" styleClass="file-name"/>
+                                            <Label text="2.4 MB · Updated 2 hours ago" styleClass="file-meta"/>
+                                        </VBox>
+                                    </HBox>
+                                    <ImageView styleClass="file-actions">
+                                        <Image url="@../icons/three-vertical-dots.png"/>
+                                    </ImageView>
+                                </VBox>
+                            </VBox>
+                        </VBox>
+                    </VBox>
+
+                    <VBox styleClass="activity-column">
+                        <VBox styleClass="activity-wrapper">
+                            <VBox styleClass="timeline-section">
+                                <Label text="Activity Timeline" styleClass="timeline-title"/>
+                                <VBox styleClass="timeline-content">
+                                    <HBox styleClass="timeline-item">
+                                        <ImageView styleClass="timeline-icon">
+                                            <Image url="@../icons/edit-icon.png"/>
+                                        </ImageView>
+                                        <VBox styleClass="timeline-details">
+                                            <Label text="Document edited" styleClass="timeline-event"/>
+                                            <Label text="Today at 2:30 PM" styleClass="timeline-time"/>
+                                            <Label text="John Doe updated the document description"
+                                                   styleClass="timeline-description"/>
+                                        </VBox>
+                                    </HBox>
+
+                                    <HBox styleClass="timeline-item">
+                                        <ImageView styleClass="timeline-icon">
+                                            <Image url="@../icons/deadline-icon.png"/>
+                                        </ImageView>
+                                        <VBox styleClass="timeline-details">
+                                            <Label text="Deadline updated" styleClass="timeline-event"/>
+                                            <Label text="Yesterday at 4:15 PM" styleClass="timeline-time"/>
+                                            <Label text="Deadline extended to March 31, 2025"
+                                                   styleClass="timeline-description"/>
+                                        </VBox>
+                                    </HBox>
+                                </VBox>
+                            </VBox>
+
+                            <VBox styleClass="comments-section">
+                                <Label text="Comments" styleClass="comments-title"/>
+                                <VBox styleClass="comments-list">
+                                    <HBox styleClass="comment-item">
+                                        <ImageView styleClass="comment-avatar">
+                                            <Image url="@../icons/sarah-avatar-icon.png"/>
+                                        </ImageView>
+                                        <VBox styleClass="comment-content">
+                                            <HBox styleClass="comment-header">
+                                                <Label text="Sarah Johnson" styleClass="comment-author"/>
+                                                <Label text="2 hours ago" styleClass="comment-time"/>
+                                            </HBox>
+                                            <Label text="Please review the latest changes in Section 3."
+                                                   styleClass="comment-text"/>
+                                        </VBox>
+                                    </HBox>
+                                </VBox>
+
+                                <HBox styleClass="comment-form">
+                                    <ImageView styleClass="comment-avatar">
+                                        <Image url="@../icons/user-avatar-icon.png"/>
+                                    </ImageView>
+                                    <VBox styleClass="comment-input-wrapper">
+                                        <TextArea promptText="Write a comment..." styleClass="comment-input"/>
+                                        <HBox styleClass="comment-actions">
+                                            <Button text="Comment" styleClass="submit-button"
+                                                    onAction="#handleCommentSubmit"/>
+                                        </HBox>
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </VBox>
+    </VBox>
+</VBox>

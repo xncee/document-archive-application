@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class Application  {
-    private static final String[] PAGES = {"/view/signin-view.fxml", "/view/signup-view.fxml", "/view/document-upload-view.fxml", "/view/generate-report-view.fxml"};
+    private static final String[] PAGES = {"/view/signin-view.fxml", "/view/signup-view.fxml"};
     private Stage primaryStage;
 
     public Application(Stage primaryStage) {

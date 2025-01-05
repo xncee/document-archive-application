@@ -1,12 +1,12 @@
 package controllers;
 
 import data.DBFacade;
+import data.DocumentFacade;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import models.Document;
 import models.login.Login;
-import services.DocumentServices;
 import services.FieldsServices;
 import utils.FilesServices;
 import utils.FilesSystem;
@@ -17,10 +17,12 @@ import utils.Messages;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 public class AddDocumentController {
+    private DocumentFacade documentFacade = DocumentFacade.getInstance();
     @FXML
     private Label errorLabel;
     @FXML
@@ -153,8 +155,7 @@ public class AddDocumentController {
                 filePath = copiedFile;
             }
         }
-
-        int uploaderId = Login.getInstance().getId();
+        String uploaderId = Login.getInstance().getUser().getUserId();
         Document.Builder documentBuilder = new Document.Builder(
                 "Pending",
                 uploaderId, title.getText(),
@@ -167,7 +168,14 @@ public class AddDocumentController {
         documentBuilder.id(documentId.getText()).deadline(deadline.getValue()).filePath(filePath);
 
         Document document = documentBuilder.build();
-        if (!DocumentServices.saveDocument(document)) {
+
+        boolean added = false;
+        try {
+            added = documentFacade.addDocument(document);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (!added) {
             errorLabel.setText("Upload failed.");
             return;
         }

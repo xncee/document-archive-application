@@ -1,14 +1,9 @@
 package models.login;
 
 import data.UserFacade;
-import exceptions.DatabaseOperationException;
-import io.github.cdimascio.dotenv.Dotenv;
-import data.DBFacade;
 import models.User;
 import utils.ErrorHandler;
-
 import java.sql.SQLException;
-import java.util.Map;
 
 public class Login {
     private static final UserFacade userFacade = UserFacade.getInstance();

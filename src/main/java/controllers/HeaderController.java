@@ -29,7 +29,7 @@ public class HeaderController {
 
     @FXML
     public void initialize() {
-        String username = Login.getInstance().getUser().getUsername();
+        String username = Login.getInstance().getUser().getFullname();
         //System.out.println(username);
         loggedInUserLabel.setText("@"+username);
     }

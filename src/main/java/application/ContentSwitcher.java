@@ -78,8 +78,8 @@ public class ContentSwitcher {
     @FXML
     public static void popUpWindow(ActionEvent event, String fxmlFile) {
         try {
-            FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(fxmlFile), LocalizationUtil.getResourceBundle());
-            Parent root = loader.load();
+            //FXMLLoader loader = new FXMLLoader(ContentSwitcher.class.getResource(fxmlFile), LocalizationUtil.getResourceBundle());
+            Parent root = FXMLCache.preloadFXML(fxmlFile);
 
             if (root == null) {
                 System.out.println("FXML root is null. Check the file path or FXML file.");

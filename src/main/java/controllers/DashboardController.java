@@ -3,6 +3,7 @@ package controllers;
 import data.DBFacade;
 import data.DocumentFacade;
 import data.Tables;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -11,8 +12,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
+import javafx.scene.input.ScrollEvent;
 import models.Document;
 import application.ContentSwitcher;
+import services.SearchService;
 import utils.FXMLCache;
 
 import java.io.IOException;
@@ -23,6 +26,8 @@ import java.util.List;
 public class DashboardController {
     private final DBFacade dbFacade = DBFacade.getInstance();
     private final DocumentFacade documentFacade = DocumentFacade.getInstance();
+    private final SearchService searchService = SearchService.getInstance();
+
     @FXML
     private Label totalDocuments;
     @FXML
@@ -37,6 +42,8 @@ public class DashboardController {
     private Button generateReportButton;
     @FXML
     private Button filterButton;
+    @FXML
+    private ScrollPane scrollPane;
     @FXML
     private TableView<Document> documentTable;
     @FXML
@@ -53,13 +60,19 @@ public class DashboardController {
     private TableColumn<Document, String> statusColumn;
     @FXML
     private TableColumn<Document, LocalDate> createdDateColumn;
+    @FXML
+    private Label currentResultsLabel;
+    @FXML
+    private Label totalResultsLabel;
+    @FXML
+    private Label resultsMessageLabel;
 
 
-    private final int ROWS_PER_PAGE = 10;
-    private ObservableList<Document> documents = FXCollections.emptyObservableList();
-    private SearchService searchService = SearchService.getInstance();
-    private int offset;
-    private boolean more = true;
+    private final int ROWS_PER_PAGE = 20;
+    private ObservableList<Document> documents;
+    private int offset = 0;
+    private boolean has_more = true;
+    private boolean isLoading = false;
 
     @FXML
     private void initialize() {
@@ -72,12 +85,13 @@ public class DashboardController {
 
         setupStatsCards();
         setupTableColumns();
-        documentTable.setItems(loadDocuments("" ,offset, ROWS_PER_PAGE)); // All documents
-    }
+        documents = loadDocuments("" ,offset, ROWS_PER_PAGE);
+        documentTable.setItems(documents); // All documents
+        currentResultsLabel.setText(String.valueOf(documents.size()));
+        totalResultsLabel.setText(String.valueOf(dbFacade.getCount(Tables.DOCUMENTS.getTableName())));
 
-    @FXML
-    public void handleDropDown(ActionEvent event) {
-        // do something
+        // DI (Dependency Injection) -> this is used to provide global access to current search results.
+        searchService.setDocuments(documents);
     }
 
     @FXML
@@ -87,14 +101,13 @@ public class DashboardController {
 
     private void setupStatsCards() {
         int total = dbFacade.getCount("documents");
-        int recent = dbFacade.getDataByDateRange("documents", "createdDate", LocalDate.now().minusDays(1), LocalDate.now()).size();
+        int recent = dbFacade.getDataByDateRange(Tables.DOCUMENTS.getTableName(), "createdDate", LocalDate.now().minusDays(1), LocalDate.now()).size();
         int pending = dbFacade.search(Tables.DOCUMENTS.getTableName(), "pending", true, 0, "status").size();
         totalDocuments.setText(String.valueOf(total));
         recentUploads.setText(String.valueOf(recent));
         pendingReview.setText(String.valueOf(pending));
     }
 
-    // Table view (view, search, filter, generate report)
     @FXML
     private void handleGenerateReport(ActionEvent event) throws IOException {
         ContentSwitcher.popUpWindow(event, "/view/generate-report-view.fxml");
@@ -107,6 +120,7 @@ public class DashboardController {
 
     @FXML
     private void handleSearch(KeyEvent event) {
+        totalResultsLabel.setText("unknown");
         offset = 0;
         documents.clear();
         // Ensure TableView items are not null (as this can cause exceptions)
@@ -127,10 +141,15 @@ public class DashboardController {
         // Update the table once the task completes
         searchTask.setOnSucceeded(e -> {
             ObservableList<Document> results = searchTask.getValue();
-            if (results != null) {
-                documentTable.setItems(results);  // Set results to the table
-            } else {
-                documentTable.setItems(FXCollections.observableArrayList());  // Set empty list if no results
+            if (results.isEmpty() && offset == 0) {
+                Platform.runLater(() -> resultsMessageLabel.setText("No results found."));
+            }
+            else {
+                Platform.runLater(() -> {
+                    documents.addAll(results);
+                    documentTable.setItems(documents);
+                    currentResultsLabel.setText(String.valueOf(documents.size()));
+                });
             }
         });
 
@@ -139,8 +158,16 @@ public class DashboardController {
     }
 
     @FXML
-    private void handleScroll() {
-        documentTable.getItems().addAll();
+    private void handleScroll(ScrollEvent event) {
+        if (!has_more || isLoading) return;
+
+        if (scrollPane.getVvalue() >= 0.8) {
+            isLoading = true; // Set loading flag
+            ObservableList<Document> results = loadDocuments(searchField.getText(), offset, ROWS_PER_PAGE);
+            documentTable.getItems().addAll(results);
+            isLoading = false; // Reset loading flag
+            currentResultsLabel.setText(String.valueOf(documents.size()));
+        }
     }
 
     private void setupTableColumns() {
@@ -157,18 +184,13 @@ public class DashboardController {
     }
 
     private ObservableList<Document> loadDocuments(String query, int offset, int count) {
-        List<Document> results = null;
-        try {
-            results = documentFacade.searchDocuments(query, offset, count);
+        List<Document> results = documentFacade.searchDocuments(query, offset, count);
 
-        } catch (SQLException e) {
-            System.out.println("An error occurred while searching for " + query);
-            e.printStackTrace();
-        }
+        if (results == null)
+            return FXCollections.emptyObservableList();
 
-        offset += results.size();
-        // if results number is equal to the requested amount, then it is possible that there are more unloaded results
-        more = results.size() == count;
+        this.offset += results.size();
+        has_more = results.size() == count; // if results number is equal to the requested amount, then it is possible that there are has_more unloaded results
 
         return FXCollections.observableArrayList(results);
     }

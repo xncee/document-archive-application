@@ -1,6 +1,7 @@
 package data;
 
 import exceptions.DatabaseOperationException;
+import utils.ErrorHandler;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -105,22 +106,25 @@ public class DBFacade {
         try {
             return dbManager.getFromTable("departments", "name");
         } catch (SQLException e) {
-            throw new DatabaseOperationException("An error occurred while retrieving documents from database.", e);
+            ErrorHandler.handle(e, "An error occurred while retrieving departments from database.");
+            return null;
         }
     }
 
-    public List<Map<String, Object>> getClassifications() throws DatabaseOperationException {
+    public List<Map<String, Object>> getClassifications() {
         try {
             return dbManager.getFromTable("classifications", "name");
         } catch (SQLException e) {
-            throw new DatabaseOperationException("An error occurred while getting classifications from database.", e);
+            ErrorHandler.handle(e, "An error occurred while retrieving classifications from database.");
+            return null;
         }
     }
-    public int getStatusCount(String status) throws DatabaseOperationException {
+    public int getStatusCount(String status) {
         try {
             return dbManager.search("documents", status, null, true, 0, "status").size();
         } catch (SQLException e) {
-            throw new DatabaseOperationException("An error occurred while getting "+status+" status count from database.", e);
+            ErrorHandler.handle(e, "An error occurred while getting "+status+" status count from database.");
+            return -1;
         }
     }
 }
