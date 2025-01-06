@@ -87,7 +87,7 @@
 
 /* Dropdown select box styling */
 .dropdown-select {
-    -fx-background-color: "#EFEFEF"; /* Light gray background for combo box */
+    -fx-background-color: #EFEFEF; /* Light gray background for combo box */
     -fx-border-color: #e5e7eb; /* Light gray border color */
     -fx-border-radius: 6; /* Rounded corners for inputs */
     -fx-background-radius: 6; /* Rounded background */
