@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
@@ -24,12 +23,12 @@ import utils.ErrorHandler;
 import utils.FXMLCache;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
 public class DashboardController {
+    private static final ContentSwitcher contentSwitcher = ContentSwitcher.getInstance();
     private final DBFacade dbFacade = DBFacade.getInstance();
     private final DocumentFacade documentFacade = DocumentFacade.getInstance();
     private final SearchService searchService = SearchService.getInstance();
@@ -61,8 +60,6 @@ public class DashboardController {
     private TableColumn<Document, String> departmentColumn;
     @FXML
     private TableColumn<Document, String> classificationColumn;
-    @FXML
-    private TableColumn<Document, LocalDate> deadlineColumn;
     @FXML
     private TableColumn<Document, String> statusColumn;
     @FXML
@@ -107,7 +104,7 @@ public class DashboardController {
 
     @FXML
     private void handleAddDocument(ActionEvent event) throws IOException {
-        ContentSwitcher.switchContent("/view/document-upload-view.fxml");
+        contentSwitcher.switchContent("/view/document-upload-view.fxml");
     }
 
     private void setupStatsCards() {
@@ -120,12 +117,16 @@ public class DashboardController {
     }
 
     @FXML
-    private void handleGenerateReport(ActionEvent event) throws IOException {
-        ContentSwitcher.popUpWindow(event, "/view/generate-report-view.fxml");
+    private void handleGenerateReport(ActionEvent event) {
+        // load all results and prepare for report generation
+        String keyword = searchField.getText() != null ? searchField.getText() : "";
+        ObservableList<Document> results = loadDocuments(keyword, offset, -1);
+        documents.addAll(results);
+        contentSwitcher.popUpWindow(event, "/view/generate-report-view.fxml");
     }
 
     @FXML
-    private void handleFilter(ActionEvent event) throws IOException {
+    private void handleFilter(ActionEvent event) {
         // Preload and inject dashboard controller object into filterResultsController.
         FXMLCache.preloadFXML("/view/results-filter-view.fxml");
 
@@ -141,7 +142,7 @@ public class DashboardController {
         }
 
         // Show the popup window
-        ContentSwitcher.popUpWindow(event, "/view/results-filter-view.fxml");
+        contentSwitcher.popUpWindow(event, "/view/results-filter-view.fxml");
     }
 
     @FXML
@@ -168,6 +169,13 @@ public class DashboardController {
             documentTable.setItems(FXCollections.observableArrayList());
         }
 
+        Task<ObservableList<Document>> searchTask = getObservableListTask();
+
+        // Start the task in the background
+        new Thread(searchTask).start();
+    }
+
+    private Task<ObservableList<Document>> getObservableListTask() {
         String query = searchField.getText().strip();
 
         // Create a Task for the search operation (background task, this will prevent the UI from freezing during search operations)
@@ -192,9 +200,7 @@ public class DashboardController {
                 });
             }
         });
-
-        // Start the task in the background
-        new Thread(searchTask).start();
+        return searchTask;
     }
 
     @FXML
@@ -230,7 +236,7 @@ public class DashboardController {
                     Document document = row.getItem();  // Get the item (Document) of the clicked row
                     expandViewService.setDocument(document);
                     try {
-                        ContentSwitcher.switchContent("/view/document-details-view.fxml");
+                        contentSwitcher.switchContent("/view/document-details-view.fxml");
                     } catch (Exception e) {
                         ErrorHandler.handle(e, "Failed to open document: "+document.getId());
                     }

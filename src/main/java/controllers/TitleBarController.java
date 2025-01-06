@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import application.ContentSwitcher;
 
 public class TitleBarController {
+    private static final ContentSwitcher contentSwitcher = ContentSwitcher.getInstance();
     @FXML
     private Button previousPageButton;
 
@@ -44,7 +45,7 @@ public class TitleBarController {
 
     @FXML
     private void handlePreviousPage(ActionEvent event) {
-        ContentSwitcher.switchToPreviousPage();
+        contentSwitcher.switchToPreviousPage();
     }
 
     @FXML
@@ -56,11 +57,7 @@ public class TitleBarController {
     @FXML
     private void handleMaximize(ActionEvent event) {
         Stage stage = getStage(event);
-        if (stage.isMaximized()) {
-            stage.setMaximized(false);
-        } else {
-            stage.setMaximized(true);
-        }
+        stage.setMaximized(!stage.isMaximized());
     }
 
     @FXML

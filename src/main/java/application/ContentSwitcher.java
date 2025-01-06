@@ -3,7 +3,6 @@ package application;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,21 +10,31 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import utils.ErrorHandler;
 import utils.FXMLCache;
-import utils.LocalizationUtil;
 
 import java.io.IOException;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ContentSwitcher {
-    private static BorderPane mainContainer = null;
-    private static String currentFile;
-    private static Stack<Parent> pages = new Stack<>();
+    private static ContentSwitcher instance;
+
+    private BorderPane mainContainer = null;
+    private String currentFile;
+    private final Stack<Parent> pages = new Stack<>();
+
+    public static ContentSwitcher getInstance() {
+        if (instance == null) {
+            instance = new ContentSwitcher();
+        }
+
+        return instance;
+    }
 
     // Method to switch content dynamically using preloaded pages
     @FXML
-    public static void switchContent(String fxmlFile, boolean forceReload) throws IOException {
+    public void switchContent(String fxmlFile, boolean forceReload) {
         currentFile = fxmlFile;
         // Check if the FXML file is already preloaded
         Parent content = FXMLCache.getFXML(fxmlFile);
@@ -41,23 +50,23 @@ public class ContentSwitcher {
     }
 
     @FXML
-    public static void switchContent(String fxmlFile) throws IOException {
+    public void switchContent(String fxmlFile) throws IOException {
         switchContent(fxmlFile, false);
     }
 
     @FXML
-    public static void offload() {
+    public void offload() {
         pages.pop();
     }
 
     @FXML
-    public static void reloadPage() throws IOException {
+    public void reloadPage() {
         Parent content = FXMLCache.preloadFXML(currentFile);
         mainContainer.setCenter(content);
     }
 
     @FXML
-    public static void switchToPreviousPage() {
+    public void switchToPreviousPage() {
         Parent current = null;
         if (!pages.isEmpty())
             current = pages.pop();
@@ -66,18 +75,17 @@ public class ContentSwitcher {
         }
         catch (Exception e) {
             pages.push(current); // if switching failed, push the page back into the stack.
-            System.out.println("Failed to switch to previous page because this page has no previous pages.");
-            //e.printStackTrace();
+            Logger.getLogger(ContentSwitcher.class.getName()).log(Level.SEVERE, "Failed to switch to the previous page", e);
         }
     }
 
     @FXML
-    public static Stage getStage(Event event) {
+    public Stage getStage(Event event) {
         return (Stage) ((Node) (event.getSource())).getScene().getWindow();
     }
 
     @FXML
-    public static void popUpWindow(ActionEvent event, String fxmlFile) {
+    public void popUpWindow(ActionEvent event, String fxmlFile) {
         // Try to get the cached FXML content
         Parent root = FXMLCache.getFXML(fxmlFile);
 
@@ -85,7 +93,7 @@ public class ContentSwitcher {
             // If not found in the cache, load the FXML and cache it
             root = FXMLCache.preloadFXML(fxmlFile);
             if (root == null) {
-                ErrorHandler.handle(new RuntimeException(), "FXML root is null. Check the file path or FXML file.");
+                Logger.getLogger(ContentSwitcher.class.getName()).log(Level.SEVERE, "Failed to show popup window: "+fxmlFile+". reason: root is null.");
                 return;
             }
         }
@@ -98,8 +106,11 @@ public class ContentSwitcher {
         modularStage.initModality(Modality.WINDOW_MODAL);
         modularStage.initOwner(stage);
 
-        // Create a new scene with the FXML root
-        Scene scene = new Scene(root);
+        // Set root to scene only if root wasn't set to another scene (if root wasn't cached).
+        Scene scene = root.getScene();
+        if (scene == null) {
+            scene = new Scene(root); // if you tired to do this for cached FXML, you'll get an error as FXML root was already set to a scene.
+        }
         modularStage.setScene(scene);
 
         // Show and wait for the modal to close
@@ -107,12 +118,12 @@ public class ContentSwitcher {
     }
 
     @FXML
-    public static void closeWindow(ActionEvent event) {
+    public void closeWindow(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
 
-    public static void setMainContainer(BorderPane mainContainer) {
-        ContentSwitcher.mainContainer = mainContainer;
+    public void setMainContainer(BorderPane mainContainer) {
+        this.mainContainer = mainContainer;
     }
 }

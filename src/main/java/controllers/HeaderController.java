@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class HeaderController {
+    private static final ContentSwitcher contentSwitcher = ContentSwitcher.getInstance();
+
     public VBox header;
     @FXML
     private Button notificationsButton;
@@ -48,7 +50,7 @@ public class HeaderController {
     public void handleLogout() {
         Login.getInstance().logout();
         try {
-            ContentSwitcher.switchContent("/view/signin-view.fxml");
+            contentSwitcher.switchContent("/view/signin-view.fxml");
         } catch (IOException e) {
             System.out.println("Logout Failed: "+e.getMessage());
         }
@@ -58,7 +60,7 @@ public class HeaderController {
     public void switchToArabic(ActionEvent event) throws IOException {
         if (LocalizationUtil.setLocale(new Locale("ar"))) {
             UserPreffrences.setLanguage("ar");
-            ContentSwitcher.reloadPage();
+            contentSwitcher.reloadPage();
             System.out.println("Language switched to Arabic.");
         }
     }
@@ -67,7 +69,7 @@ public class HeaderController {
     public void switchToEnglish(ActionEvent event) throws IOException {
         if (LocalizationUtil.setLocale(new Locale("en"))) {
             UserPreffrences.setLanguage("en");
-            ContentSwitcher.reloadPage();
+            contentSwitcher.reloadPage();
             System.out.println("Language switched to English.");
         }
 

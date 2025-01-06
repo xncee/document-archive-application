@@ -20,9 +20,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AddDocumentController {
-    private DocumentFacade documentFacade = DocumentFacade.getInstance();
+    private static final ContentSwitcher contentSwitcher = ContentSwitcher.getInstance();
+    private static final DocumentFacade documentFacade = DocumentFacade.getInstance();
     @FXML
     private Label errorLabel;
     @FXML
@@ -135,7 +138,7 @@ public class AddDocumentController {
     public void handleCancel(ActionEvent event) throws IOException {
         System.out.println("Operation canceled.");
         System.out.println("Switching to dashboard...");
-        ContentSwitcher.switchContent("/view/dashboard-view.fxml");
+        contentSwitcher.switchContent("/view/dashboard-view.fxml");
         clearForm();
     }
 
@@ -173,7 +176,8 @@ public class AddDocumentController {
         try {
             added = documentFacade.addDocument(document);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(ContentSwitcher.class.getName()).log(Level.SEVERE, "Failed to add document to database.", e);
+            showErrorAlert("Failure", "Failed to add document to database.\n"+e.getMessage());
         }
         if (!added) {
             errorLabel.setText("Upload failed.");
@@ -182,8 +186,8 @@ public class AddDocumentController {
         showSuccessAlert();
         System.out.println("Document added "+document.getId());
         System.out.println("Switching to dashboard...");
-        ContentSwitcher.switchContent("/view/dashboard-view.fxml");
-        ContentSwitcher.reloadPage();
+        contentSwitcher.switchContent("/view/dashboard-view.fxml");
+        contentSwitcher.reloadPage();
         clearForm();
     }
 

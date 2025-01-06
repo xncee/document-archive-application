@@ -5,11 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class DocumentDetailsController {
+    private static final ContentSwitcher contentSwitcher = ContentSwitcher.getInstance();
 
     @FXML
     public void handleBackAction(ActionEvent event) {
 
-        ContentSwitcher.switchToPreviousPage();
+        contentSwitcher.switchToPreviousPage();
     }
     @FXML
     public void handleShareAction(ActionEvent event) {

@@ -93,18 +93,18 @@ public class DocumentFacade {
         }
     }
 
-    // Method to search documents with lazy loading (pagination)
-    public List<Document> searchDocuments(String keyword, int offset, int limit) {
+    public String buildQueryWithFilters(List<Object> parameters, String keyword, int offset, int limit) {
+        // Start the base query
         StringBuilder query = new StringBuilder(
                 "SELECT * FROM documents WHERE (id LIKE ? OR title LIKE ? OR description LIKE ?)"
         );
 
-        List<Object> parameters = new ArrayList<>();
-        parameters.add(keyword);
-        parameters.add("%" + keyword + "%");
-        parameters.add("%" + keyword + "%");
+        // Add keyword-related parameters
+        parameters.add("%" + keyword + "%"); // for partial matching in ID
+        parameters.add("%" + keyword + "%"); // for partial matching in title
+        parameters.add("%" + keyword + "%"); // for partial matching in description
 
-        // Dynamically append filters based on non-null values
+        // Dynamically append filters based on non-null filter values
         if (filterService.getDepartment() != null) {
             query.append(" AND department = ?");
             parameters.add(filterService.getDepartment());
@@ -126,22 +126,32 @@ public class DocumentFacade {
             parameters.add(filterService.getStatus());
         }
 
-        // Add pagination
-        query.append(" ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+        // Add sorting and pagination (SQL Server syntax)
+        query.append(" ORDER BY id OFFSET ? ROWS");
         parameters.add(offset);
-        parameters.add(limit);
 
+        if (limit > 0) {
+            query.append(" FETCH NEXT ? ROWS ONLY");
+            parameters.add(limit);
+        }
+
+        return query.toString();
+    }
+
+    // Method to search documents with lazy loading (pagination)
+    public List<Document> searchDocuments(String keyword, int offset, int limit) {
+        List<Object> parameters = new ArrayList<>();
+        String query = buildQueryWithFilters(parameters, keyword, offset, limit);
         List<Document> documents = new ArrayList<>();
 
         try (Connection connection = dbFacade.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query.toString())) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
             // Set parameters dynamically
             for (int i = 0; i < parameters.size(); i++) {
                 statement.setObject(i + 1, parameters.get(i));
             }
 
-            //System.out.println(statement); // For debugging purposes
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 documents.add(mapResultSetToDocument(resultSet));
@@ -149,6 +159,7 @@ public class DocumentFacade {
         } catch (SQLException e) {
             ErrorHandler.handle(e, "An error occurred while searching documents.");
         }
+
         return documents;
     }
 
