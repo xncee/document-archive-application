@@ -22,8 +22,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 public class generateReportController {
-    private final SearchService searchService = SearchService.getInstance();
-    private final FilterService filterService = FilterService.getInstance();
+    private static final ContentSwitcher contentSwitcher = ContentSwitcher.getInstance();
+    private final static SearchService searchService = SearchService.getInstance();
+    private final static FilterService filterService = FilterService.getInstance();
     @FXML
     private Button closeButton;
     @FXML
@@ -51,8 +52,7 @@ public class generateReportController {
         LocalDate date = LocalDate.parse(originalDate, originalFormatter);
 
         // Convert the LocalDate to the new format
-        String formattedDate = date.format(targetFormatter);
-        return formattedDate;
+        return date.format(targetFormatter);
     }
     @FXML
     private void initialize() {
@@ -74,7 +74,7 @@ public class generateReportController {
 
     @FXML
     public void handleClose(ActionEvent event) {
-        ContentSwitcher.getStage(event).getScene().getWindow().hide();
+        contentSwitcher.getStage(event).getScene().getWindow().hide();
     }
     @FXML
     public void handleCancel(ActionEvent event) {

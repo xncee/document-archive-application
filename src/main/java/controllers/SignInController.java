@@ -12,6 +12,8 @@ import utils.Messages;
 import java.io.IOException;
 
 public class SignInController {
+    private static final ContentSwitcher contentSwitcher = ContentSwitcher.getInstance();
+
     @FXML
     private TextField usernameField;
 
@@ -86,15 +88,15 @@ public class SignInController {
         }
         System.out.println("Logged In as "+usernameField.getText());
         System.out.println("Switching to dashboard...");
-        ContentSwitcher.switchContent("/view/dashboard-view.fxml");
+        contentSwitcher.switchContent("/view/dashboard-view.fxml");
     }
     @FXML
     public void handleSignup(ActionEvent event) throws IOException {
-        ContentSwitcher.switchContent("/view/signup-view.fxml");
+        contentSwitcher.switchContent("/view/signup-view.fxml");
     }
 
     @FXML
-    public void handleForgotPassword(ActionEvent event) throws IOException {
+    public void handleForgotPassword(ActionEvent event) {
 
     }
 }

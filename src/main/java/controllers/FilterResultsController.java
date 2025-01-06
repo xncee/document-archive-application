@@ -1,7 +1,6 @@
 package controllers;
 
 import data.DBFacade;
-import models.Document;
 import services.FilterService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -9,16 +8,15 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import utils.LocalizationUtil;
 
 import java.time.LocalDate;
 import java.util.Map;
 
 public class FilterResultsController {
-    private final DBFacade dbFacade = DBFacade.getInstance();
-    private final FilterService filterService = FilterService.getInstance();
+    private static final DBFacade dbFacade = DBFacade.getInstance();
+    private static final FilterService filterService = FilterService.getInstance();
     private DashboardController dashboardController; // DI (Dependency Injection)
-    String status;
+    private String status;
 
     @FXML private Button completedButton;
     @FXML private Button pendingButton;
@@ -151,8 +149,7 @@ public class FilterResultsController {
     @FXML
     void handleApply(ActionEvent event) {
         //if (validateFilters()) {}
-
-        // Update the filter state only when Apply is pressed
+        // Update the filter state only when Apply is pressed.
         updateFilterState();
 
         if (dashboardController != null) {
@@ -174,15 +171,6 @@ public class FilterResultsController {
             startDatePicker.setStyle("");
             endDatePicker.setStyle("");
         }
-    }
-
-    private void showError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Validation Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.getDialogPane().setAccessibleText(message);
-        alert.showAndWait();
     }
 
     private void updateStatusButtonStyles(Button selectedButton) {

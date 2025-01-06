@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class SignupController {
+    private static final ContentSwitcher contentSwitcher = ContentSwitcher.getInstance();
+
     @FXML private TextField usernameField;
     @FXML private TextField emailField;
     @FXML private TextField fullnameField;
@@ -33,13 +35,7 @@ public class SignupController {
     }
     private boolean validateForm() throws SQLException {
         errorLabel.setText("");
-        boolean valid = true;
-
-        // Entry Checking
-        if (!termsCheckbox.isSelected()) {
-            //showError("Please accept the terms.");
-            valid = false;
-        }
+        boolean valid = termsCheckbox.isSelected();
 
         // Username validation
         if (usernameField.getText().isBlank()) {
@@ -127,7 +123,7 @@ public class SignupController {
         }
         System.out.println("Signed up "+usernameField.getText());
         try {
-            ContentSwitcher.switchContent("/view/dashboard-view.fxml");
+            contentSwitcher.switchContent("/view/dashboard-view.fxml");
         } catch (IOException e) {
             errorLabel.setText("Failed to switch page.");
             ErrorHandler.handle(e, "An error occurred while switching pages signup-page -> dashboard-page.");
@@ -136,6 +132,6 @@ public class SignupController {
 
     @FXML
     public void handleSignin(ActionEvent event) throws IOException {
-        ContentSwitcher.switchContent("/view/signin-view.fxml");
+        contentSwitcher.switchContent("/view/signin-view.fxml");
     }
 }

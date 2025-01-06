@@ -15,10 +15,12 @@ import services.UserPreffrences;
 import utils.LocalizationUtil;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Application  {
     private static final String[] PAGES = {"/view/signin-view.fxml", "/view/signup-view.fxml"};
-    private Stage primaryStage;
+    private static final ContentSwitcher contentSwitcher = ContentSwitcher.getInstance();
+    private final Stage primaryStage;
 
     public Application(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -37,7 +39,7 @@ public class Application  {
     }
     private void start() throws IOException {
         // setting application icon
-        Image icon = new Image(getClass().getResourceAsStream("/icons/logo.png"));
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icons/logo.png")));
         primaryStage.getIcons().add(icon);
         // Set user preferred language
         LocalizationUtil.setLocale(new Locale(UserPreffrences.getLanguage()));
@@ -46,13 +48,13 @@ public class Application  {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main-layout-view.fxml"));
         BorderPane root = loader.load();
         // setting mainContainer to ContentSwitcher
-        ContentSwitcher.setMainContainer(root);
+        contentSwitcher.setMainContainer(root);
 
         // preloading static pages
         new Thread(this::preloadPages).start();
 
         // Loading the content
-        ContentSwitcher.switchContent("/view/signin-view.fxml"); // this page was already preloaded
+        contentSwitcher.switchContent("/view/signin-view.fxml"); // this page was already preloaded
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
