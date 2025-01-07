@@ -16,6 +16,8 @@ import utils.LocalizationUtil;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Application  {
     private static final String[] PAGES = {"/view/signin-view.fxml", "/view/signup-view.fxml"};
@@ -64,15 +66,16 @@ public class Application  {
         try {
             DBFacade dbFacade = DBFacade.getInstance(Dotenv.load().get("DATABASE_URL"));
             if (!dbFacade.isConnected()) {
+                Logger.getLogger(Application.class.getName()).log(Level.SEVERE, "Failed to connect to database");
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Failed to connect to database!");
                 alert.showAndWait();
                 throw new RuntimeException("database connection failed.");
             }
         }
         catch (Exception e) {
+            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, "Failed to connect to database", e);
             Alert alert = new Alert(Alert.AlertType.ERROR, "Database connection failed! \n"+e.getMessage());
             alert.showAndWait();
-            System.out.println(e.getMessage());
             throw new RuntimeException("Database connection failed!");
         }
     }
