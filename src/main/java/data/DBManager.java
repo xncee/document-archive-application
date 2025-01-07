@@ -2,6 +2,7 @@ package data;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import exceptions.DatabaseConnectionException;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ public class DBManager {
     private static volatile DBManager instance;
     private static HikariDataSource dataSource;
 
-    public DBManager(String dbUrl) {
+    public DBManager(String dbUrl) throws IllegalArgumentException, DatabaseConnectionException {
         if (dbUrl == null || dbUrl.isEmpty()) {
             throw new IllegalArgumentException("Database URL cannot be null or empty");
         }

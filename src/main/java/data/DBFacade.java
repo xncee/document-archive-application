@@ -1,5 +1,7 @@
 package data;
 
+import application.Application;
+import exceptions.DatabaseConnectionException;
 import exceptions.DatabaseOperationException;
 import utils.ErrorHandler;
 
@@ -8,6 +10,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DBFacade {
     private static DBFacade instance;
@@ -16,7 +20,7 @@ public class DBFacade {
     public DBFacade(String dbUrl) {
         if (dbManager == null) {
             dbManager = DBManager.getInstance(dbUrl);
-            System.out.println("Connected to database.");
+            Logger.getLogger(Application.class.getName()).log(Level.INFO, "Connected to database.");
         }
         instance = this;
     }
@@ -46,7 +50,7 @@ public class DBFacade {
         return dbManager;
     }
 
-    public List<Map<String, Object>> search(String table, Object value, boolean match, int offset, String... columns) {
+    public List<Map<String, Object>> search(String table, Object value, boolean match, int offset, String... columns) throws DatabaseConnectionException {
         try {
             return dbManager.search(table, value, null, match, offset, columns);
         } catch (SQLException e) {
@@ -70,21 +74,19 @@ public class DBFacade {
         }
     }
 
-    public List<Map<String, Object>> getLimitedRows(String table, int limit) {
+    public List<Map<String, Object>> getLimitedRows(String table, int limit) throws DatabaseOperationException {
         try {
             return dbManager.getLimited(table, limit);
         } catch (SQLException e) {
-            System.out.println(e);
-            return Collections.emptyList(); // Return an empty list in case of failure
+            throw new DatabaseOperationException("An error occurred while fetching "+limit+" rows from table: "+table+".", e);
         }
     }
 
-    public List<Map<String, Object>> getValuesAfterPK(String table, String pk, int value) {
+    public List<Map<String, Object>> getValuesAfterPK(String table, String pk, int value) throws DatabaseOperationException{
         try {
             return dbManager.getValuesAfterPK(table, pk, value);
         } catch (SQLException e) {
-            //throw new DatabaseOperationException("An error occurred while fetching data from "+table+" in method getValuesAfterPK.", e);
-            return Collections.emptyList(); // Return an empty list in case of failure
+            throw new DatabaseOperationException("An error occurred while fetching data from "+table+" in method getValuesAfterPK.", e);
         }
     }
 
@@ -102,29 +104,26 @@ public class DBFacade {
         }
     }
 
-    public List<Map<String, Object>> getDepartments() {
+    public List<Map<String, Object>> getDepartments() throws DatabaseOperationException {
         try {
             return dbManager.getFromTable("departments", "name");
         } catch (SQLException e) {
-            ErrorHandler.handle(e, "An error occurred while retrieving departments from database.");
-            return null;
+            throw new DatabaseOperationException("An error occurred while retrieving departments from database.", e);
         }
     }
 
-    public List<Map<String, Object>> getClassifications() {
+    public List<Map<String, Object>> getClassifications() throws DatabaseOperationException {
         try {
             return dbManager.getFromTable("classifications", "name");
         } catch (SQLException e) {
-            ErrorHandler.handle(e, "An error occurred while retrieving classifications from database.");
-            return null;
+            throw new DatabaseOperationException("An error occurred while retrieving classifications from database.", e);
         }
     }
-    public int getStatusCount(String status) {
+    public int getStatusCount(String status) throws DatabaseOperationException {
         try {
             return dbManager.search("documents", status, null, true, 0, "status").size();
         } catch (SQLException e) {
-            ErrorHandler.handle(e, "An error occurred while getting "+status+" status count from database.");
-            return -1;
+            throw new DatabaseOperationException("An error occurred while getting "+status+" status count from database.", e);
         }
     }
 }
