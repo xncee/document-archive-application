@@ -27,7 +27,7 @@
         <!-- Spacer to push the close button to the right -->
         <Region prefHeight="38.0" HBox.hgrow="ALWAYS" />
         <!-- Close button with an icon to close the filter panel -->
-        <Button mnemonicParsing="false" onKeyPressed="#handleCloseKeyPress" onMouseClicked="#handleClose" styleClass="close-button">
+        <Button focusTraversable="false" mnemonicParsing="false" onKeyPressed="#handleCloseKeyPress" onMouseClicked="#handleClose" styleClass="close-button">
             <graphic>
                 <ImageView fitHeight="20.0" fitWidth="15.0" styleClass="close-icon">
                     <Image url="@../icons/x-icon.png" />
@@ -89,7 +89,7 @@
             <Label styleClass="filter-label" text="%label.dateRange" />
          <HBox>
             <children>
-               <CheckBox fx:id="currentDateCheckbox" mnemonicParsing="false" onAction="#handleCurrentDate" text="Current Date" />
+               <CheckBox fx:id="currentDateCheckbox" mnemonicParsing="false" onAction="#handleCurrentDate" text="%label.currentDate" />
             </children>
          </HBox>
             <!-- Date pickers for selecting start and end date -->

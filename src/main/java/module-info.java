@@ -28,4 +28,5 @@ module documentArchive {
     opens validators to javafx.fxml;
     exports data;
     opens data to javafx.fxml;
+    exports exceptions;
 }
